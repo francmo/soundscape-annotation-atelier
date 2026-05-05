@@ -10,7 +10,28 @@
     "openProject": "Open project",
     "saveProject": "Save",
     "exportJson": "Export JSON",
-    "exportPdf": "Export PDF"
+    "exportPdf": "Export PDF",
+    "importJson": "Import JSON"
+  },
+  "projectsList": {
+    "title": "Saved projects",
+    "empty": "No saved projects yet. Load an audio and press Save to create one.",
+    "open": "Open",
+    "delete": "Delete",
+    "deleteConfirm": "Permanently delete this project and the associated audio?",
+    "annotationsCount": "{{count}} annotations",
+    "structureCount": "{{count}} sections",
+    "saved": "Saved",
+    "close": "Close"
+  },
+  "import": {
+    "title": "Import annotation",
+    "subtitle": "Select a JSON v1.0 file exported from this app or compatible with the soundscape-audio-analysis toolkit. You will need to re-load the original audio file separately.",
+    "pickJson": "Select JSON",
+    "pickAudio": "Select audio",
+    "audioPrompt": "Load the original audio file now to complete the import.",
+    "invalidSchema": "Invalid schema: the JSON must have schemaVersion, audio, annotations fields.",
+    "schemaMismatch": "Unsupported schema version: expected 1.0, got {{version}}."
   },
   "welcome": {
     "title": "Start by loading an audio file",

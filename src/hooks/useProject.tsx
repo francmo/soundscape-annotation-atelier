@@ -21,6 +21,8 @@ interface ProjectContextValue {
   setSelection: (sel: { startSec: number; endSec: number } | null) => void
   loadAudio: (file: File) => Promise<void>
   loadExistingProject: (project: AnnotationProject) => Promise<void>
+  loadProjectFromJson: (project: AnnotationProject) => void
+  setProjectAudio: (file: File) => Promise<void>
   resetProject: () => void
   updateMetadata: (patch: Partial<ProjectMetadata>) => void
   addAnnotation: (input: Pick<Annotation, 'startSec' | 'endSec' | 'taxonomy' | 'termId' | 'termLabel' | 'color'> & { note?: string }) => Annotation
@@ -106,6 +108,21 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
     setSelection(null)
   }, [])
 
+  const loadProjectFromJson = useCallback((imported: AnnotationProject) => {
+    setProject(imported)
+    setAudioBlob(null)
+    setAudioUrl(null)
+    setSelection(null)
+  }, [])
+
+  const setProjectAudio = useCallback(async (file: File) => {
+    const meta = await readAudioMetadata(file)
+    const url = URL.createObjectURL(file)
+    setAudioBlob(file)
+    setAudioUrl(url)
+    setProject((prev) => (prev ? { ...prev, audio: { ...prev.audio, ...meta, filename: file.name } } : prev))
+  }, [])
+
   const resetProject = useCallback(() => {
     setProject(null)
     setAudioBlob(null)
@@ -186,6 +203,8 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       setSelection,
       loadAudio,
       loadExistingProject,
+      loadProjectFromJson,
+      setProjectAudio,
       resetProject,
       updateMetadata,
       addAnnotation,
@@ -203,6 +222,8 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       selection,
       loadAudio,
       loadExistingProject,
+      loadProjectFromJson,
+      setProjectAudio,
       resetProject,
       updateMetadata,
       addAnnotation,

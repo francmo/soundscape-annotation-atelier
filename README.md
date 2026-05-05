@@ -115,7 +115,7 @@ Il JSON esportato segue lo schema definito in `src/types/annotation.ts`:
 
 - ✅ v0.1: MVP, vocabolario controllato, persistenza, export JSON.
 - ✅ v0.2: tassonomie a 128 termini, tab Struttura, bridge skill, export PDF tipografico, spettrogramma toggle, service worker e manifest (PWA installabile offline-first).
-- v0.3: import JSON esistente, riapertura progetti salvati, lista progetti.
+- ✅ v0.3: lista progetti salvati con riapertura, eliminazione, import JSON v1.0 con riconciliazione audio.
 - v0.4: integrazione con la skill `soundscape-audio-analysis` (consumo del JSON dalla CLI). Skill come fonte canonica del vocabolario.
 
 ## Licenza

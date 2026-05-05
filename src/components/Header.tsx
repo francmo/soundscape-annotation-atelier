@@ -1,14 +1,20 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Download, FilePlus2, FileText, Save, Upload } from 'lucide-react'
+import { Download, FilePlus2, FileText, FolderOpen, Save, Upload } from 'lucide-react'
 import { useProject } from '../hooks/useProject'
 import { exportProjectJson } from '../lib/exporters'
+import { ImportSchemaError, parseProjectJson } from '../lib/importer'
+import ProjectsList from './ProjectsList'
 
 export default function Header() {
   const { t, i18n } = useTranslation()
-  const { project, loadAudio, saveProject, resetProject } = useProject()
+  const { project, loadAudio, saveProject, resetProject, loadProjectFromJson, setProjectAudio, audioBlob } = useProject()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const jsonInputRef = useRef<HTMLInputElement>(null)
+  const audioForImportRef = useRef<HTMLInputElement>(null)
   const [exportingPdf, setExportingPdf] = useState(false)
+  const [showProjectsList, setShowProjectsList] = useState(false)
+  const [pendingAudio, setPendingAudio] = useState(false)
 
   const handlePickFile = () => fileInputRef.current?.click()
 
@@ -43,6 +49,40 @@ export default function Header() {
     await saveProject()
   }
 
+  const handleImportJson = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    try {
+      const text = await file.text()
+      const imported = parseProjectJson(text)
+      loadProjectFromJson(imported)
+      setPendingAudio(true)
+      alert(t('import.audioPrompt'))
+    } catch (err) {
+      if (err instanceof ImportSchemaError) {
+        if (err.message === 'schemaVersion mismatch') {
+          alert(t('import.schemaMismatch', { version: err.received }))
+        } else {
+          alert(t('import.invalidSchema'))
+        }
+      } else {
+        console.error(err)
+        alert(`Import failed: ${err instanceof Error ? err.message : String(err)}`)
+      }
+    }
+  }
+
+  const handlePickImportAudio = () => audioForImportRef.current?.click()
+
+  const handleImportAudio = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    await setProjectAudio(file)
+    setPendingAudio(false)
+  }
+
   const switchLang = (lang: 'it' | 'en') => {
     void i18n.changeLanguage(lang)
     document.documentElement.lang = lang
@@ -66,13 +106,9 @@ export default function Header() {
           </span>
         </button>
 
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="audio/*"
-          onChange={handleFileChange}
-          className="hidden"
-        />
+        <input ref={fileInputRef} type="file" accept="audio/*" onChange={handleFileChange} className="hidden" />
+        <input ref={jsonInputRef} type="file" accept="application/json,.json" onChange={handleImportJson} className="hidden" />
+        <input ref={audioForImportRef} type="file" accept="audio/*" onChange={handleImportAudio} className="hidden" />
 
         <button
           onClick={handlePickFile}
@@ -80,6 +116,35 @@ export default function Header() {
         >
           <Upload className="w-4 h-4" />
           <span className="hidden sm:inline">{t('header.loadAudio')}</span>
+        </button>
+
+        {pendingAudio && project && !audioBlob && (
+          <button
+            onClick={handlePickImportAudio}
+            className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-600 hover:bg-amber-500 rounded-md text-sm font-medium transition-colors animate-pulse"
+            title={t('import.audioPrompt')}
+          >
+            <Upload className="w-4 h-4" />
+            <span className="hidden sm:inline">{t('import.pickAudio')}</span>
+          </button>
+        )}
+
+        <button
+          onClick={() => setShowProjectsList(true)}
+          className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-md text-sm font-medium transition-colors"
+          title={t('header.openProject')}
+        >
+          <FolderOpen className="w-4 h-4" />
+          <span className="hidden sm:inline">{t('header.openProject')}</span>
+        </button>
+
+        <button
+          onClick={() => jsonInputRef.current?.click()}
+          className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-md text-sm font-medium transition-colors"
+          title={t('header.importJson')}
+        >
+          <Download className="w-4 h-4 rotate-180" />
+          <span className="hidden sm:inline">{t('header.importJson')}</span>
         </button>
 
         {project && (
@@ -143,6 +208,7 @@ export default function Header() {
           </button>
         </div>
       </div>
+      <ProjectsList open={showProjectsList} onClose={() => setShowProjectsList(false)} />
     </header>
   )
 }
