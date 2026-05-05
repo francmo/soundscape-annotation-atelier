@@ -1,0 +1,86 @@
+{
+  "app": {
+    "title": "Soundscape Annotation Atelier",
+    "subtitle": "Strumento di annotazione per soundscape, field recording e composizione elettroacustica.",
+    "tagline": "Companion del repo soundscape-audio-analysis."
+  },
+  "header": {
+    "loadAudio": "Carica audio",
+    "newProject": "Nuovo progetto",
+    "openProject": "Apri progetto",
+    "saveProject": "Salva",
+    "exportJson": "Esporta JSON",
+    "exportPdf": "Esporta PDF"
+  },
+  "welcome": {
+    "title": "Inizia caricando un file audio",
+    "subtitle": "Trascina un file audio qui sopra, oppure usa il pulsante nell'header. Formati supportati: WAV, MP3, FLAC, OGG, M4A.",
+    "features": [
+      "Vocabolario controllato Schaeffer, Smalley, Schafer, Krause, Chion",
+      "Marker temporali con drag e resize sul waveform",
+      "Esportazione JSON compatibile con la skill soundscape-audio-analysis",
+      "Persistenza locale con IndexedDB, niente upload sul server",
+      "Bilingue IT/EN, installabile come PWA"
+    ],
+    "drop": "Rilascia il file qui",
+    "or": "oppure",
+    "browse": "Sfoglia"
+  },
+  "metadata": {
+    "title": "Metadati progetto",
+    "audioTitle": "Titolo opera",
+    "author": "Autore",
+    "year": "Anno",
+    "genre": "Genere",
+    "annotator": "Annotatore",
+    "language": "Lingua annotazione",
+    "filename": "File",
+    "duration": "Durata",
+    "sampleRate": "Sample rate",
+    "channels": "Canali"
+  },
+  "workbench": {
+    "play": "Play",
+    "pause": "Pausa",
+    "stop": "Stop",
+    "zoomIn": "Zoom +",
+    "zoomOut": "Zoom -",
+    "addAnnotation": "Aggiungi annotazione",
+    "currentTime": "Tempo",
+    "selection": "Selezione",
+    "noSelection": "Nessuna selezione: clicca e trascina sul waveform",
+    "spectrogram": "Spettrogramma"
+  },
+  "panel": {
+    "vocabulary": "Vocabolario controllato",
+    "annotations": "Annotazioni ({{count}})",
+    "structure": "Struttura",
+    "search": "Cerca termine",
+    "noAnnotations": "Nessuna annotazione, seleziona un range sul waveform e scegli un termine.",
+    "applyTo": "Applica a selezione",
+    "applyHint": "Seleziona prima un range temporale sul waveform"
+  },
+  "annotation": {
+    "term": "Termine",
+    "category": "Categoria",
+    "range": "Range",
+    "note": "Nota",
+    "notePlaceholder": "Osservazione, contesto, riferimento...",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "deleteConfirm": "Eliminare questa annotazione?"
+  },
+  "export": {
+    "title": "Esporta",
+    "json": "JSON (schema v1.0)",
+    "jsonDesc": "Compatibile con la skill soundscape-audio-analysis. Reimportabile in questa app.",
+    "pdf": "PDF stampabile",
+    "pdfDesc": "Versione tipografica con tabella delle annotazioni e timeline visuale."
+  },
+  "lang": {
+    "it": "IT",
+    "en": "EN"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "app": {
+    "title": "Soundscape Annotation Atelier",
+    "subtitle": "Annotation tool for soundscape, field recording and electroacoustic composition.",
+    "tagline": "Companion of the soundscape-audio-analysis repo."
+  },
+  "header": {
+    "loadAudio": "Load audio",
+    "newProject": "New project",
+    "openProject": "Open project",
+    "saveProject": "Save",
+    "exportJson": "Export JSON",
+    "exportPdf": "Export PDF"
+  },
+  "welcome": {
+    "title": "Start by loading an audio file",
+    "subtitle": "Drop an audio file above, or use the header button. Supported formats: WAV, MP3, FLAC, OGG, M4A.",
+    "features": [
+      "Controlled vocabulary: Schaeffer, Smalley, Schafer, Krause, Chion",
+      "Time markers with drag and resize on the waveform",
+      "JSON export compatible with the soundscape-audio-analysis toolkit",
+      "Local persistence with IndexedDB, no server upload",
+      "Bilingual IT/EN, installable as a PWA"
+    ],
+    "drop": "Drop the file here",
+    "or": "or",
+    "browse": "Browse"
+  },
+  "metadata": {
+    "title": "Project metadata",
+    "audioTitle": "Work title",
+    "author": "Author",
+    "year": "Year",
+    "genre": "Genre",
+    "annotator": "Annotator",
+    "language": "Annotation language",
+    "filename": "File",
+    "duration": "Duration",
+    "sampleRate": "Sample rate",
+    "channels": "Channels"
+  },
+  "workbench": {
+    "play": "Play",
+    "pause": "Pause",
+    "stop": "Stop",
+    "zoomIn": "Zoom +",
+    "zoomOut": "Zoom -",
+    "addAnnotation": "Add annotation",
+    "currentTime": "Time",
+    "selection": "Selection",
+    "noSelection": "No selection: click and drag on the waveform",
+    "spectrogram": "Spectrogram"
+  },
+  "panel": {
+    "vocabulary": "Controlled vocabulary",
+    "annotations": "Annotations ({{count}})",
+    "structure": "Structure",
+    "search": "Search term",
+    "noAnnotations": "No annotations yet, select a time range on the waveform and choose a term.",
+    "applyTo": "Apply to selection",
+    "applyHint": "First select a time range on the waveform"
+  },
+  "annotation": {
+    "term": "Term",
+    "category": "Category",
+    "range": "Range",
+    "note": "Note",
+    "notePlaceholder": "Observation, context, reference...",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "deleteConfirm": "Delete this annotation?"
+  },
+  "export": {
+    "title": "Export",
+    "json": "JSON (schema v1.0)",
+    "jsonDesc": "Compatible with the soundscape-audio-analysis toolkit. Re-importable in this app.",
+    "pdf": "Printable PDF",
+    "pdfDesc": "Typographic version with annotation table and visual timeline."
+  },
+  "lang": {
+    "it": "IT",
+    "en": "EN"
+  }
+}
