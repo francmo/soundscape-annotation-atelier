@@ -54,11 +54,22 @@
   "panel": {
     "vocabulary": "Controlled vocabulary",
     "annotations": "Annotations ({{count}})",
-    "structure": "Structure",
+    "structure": "Structure ({{count}})",
     "search": "Search term",
     "noAnnotations": "No annotations yet, select a time range on the waveform and choose a term.",
+    "noStructure": "No structural sections yet, select a time range on the waveform and give the section a label.",
     "applyTo": "Apply to selection",
     "applyHint": "First select a time range on the waveform"
+  },
+  "structure": {
+    "title": "Structural sections",
+    "subtitle": "Free annotations for macroform and interpretive notes. Kept separate from controlled annotations.",
+    "label": "Label",
+    "labelPlaceholder": "Opening, Development, Coda, Drone B, Transition...",
+    "note": "Note",
+    "notePlaceholder": "Interpretive observation, reference, context...",
+    "add": "Add section",
+    "addHint": "First select a time range on the waveform"
   },
   "annotation": {
     "term": "Term",

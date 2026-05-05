@@ -8,7 +8,7 @@ import { formatTime } from '../lib/format'
 
 export default function AudioWorkbench() {
   const { t } = useTranslation()
-  const { audioUrl, project, setSelection, selection, updateAnnotation } = useProject()
+  const { audioUrl, project, setSelection, selection, updateAnnotation, updateStructure } = useProject()
   const containerRef = useRef<HTMLDivElement>(null)
   const wsRef = useRef<WaveSurfer | null>(null)
   const regionsRef = useRef<RegionsPlugin | null>(null)
@@ -52,11 +52,13 @@ export default function AudioWorkbench() {
     })
 
     regions.on('region-updated', (region) => {
-      const data = (region as Region & { data?: { kind?: string; annotationId?: string } }).data
+      const data = (region as Region & { data?: { kind?: string; annotationId?: string; structureId?: string } }).data
       if (data?.kind === 'selection') {
         setSelection({ startSec: region.start, endSec: region.end })
-      } else if (data?.annotationId) {
+      } else if (data?.kind === 'annotation' && data.annotationId) {
         updateAnnotation(data.annotationId, { startSec: region.start, endSec: region.end })
+      } else if (data?.kind === 'structure' && data.structureId) {
+        updateStructure(data.structureId, { startSec: region.start, endSec: region.end })
       }
     })
 
@@ -80,9 +82,9 @@ export default function AudioWorkbench() {
       regionsRef.current = null
       selectionRegionRef.current = null
     }
-  }, [audioUrl, setSelection, updateAnnotation])
+  }, [audioUrl, setSelection, updateAnnotation, updateStructure])
 
-  // Sincronizza le annotazioni come regioni Wavesurfer.
+  // Sincronizza annotazioni e sezioni strutturali come regioni Wavesurfer.
   useEffect(() => {
     const regions = regionsRef.current
     const ws = wsRef.current
@@ -111,15 +113,30 @@ export default function AudioWorkbench() {
           annotationId: ann.id,
         }
       })
+
+      project.structure.forEach((sect) => {
+        const baseColor = sect.color ?? '#38bdf8'
+        const r = regions.addRegion({
+          start: sect.startSec,
+          end: sect.endSec,
+          color: `${baseColor}1f`,
+          drag: true,
+          resize: true,
+          content: `[${sect.label}]`,
+        })
+        ;(r as Region & { data?: { kind?: string; structureId?: string } }).data = {
+          kind: 'structure',
+          structureId: sect.id,
+        }
+      })
     }
 
-    // Wavesurfer accetta addRegion solo dopo 'decode' o 'ready'.
     if (ws.getDuration() > 0) {
       apply()
     } else {
       ws.once('ready', apply)
     }
-  }, [project, project?.annotations])
+  }, [project, project?.annotations, project?.structure])
 
   // Rimuove la regione di selezione quando lo stato selection è azzerato.
   useEffect(() => {

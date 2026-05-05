@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Search, Trash2 } from 'lucide-react'
+import { Plus, Search, Trash2 } from 'lucide-react'
 import { taxonomies } from '../data/taxonomies'
 import type { TaxonomyId } from '../types/annotation'
 import { useProject } from '../hooks/useProject'
@@ -8,18 +8,35 @@ import { formatTime } from '../lib/format'
 
 type Tab = 'vocabulary' | 'annotations' | 'structure'
 
+const STRUCTURE_COLOR = '#38bdf8' // sky-400
+
 export default function AnnotationPanel() {
   const { t, i18n } = useTranslation()
   const lang = i18n.language?.startsWith('en') ? 'en' : 'it'
-  const { project, selection, setSelection, addAnnotation, deleteAnnotation, updateAnnotation } = useProject()
+  const {
+    project,
+    selection,
+    setSelection,
+    addAnnotation,
+    deleteAnnotation,
+    updateAnnotation,
+    addStructure,
+    updateStructure,
+    deleteStructure,
+  } = useProject()
 
   const [tab, setTab] = useState<Tab>('vocabulary')
   const [activeTax, setActiveTax] = useState<TaxonomyId>('schaeffer')
   const [search, setSearch] = useState('')
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editingNote, setEditingNote] = useState('')
+  const [structLabel, setStructLabel] = useState('')
+  const [structNote, setStructNote] = useState('')
+  const [editingStructId, setEditingStructId] = useState<string | null>(null)
+  const [editingStructLabel, setEditingStructLabel] = useState('')
+  const [editingStructNote, setEditingStructNote] = useState('')
 
-  const tax = useMemo(() => taxonomies.find((tx) => tx.id === activeTax)!, [activeTax])
+  const tax = useMemo(() => taxonomies.find((tx) => tx.id === activeTax) ?? taxonomies[0], [activeTax])
 
   const filteredGroups = useMemo(() => {
     if (!search) return tax.groups
@@ -51,6 +68,20 @@ export default function AnnotationPanel() {
     setSelection(null)
   }
 
+  const submitStructure = () => {
+    if (!selection || !structLabel.trim()) return
+    addStructure({
+      startSec: selection.startSec,
+      endSec: selection.endSec,
+      label: structLabel.trim(),
+      note: structNote.trim() || undefined,
+      color: STRUCTURE_COLOR,
+    })
+    setStructLabel('')
+    setStructNote('')
+    setSelection(null)
+  }
+
   const startEditNote = (id: string, note: string) => {
     setEditingId(id)
     setEditingNote(note)
@@ -63,7 +94,25 @@ export default function AnnotationPanel() {
     setEditingNote('')
   }
 
+  const startEditStruct = (id: string, label: string, note: string) => {
+    setEditingStructId(id)
+    setEditingStructLabel(label)
+    setEditingStructNote(note)
+  }
+
+  const saveEditStruct = () => {
+    if (!editingStructId) return
+    updateStructure(editingStructId, {
+      label: editingStructLabel.trim() || '(senza etichetta)',
+      note: editingStructNote.trim() || undefined,
+    })
+    setEditingStructId(null)
+    setEditingStructLabel('')
+    setEditingStructNote('')
+  }
+
   const annotationsCount = project?.annotations.length ?? 0
+  const structureCount = project?.structure.length ?? 0
 
   return (
     <div className="bg-slate-900/40 border border-slate-800 rounded-xl flex flex-col h-full overflow-hidden">
@@ -73,6 +122,9 @@ export default function AnnotationPanel() {
         </TabButton>
         <TabButton active={tab === 'annotations'} onClick={() => setTab('annotations')}>
           {t('panel.annotations', { count: annotationsCount })}
+        </TabButton>
+        <TabButton active={tab === 'structure'} onClick={() => setTab('structure')}>
+          {t('panel.structure', { count: structureCount })}
         </TabButton>
       </div>
 
@@ -110,9 +162,7 @@ export default function AnnotationPanel() {
                 className="w-full pl-8 pr-3 py-1.5 bg-slate-950/50 border border-slate-800 rounded-md text-sm focus:outline-none focus:border-indigo-500"
               />
             </div>
-            {!selection && (
-              <p className="text-xs text-slate-500 mt-2">{t('panel.applyHint')}</p>
-            )}
+            {!selection && <p className="text-xs text-slate-500 mt-2">{t('panel.applyHint')}</p>}
           </div>
 
           {/* Lista termini */}
@@ -195,10 +245,7 @@ export default function AnnotationPanel() {
                             placeholder={t('annotation.notePlaceholder')}
                           />
                           <div className="flex gap-2">
-                            <button
-                              onClick={saveEditNote}
-                              className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 rounded-md text-xs font-medium"
-                            >
+                            <button onClick={saveEditNote} className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 rounded-md text-xs font-medium">
                               {t('annotation.save')}
                             </button>
                             <button
@@ -219,6 +266,118 @@ export default function AnnotationPanel() {
                         >
                           {ann.note ? ann.note : <span className="italic text-slate-600">{t('annotation.notePlaceholder')}</span>}
                         </button>
+                      )}
+                    </li>
+                  )
+                })}
+            </ul>
+          )}
+        </div>
+      )}
+
+      {tab === 'structure' && (
+        <div className="flex-1 min-h-0 overflow-y-auto px-3 py-3 space-y-3">
+          <p className="text-xs text-slate-500 leading-relaxed">{t('structure.subtitle')}</p>
+
+          {/* Form aggiunta */}
+          <div className="border border-slate-800 rounded-lg bg-slate-950/30 p-3 space-y-2">
+            <input
+              type="text"
+              value={structLabel}
+              onChange={(e) => setStructLabel(e.target.value)}
+              placeholder={t('structure.labelPlaceholder')}
+              disabled={!selection}
+              className="w-full px-2.5 py-1.5 bg-slate-950/60 border border-slate-800 rounded-md text-sm focus:outline-none focus:border-sky-500 disabled:opacity-50"
+            />
+            <textarea
+              value={structNote}
+              onChange={(e) => setStructNote(e.target.value)}
+              placeholder={t('structure.notePlaceholder')}
+              disabled={!selection}
+              rows={2}
+              className="w-full px-2.5 py-1.5 bg-slate-950/60 border border-slate-800 rounded-md text-xs focus:outline-none focus:border-sky-500 disabled:opacity-50"
+            />
+            <button
+              onClick={submitStructure}
+              disabled={!selection || !structLabel.trim()}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-md text-xs font-medium transition-colors"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              {t('structure.add')}
+            </button>
+            {!selection && <p className="text-xs text-slate-500">{t('structure.addHint')}</p>}
+          </div>
+
+          {/* Lista */}
+          {structureCount === 0 ? (
+            <p className="text-sm text-slate-500 leading-relaxed">{t('panel.noStructure')}</p>
+          ) : (
+            <ul className="space-y-2">
+              {(project?.structure ?? [])
+                .slice()
+                .sort((a, b) => a.startSec - b.startSec)
+                .map((sect) => {
+                  const editing = editingStructId === sect.id
+                  return (
+                    <li
+                      key={sect.id}
+                      className="border border-slate-800 rounded-lg bg-slate-950/30 p-3"
+                      style={{ borderLeftColor: sect.color ?? STRUCTURE_COLOR, borderLeftWidth: 3 }}
+                    >
+                      {editing ? (
+                        <div className="space-y-2">
+                          <input
+                            type="text"
+                            value={editingStructLabel}
+                            onChange={(e) => setEditingStructLabel(e.target.value)}
+                            className="w-full px-2 py-1.5 bg-slate-950/50 border border-slate-800 rounded-md text-sm focus:outline-none focus:border-sky-500"
+                          />
+                          <textarea
+                            value={editingStructNote}
+                            onChange={(e) => setEditingStructNote(e.target.value)}
+                            rows={2}
+                            className="w-full px-2 py-1.5 bg-slate-950/50 border border-slate-800 rounded-md text-xs focus:outline-none focus:border-sky-500"
+                          />
+                          <div className="flex gap-2">
+                            <button onClick={saveEditStruct} className="px-2.5 py-1 bg-sky-600 hover:bg-sky-500 rounded-md text-xs font-medium">
+                              {t('annotation.save')}
+                            </button>
+                            <button
+                              onClick={() => setEditingStructId(null)}
+                              className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-md text-xs"
+                            >
+                              {t('annotation.cancel')}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold text-slate-100 truncate">{sect.label}</p>
+                              <p className="text-[11px] font-mono text-slate-500">
+                                {formatTime(sect.startSec)} - {formatTime(sect.endSec)}
+                              </p>
+                            </div>
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => startEditStruct(sect.id, sect.label, sect.note ?? '')}
+                                className="text-xs text-slate-500 hover:text-slate-200"
+                              >
+                                {t('annotation.edit')}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  if (window.confirm(t('annotation.deleteConfirm'))) deleteStructure(sect.id)
+                                }}
+                                className="text-slate-500 hover:text-rose-400 transition-colors"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </div>
+                          {sect.note && <p className="text-xs text-slate-400 mt-1.5 leading-snug">{sect.note}</p>}
+                        </>
                       )}
                     </li>
                   )

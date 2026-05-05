@@ -10,6 +10,9 @@ export type TaxonomyId =
   | 'schafer'
   | 'krause'
   | 'chion'
+  | 'truax'
+  | 'westerkamp'
+  | 'wishart'
 
 export interface Annotation {
   id: string

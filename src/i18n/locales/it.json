@@ -54,11 +54,22 @@
   "panel": {
     "vocabulary": "Vocabolario controllato",
     "annotations": "Annotazioni ({{count}})",
-    "structure": "Struttura",
+    "structure": "Struttura ({{count}})",
     "search": "Cerca termine",
     "noAnnotations": "Nessuna annotazione, seleziona un range sul waveform e scegli un termine.",
+    "noStructure": "Nessuna sezione strutturale, seleziona un range sul waveform e dai un nome alla sezione.",
     "applyTo": "Applica a selezione",
     "applyHint": "Seleziona prima un range temporale sul waveform"
+  },
+  "structure": {
+    "title": "Sezioni strutturali",
+    "subtitle": "Annotazioni libere per la macroforma e le note interpretative. Restano distinte dalle annotazioni controllate.",
+    "label": "Etichetta",
+    "labelPlaceholder": "Apertura, Sviluppo, Coda, Drone B, Transizione...",
+    "note": "Nota",
+    "notePlaceholder": "Osservazione interpretativa, riferimento, contesto...",
+    "add": "Aggiungi sezione",
+    "addHint": "Seleziona prima un range temporale sul waveform"
   },
   "annotation": {
     "term": "Termine",
