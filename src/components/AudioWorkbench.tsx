@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import WaveSurfer from 'wavesurfer.js'
 import RegionsPlugin, { type Region } from 'wavesurfer.js/dist/plugins/regions.js'
-import { Pause, Play, Square, ZoomIn, ZoomOut } from 'lucide-react'
+import SpectrogramPlugin from 'wavesurfer.js/dist/plugins/spectrogram.js'
+import { Activity, Pause, Play, Square, ZoomIn, ZoomOut } from 'lucide-react'
 import { useProject } from '../hooks/useProject'
 import { formatTime } from '../lib/format'
 
@@ -10,12 +11,14 @@ export default function AudioWorkbench() {
   const { t } = useTranslation()
   const { audioUrl, project, setSelection, selection, updateAnnotation, updateStructure } = useProject()
   const containerRef = useRef<HTMLDivElement>(null)
+  const spectrogramRef = useRef<HTMLDivElement>(null)
   const wsRef = useRef<WaveSurfer | null>(null)
   const regionsRef = useRef<RegionsPlugin | null>(null)
   const selectionRegionRef = useRef<Region | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [zoomLevel, setZoomLevel] = useState(50)
+  const [showSpectrogram, setShowSpectrogram] = useState(false)
 
   useEffect(() => {
     if (!containerRef.current || !audioUrl) return
@@ -35,6 +38,20 @@ export default function AudioWorkbench() {
       url: audioUrl,
     })
     const regions = ws.registerPlugin(RegionsPlugin.create())
+    if (spectrogramRef.current) {
+      ws.registerPlugin(
+        SpectrogramPlugin.create({
+          container: spectrogramRef.current,
+          height: 160,
+          fftSamples: 1024,
+          scale: 'mel',
+          frequencyMax: 16000,
+          labels: true,
+          labelsBackground: 'rgba(15, 13, 46, 0.7)',
+          labelsColor: '#94a3b8',
+        }),
+      )
+    }
     regions.enableDragSelection({
       color: 'rgba(165, 180, 252, 0.2)',
     })
@@ -166,6 +183,11 @@ export default function AudioWorkbench() {
   return (
     <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
       <div ref={containerRef} className="rounded-lg overflow-hidden bg-slate-950/50" />
+      <div
+        ref={spectrogramRef}
+        className="rounded-lg overflow-hidden bg-slate-950/50 mt-2"
+        style={{ display: showSpectrogram ? 'block' : 'none' }}
+      />
 
       <div className="flex flex-wrap items-center gap-3 mt-4 text-sm">
         <button
@@ -195,6 +217,18 @@ export default function AudioWorkbench() {
           title={t('workbench.zoomIn')}
         >
           <ZoomIn className="w-4 h-4" />
+        </button>
+        <button
+          onClick={() => setShowSpectrogram((s) => !s)}
+          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium transition-colors ${
+            showSpectrogram
+              ? 'bg-emerald-600/20 border border-emerald-500/40 text-emerald-300'
+              : 'bg-slate-800 hover:bg-slate-700'
+          }`}
+          title={t('workbench.spectrogram')}
+        >
+          <Activity className="w-4 h-4" />
+          <span className="hidden md:inline">{t('workbench.spectrogram')}</span>
         </button>
 
         <div className="ml-auto font-mono text-xs text-slate-400 tabular-nums flex items-center gap-4">

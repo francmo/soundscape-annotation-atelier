@@ -1,6 +1,6 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Download, FilePlus2, Save, Upload } from 'lucide-react'
+import { Download, FilePlus2, FileText, Save, Upload } from 'lucide-react'
 import { useProject } from '../hooks/useProject'
 import { exportProjectJson } from '../lib/exporters'
 
@@ -8,6 +8,7 @@ export default function Header() {
   const { t, i18n } = useTranslation()
   const { project, loadAudio, saveProject, resetProject } = useProject()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [exportingPdf, setExportingPdf] = useState(false)
 
   const handlePickFile = () => fileInputRef.current?.click()
 
@@ -21,6 +22,20 @@ export default function Header() {
   const handleExportJson = () => {
     if (!project) return
     exportProjectJson(project)
+  }
+
+  const handleExportPdf = async () => {
+    if (!project) return
+    setExportingPdf(true)
+    try {
+      const { exportProjectPdf } = await import('../lib/pdfExporter')
+      await exportProjectPdf(project)
+    } catch (err) {
+      console.error('PDF export failed', err)
+      alert(`PDF export failed: ${err instanceof Error ? err.message : 'unknown error'}`)
+    } finally {
+      setExportingPdf(false)
+    }
   }
 
   const handleSave = async () => {
@@ -83,6 +98,16 @@ export default function Header() {
             >
               <Download className="w-4 h-4" />
               <span className="hidden sm:inline">{t('header.exportJson')}</span>
+            </button>
+            <button
+              onClick={handleExportPdf}
+              disabled={exportingPdf}
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 rounded-md text-sm font-medium transition-colors"
+            >
+              <FileText className="w-4 h-4" />
+              <span className="hidden sm:inline">
+                {exportingPdf ? '...' : t('header.exportPdf')}
+              </span>
             </button>
             <button
               onClick={resetProject}

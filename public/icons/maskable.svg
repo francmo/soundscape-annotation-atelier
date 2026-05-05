@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#1e1b4b"/>
+  <g transform="translate(256 256)">
+    <path d="M -110 0 Q -80 -30 -50 0 T 10 0 T 70 0 T 110 0" fill="none" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+    <path d="M -110 -28 Q -80 -58 -50 -28 T 10 -28 T 70 -28 T 110 -28" fill="none" stroke="#a78bfa" stroke-width="6" stroke-linecap="round" stroke-opacity="0.6"/>
+    <path d="M -110 28 Q -80 -2 -50 28 T 10 28 T 70 28 T 110 28" fill="none" stroke="#fb923c" stroke-width="6" stroke-linecap="round" stroke-opacity="0.6"/>
+  </g>
+  <text x="256" y="386" font-family="Inter,system-ui,sans-serif" font-size="32" font-weight="700" fill="#10b981" text-anchor="middle" letter-spacing="3">SA</text>
+</svg>
