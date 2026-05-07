@@ -53,16 +53,22 @@ Output in `dist/`.
 
 ## Sync vocabolari con la skill
 
+Da v0.4 la skill `soundscape-audio-analysis` è la fonte canonica del vocabolario controllato. La PWA pulla il file `references/taxonomies.json` della skill ogni volta che viene aggiornato, e committa il risultato.
+
 ```sh
-# Esporta il taxonomies.json della PWA verso la skill
+# Importa dalla skill (default da v0.4)
 python3 scripts/sync_taxonomies.py
 
-# Importa dalla skill (sovrascrive la PWA), quando la skill avra il proprio JSON canonico
-python3 scripts/sync_taxonomies.py --import-from-skill
+# Esporta dalla PWA verso la skill, da usare solo per promuovere modifiche fatte lato PWA
+python3 scripts/sync_taxonomies.py --export-to-skill
 
 # Anteprima delle azioni
 python3 scripts/sync_taxonomies.py --dry-run
 ```
+
+### Annotazioni con `termId` orfani
+
+Se la skill aggiunge o rimuove termini dal vocabolario, le annotazioni esistenti che facevano riferimento a un termId rimosso restano valide ma compaiono nel pannello con un badge ambrato `Termine non più nel vocabolario`. Un banner di sintesi in cima al tab `Annotazioni` riporta il numero totale di orfani. Le annotazioni non vengono cancellate né riassegnate automaticamente: la riconciliazione resta una decisione editoriale.
 
 ## Schema annotazione v1.0
 
@@ -116,7 +122,8 @@ Il JSON esportato segue lo schema definito in `src/types/annotation.ts`:
 - ✅ v0.1: MVP, vocabolario controllato, persistenza, export JSON.
 - ✅ v0.2: tassonomie a 128 termini, tab Struttura, bridge skill, export PDF tipografico, spettrogramma toggle, service worker e manifest (PWA installabile offline-first).
 - ✅ v0.3: lista progetti salvati con riapertura, eliminazione, import JSON v1.0 con riconciliazione audio.
-- v0.4: integrazione con la skill `soundscape-audio-analysis` (consumo del JSON dalla CLI). Skill come fonte canonica del vocabolario.
+- ✅ v0.4: skill come fonte canonica del vocabolario (default sync `skill -> PWA`), validazione `termId` orfani con badge nel pannello e banner di sintesi.
+- v0.5: consumo lato skill delle annotazioni JSON v1.0 nel report PDF (confronto annotazione first-hand vs predizioni PANNs/CLAP, metriche di accordo).
 
 ## Licenza
 

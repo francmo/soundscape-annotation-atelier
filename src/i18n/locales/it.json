@@ -102,7 +102,10 @@
     "delete": "Elimina",
     "save": "Salva",
     "cancel": "Annulla",
-    "deleteConfirm": "Eliminare questa annotazione?"
+    "deleteConfirm": "Eliminare questa annotazione?",
+    "orphanBadge": "Termine non più nel vocabolario",
+    "orphanWarning": "{{count}} annotazione con un termine non più presente nel vocabolario corrente. Probabile aggiornamento della tassonomia (la skill è la fonte canonica). Le annotazioni restano valide ma non più mappabili automaticamente.",
+    "orphanWarning_plural": "{{count}} annotazioni con un termine non più presente nel vocabolario corrente. Probabile aggiornamento della tassonomia (la skill è la fonte canonica). Le annotazioni restano valide ma non più mappabili automaticamente."
   },
   "export": {
     "title": "Esporta",

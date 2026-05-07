@@ -102,7 +102,10 @@
     "delete": "Delete",
     "save": "Save",
     "cancel": "Cancel",
-    "deleteConfirm": "Delete this annotation?"
+    "deleteConfirm": "Delete this annotation?",
+    "orphanBadge": "Term no longer in vocabulary",
+    "orphanWarning": "{{count}} annotation references a term no longer present in the current vocabulary. Likely a taxonomy update (the skill is the canonical source). Annotations remain valid but are no longer auto-mappable.",
+    "orphanWarning_plural": "{{count}} annotations reference a term no longer present in the current vocabulary. Likely a taxonomy update (the skill is the canonical source). Annotations remain valid but are no longer auto-mappable."
   },
   "export": {
     "title": "Export",

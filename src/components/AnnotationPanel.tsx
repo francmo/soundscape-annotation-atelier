@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Plus, Search, Trash2 } from 'lucide-react'
-import { taxonomies } from '../data/taxonomies'
+import { AlertTriangle, Plus, Search, Trash2 } from 'lucide-react'
+import { isValidTermId, taxonomies } from '../data/taxonomies'
 import type { TaxonomyId } from '../types/annotation'
 import { useProject } from '../hooks/useProject'
 import { formatTime } from '../lib/format'
@@ -113,6 +113,10 @@ export default function AnnotationPanel() {
 
   const annotationsCount = project?.annotations.length ?? 0
   const structureCount = project?.structure.length ?? 0
+  const orphanCount = useMemo(
+    () => (project?.annotations ?? []).filter((a) => !isValidTermId(a.termId)).length,
+    [project?.annotations],
+  )
 
   return (
     <div className="bg-slate-900/40 border border-slate-800 rounded-xl flex flex-col h-full overflow-hidden">
@@ -202,7 +206,15 @@ export default function AnnotationPanel() {
       )}
 
       {tab === 'annotations' && (
-        <div className="flex-1 min-h-0 overflow-y-auto px-3 py-3">
+        <div className="flex-1 min-h-0 overflow-y-auto px-3 py-3 space-y-3">
+          {orphanCount > 0 && (
+            <div className="flex items-start gap-2 px-3 py-2 rounded-lg border border-amber-700/50 bg-amber-950/30 text-amber-200">
+              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+              <p className="text-xs leading-snug">
+                {t('annotation.orphanWarning', { count: orphanCount })}
+              </p>
+            </div>
+          )}
           {annotationsCount === 0 ? (
             <p className="text-sm text-slate-500 leading-relaxed">{t('panel.noAnnotations')}</p>
           ) : (
@@ -212,6 +224,7 @@ export default function AnnotationPanel() {
                 .sort((a, b) => a.startSec - b.startSec)
                 .map((ann) => {
                   const editing = editingId === ann.id
+                  const orphan = !isValidTermId(ann.termId)
                   return (
                     <li
                       key={ann.id}
@@ -219,11 +232,20 @@ export default function AnnotationPanel() {
                       style={{ borderLeftColor: ann.color, borderLeftWidth: 3 }}
                     >
                       <div className="flex items-start justify-between gap-2 mb-1">
-                        <div>
+                        <div className="min-w-0">
                           <p className="text-sm font-semibold text-slate-100">{ann.termLabel}</p>
                           <p className="text-[11px] font-mono text-slate-500">
                             {formatTime(ann.startSec)} - {formatTime(ann.endSec)}
                           </p>
+                          {orphan && (
+                            <span
+                              className="inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-900/40 text-amber-300 border border-amber-800/60"
+                              title={ann.termId}
+                            >
+                              <AlertTriangle className="w-3 h-3" />
+                              {t('annotation.orphanBadge')}
+                            </span>
+                          )}
                         </div>
                         <button
                           onClick={() => {

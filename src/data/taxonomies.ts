@@ -59,3 +59,9 @@ export const totalTermsCount = taxonomies.reduce(
   (sum, t) => sum + t.groups.reduce((s, g) => s + g.terms.length, 0),
   0,
 )
+
+const validTermIds: ReadonlySet<string> = new Set(
+  taxonomies.flatMap((t) => t.groups.flatMap((g) => g.terms.map((term) => term.id))),
+)
+
+export const isValidTermId = (termId: string): boolean => validTermIds.has(termId)

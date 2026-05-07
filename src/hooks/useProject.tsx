@@ -10,7 +10,18 @@ import type {
 } from '../types/annotation'
 import { ANNOTATION_SCHEMA_VERSION } from '../types/annotation'
 import { saveProject as persistProject, loadAudioBlob } from './useProjectStorage'
+import { isValidTermId } from '../data/taxonomies'
 import { useTranslation } from 'react-i18next'
+
+function warnOrphanTermIds(project: AnnotationProject): void {
+  const orphans = project.annotations.filter((a) => !isValidTermId(a.termId))
+  if (orphans.length === 0) return
+  const sample = orphans.slice(0, 5).map((a) => a.termId)
+  console.warn(
+    `[soundscape-annotation-atelier] ${orphans.length} annotation(s) reference termIds not in current taxonomies. Sample:`,
+    sample,
+  )
+}
 
 interface ProjectContextValue {
   project: AnnotationProject | null
@@ -106,6 +117,7 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
     setAudioUrl(url)
     setProject(existing)
     setSelection(null)
+    warnOrphanTermIds(existing)
   }, [])
 
   const loadProjectFromJson = useCallback((imported: AnnotationProject) => {
@@ -113,6 +125,7 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
     setAudioBlob(null)
     setAudioUrl(null)
     setSelection(null)
+    warnOrphanTermIds(imported)
   }, [])
 
   const setProjectAudio = useCallback(async (file: File) => {

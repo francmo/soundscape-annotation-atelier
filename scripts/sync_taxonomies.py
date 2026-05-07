@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 """
-Sync taxonomies between PWA (src/data/taxonomies.json) and the skill
-soundscape-audio-analysis (references/taxonomies.json).
+Sync taxonomies between the skill soundscape-audio-analysis
+(references/taxonomies.json) and the PWA (src/data/taxonomies.json).
 
-Direzione di default: export PWA -> skill, perche la PWA al momento e
-la fonte canonica del vocabolario controllato. Quando la skill verra
-estesa con un proprio taxonomies.json piu ricco (es. derivato dai
-golden_analyses), si potra invertire il flusso con --import-from-skill.
+Da v0.4 la skill è la fonte canonica del vocabolario controllato. Default:
+import skill -> PWA. La PWA pulla il file ogni volta che la skill viene
+aggiornata, e committa il risultato. Il flusso opposto resta disponibile
+con --export-to-skill per casi di emergenza (es. modifica rapida lato
+PWA da promuovere a canonica).
 
 Esempi:
-    # Esporta PWA -> skill (default)
+    # Importa skill -> PWA (default da v0.4)
     python3 scripts/sync_taxonomies.py
 
-    # Importa skill -> PWA (sovrascrive il file della PWA)
-    python3 scripts/sync_taxonomies.py --import-from-skill
+    # Esporta PWA -> skill (sovrascrive il file della skill)
+    python3 scripts/sync_taxonomies.py --export-to-skill
 
     # Mostra solo cosa farebbe, senza scrivere
     python3 scripts/sync_taxonomies.py --dry-run
@@ -45,9 +46,9 @@ def count_terms(path: Path) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
-        "--import-from-skill",
+        "--export-to-skill",
         action="store_true",
-        help="Importa taxonomies.json dalla skill nella PWA (sovrascrive).",
+        help="Esporta taxonomies.json dalla PWA verso la skill (sovrascrive). Da usare solo per promuovere modifiche fatte lato PWA.",
     )
     parser.add_argument("--dry-run", action="store_true", help="Mostra l'azione senza scrivere.")
     args = parser.parse_args()
@@ -57,12 +58,12 @@ def main() -> int:
         print("Verifica che ~/.claude/skills/soundscape-audio-analysis/ esista.")
         return 1
 
-    if args.import_from_skill:
-        src, dst = SKILL_TAXONOMIES, PWA_TAXONOMIES
-        direction = "skill -> PWA"
-    else:
+    if args.export_to_skill:
         src, dst = PWA_TAXONOMIES, SKILL_TAXONOMIES
-        direction = "PWA -> skill"
+        direction = "PWA -> skill (export)"
+    else:
+        src, dst = SKILL_TAXONOMIES, PWA_TAXONOMIES
+        direction = "skill -> PWA (import, default)"
 
     if not src.exists():
         print(f"Sorgente non trovata: {src}")
