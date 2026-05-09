@@ -8,7 +8,7 @@ URL deploy: https://soundscape-annotation-atelier.vercel.app/
 
 ## Caratteristiche
 
-- Caricamento audio locale (WAV, MP3, FLAC, OGG, M4A), nessun upload sul server.
+- Caricamento audio locale, nessun upload sul server. Formati garantiti: WAV, MP3, FLAC, OGG. Formati condizionati al codec del browser: M4A/AAC (alcuni file `.m4a` da iPhone Memo Vocali con codec HE-AAC possono fallire la decodifica; in quel caso un banner ambrato segnala il problema e invita a convertire il file in WAV o MP3 con un convertitore online come cloudconvert.com).
 - Waveform interattiva con Wavesurfer.js, drag selection per range temporali, marker editabili (drag e resize).
 - Vocabolario controllato di 128 termini distribuiti in otto tassonomie canoniche:
   - **Schaeffer**, tipo-morfologia (massa, grain, allure, criterio di mantenimento, calibre, profilo dinamico).

@@ -106,9 +106,9 @@ export default function Header() {
           </span>
         </button>
 
-        <input ref={fileInputRef} type="file" accept="audio/*" onChange={handleFileChange} className="hidden" />
+        <input ref={fileInputRef} type="file" accept=".wav,.mp3,.flac,.ogg,.m4a,.aac,.aiff,.aif,audio/wav,audio/mpeg,audio/mp3,audio/flac,audio/ogg,audio/m4a,audio/x-m4a,audio/aac,audio/aiff" onChange={handleFileChange} className="hidden" />
         <input ref={jsonInputRef} type="file" accept="application/json,.json" onChange={handleImportJson} className="hidden" />
-        <input ref={audioForImportRef} type="file" accept="audio/*" onChange={handleImportAudio} className="hidden" />
+        <input ref={audioForImportRef} type="file" accept=".wav,.mp3,.flac,.ogg,.m4a,.aac,.aiff,.aif,audio/wav,audio/mpeg,audio/mp3,audio/flac,audio/ogg,audio/m4a,audio/x-m4a,audio/aac,audio/aiff" onChange={handleImportAudio} className="hidden" />
 
         <button
           onClick={handlePickFile}

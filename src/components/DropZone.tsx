@@ -52,7 +52,7 @@ export default function DropZone() {
         <input
           ref={fileInputRef}
           type="file"
-          accept="audio/*"
+          accept=".wav,.mp3,.flac,.ogg,.m4a,.aac,.aiff,.aif,audio/wav,audio/mpeg,audio/mp3,audio/flac,audio/ogg,audio/m4a,audio/x-m4a,audio/aac,audio/aiff"
           onChange={(e) => void handleFiles(e.target.files)}
           className="hidden"
         />

@@ -11,6 +11,7 @@ import type {
 import { ANNOTATION_SCHEMA_VERSION } from '../types/annotation'
 import { saveProject as persistProject, loadAudioBlob } from './useProjectStorage'
 import { isValidTermId } from '../data/taxonomies'
+import { AudioDecodeError } from '../lib/audioErrors'
 import { useTranslation } from 'react-i18next'
 
 function warnOrphanTermIds(project: AnnotationProject): void {
@@ -43,6 +44,8 @@ interface ProjectContextValue {
   updateStructure: (id: string, patch: Partial<StructuralSection>) => void
   deleteStructure: (id: string) => void
   saveProject: () => Promise<void>
+  loadError: { filename: string } | null
+  clearLoadError: () => void
 }
 
 const ProjectContext = createContext<ProjectContextValue | null>(null)
@@ -55,7 +58,12 @@ async function readAudioMetadata(file: File): Promise<AudioMetadata> {
   const ctx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
   try {
     const buffer = await file.arrayBuffer()
-    const audio = await ctx.decodeAudioData(buffer.slice(0))
+    let audio: AudioBuffer
+    try {
+      audio = await ctx.decodeAudioData(buffer.slice(0))
+    } catch (cause) {
+      throw new AudioDecodeError(file.name, cause)
+    }
     return {
       filename: file.name,
       durationSeconds: audio.duration,
@@ -73,6 +81,9 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const [selection, setSelection] = useState<{ startSec: number; endSec: number } | null>(null)
+  const [loadError, setLoadError] = useState<{ filename: string } | null>(null)
+
+  const clearLoadError = useCallback(() => setLoadError(null), [])
 
   // Revoke ObjectURL su unmount o cambio audio
   useEffect(() => {
@@ -84,7 +95,18 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
 
   const loadAudio = useCallback(
     async (file: File) => {
-      const meta = await readAudioMetadata(file)
+      let meta: AudioMetadata
+      try {
+        meta = await readAudioMetadata(file)
+      } catch (err) {
+        if (err instanceof AudioDecodeError) {
+          console.warn('[useProject] decode failed:', file.name, err.cause)
+          setLoadError({ filename: file.name })
+          return
+        }
+        throw err
+      }
+      setLoadError(null)
       const url = URL.createObjectURL(file)
       const language: 'it' | 'en' = i18n.language?.startsWith('en') ? 'en' : 'it'
       const newProject: AnnotationProject = {
@@ -129,7 +151,18 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const setProjectAudio = useCallback(async (file: File) => {
-    const meta = await readAudioMetadata(file)
+    let meta: AudioMetadata
+    try {
+      meta = await readAudioMetadata(file)
+    } catch (err) {
+      if (err instanceof AudioDecodeError) {
+        console.warn('[useProject] decode failed:', file.name, err.cause)
+        setLoadError({ filename: file.name })
+        return
+      }
+      throw err
+    }
+    setLoadError(null)
     const url = URL.createObjectURL(file)
     setAudioBlob(file)
     setAudioUrl(url)
@@ -141,6 +174,7 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
     setAudioBlob(null)
     setAudioUrl(null)
     setSelection(null)
+    setLoadError(null)
   }, [])
 
   const updateMetadata = useCallback((patch: Partial<ProjectMetadata>) => {
@@ -227,6 +261,8 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       updateStructure,
       deleteStructure,
       saveProject,
+      loadError,
+      clearLoadError,
     }),
     [
       project,
@@ -246,6 +282,8 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       updateStructure,
       deleteStructure,
       saveProject,
+      loadError,
+      clearLoadError,
     ],
   )
 

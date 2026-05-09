@@ -35,7 +35,7 @@
   },
   "welcome": {
     "title": "Inizia caricando un file audio",
-    "subtitle": "Trascina un file audio qui sopra, oppure usa il pulsante nell'header. Formati supportati: WAV, MP3, FLAC, OGG, M4A.",
+    "subtitle": "Trascina un file audio qui sopra, oppure usa il pulsante nell'header. Formati garantiti: WAV, MP3, FLAC, OGG. Per file .m4a da iPhone, in caso di problemi di decodifica, convertirli in WAV con cloudconvert.com.",
     "features": [
       "Vocabolario controllato Schaeffer, Smalley, Schafer, Krause, Chion",
       "Marker temporali con drag e resize sul waveform",
@@ -46,6 +46,11 @@
     "drop": "Rilascia il file qui",
     "or": "oppure",
     "browse": "Sfoglia"
+  },
+  "errors": {
+    "audioDecodeTitle": "Impossibile decodificare \"{{filename}}\"",
+    "audioDecodeBody": "Il browser non supporta il codec di questo file (capita con alcuni .m4a da iPhone Memo Vocali con codec HE-AAC). Convertilo in WAV o MP3 con un convertitore online (es. cloudconvert.com) e ricaricalo.",
+    "dismiss": "Chiudi"
   },
   "metadata": {
     "title": "Metadati progetto",

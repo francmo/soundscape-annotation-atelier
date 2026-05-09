@@ -35,7 +35,7 @@
   },
   "welcome": {
     "title": "Start by loading an audio file",
-    "subtitle": "Drop an audio file above, or use the header button. Supported formats: WAV, MP3, FLAC, OGG, M4A.",
+    "subtitle": "Drop an audio file above, or use the header button. Guaranteed formats: WAV, MP3, FLAC, OGG. For .m4a files from iPhone Voice Memos, if decoding fails, convert to WAV with cloudconvert.com.",
     "features": [
       "Controlled vocabulary: Schaeffer, Smalley, Schafer, Krause, Chion",
       "Time markers with drag and resize on the waveform",
@@ -46,6 +46,11 @@
     "drop": "Drop the file here",
     "or": "or",
     "browse": "Browse"
+  },
+  "errors": {
+    "audioDecodeTitle": "Cannot decode \"{{filename}}\"",
+    "audioDecodeBody": "The browser does not support this file's codec (this can happen with some .m4a files from iPhone Voice Memos using HE-AAC). Convert it to WAV or MP3 with an online converter (e.g. cloudconvert.com) and reload.",
+    "dismiss": "Dismiss"
   },
   "metadata": {
     "title": "Project metadata",
