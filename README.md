@@ -125,6 +125,21 @@ Il JSON esportato segue lo schema definito in `src/types/annotation.ts`:
 - ✅ v0.4: skill come fonte canonica del vocabolario (default sync `skill -> PWA`), validazione `termId` orfani con badge nel pannello e banner di sintesi.
 - v0.5: consumo lato skill delle annotazioni JSON v1.0 nel report PDF (confronto annotazione first-hand vs predizioni PANNs/CLAP, metriche di accordo).
 
+## Citation
+
+Questa PWA è il companion del methodology paper del progetto
+Soundscape Annotation. Per citarla in un lavoro derivato:
+
+> Mariano, F. (2026). *Soundscape Annotation: workflow iterativo,
+> stratificazione interpretativa e calibrazione di una skill di
+> analisi audio in didattica AFAM*. Working Paper v1.0. Accademia
+> di Belle Arti di Macerata.
+> https://doi.org/10.5281/zenodo.20282496
+
+Vedi il README della skill `soundscape-audio-analysis`
+(https://github.com/francmo/soundscape-audio-analysis)
+per la citazione BibTeX completa.
+
 ## Licenza
 
 Codice sotto Apache 2.0. Vocabolari controllati e contenuti documentali sotto CC BY 4.0.
