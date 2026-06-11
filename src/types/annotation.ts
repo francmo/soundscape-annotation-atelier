@@ -67,11 +67,16 @@ export interface ProjectMetadata {
 }
 
 export interface AnnotationProject {
-  schemaVersion: typeof ANNOTATION_SCHEMA_VERSION
+  /** '1.0' per i progetti creati qui; in import si accetta ogni 1.x (INTEROP v1.1). */
+  schemaVersion: string
   /** UUID del progetto. */
   id: string
   audio: AudioMetadata
   metadata: ProjectMetadata
   annotations: Annotation[]
   structure: StructuralSection[]
+  /** Blocchi opzionali del contratto Soundscape Interchange v1.1: l'Atelier
+   * non li produce ma DEVE preservarli nel round-trip import -> export. */
+  recording?: Record<string, unknown>
+  analysis?: Record<string, unknown>
 }

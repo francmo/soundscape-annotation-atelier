@@ -12,6 +12,7 @@ import { ANNOTATION_SCHEMA_VERSION } from '../types/annotation'
 import { saveProject as persistProject, loadAudioBlob } from './useProjectStorage'
 import { isValidTermId } from '../data/taxonomies'
 import { AudioDecodeError } from '../lib/audioErrors'
+import { sha256OfBlob } from '../lib/format'
 import { useTranslation } from 'react-i18next'
 
 function warnOrphanTermIds(project: AnnotationProject): void {
@@ -69,6 +70,8 @@ async function readAudioMetadata(file: File): Promise<AudioMetadata> {
       durationSeconds: audio.duration,
       sampleRate: audio.sampleRate,
       channels: audio.numberOfChannels,
+      // Chiave di riconciliazione fra strumenti (INTEROP v1.1).
+      sha256: await sha256OfBlob(file),
     }
   } finally {
     void ctx.close()

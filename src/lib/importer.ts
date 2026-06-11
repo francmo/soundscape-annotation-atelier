@@ -1,5 +1,4 @@
 import type { AnnotationProject } from '../types/annotation'
-import { ANNOTATION_SCHEMA_VERSION } from '../types/annotation'
 
 export class ImportSchemaError extends Error {
   readonly received: string
@@ -24,9 +23,12 @@ export function parseProjectJson(text: string): AnnotationProject {
     throw new ImportSchemaError('Invalid root', typeof payload)
   }
 
+  // Regola reader INTEROP v1.1: accetta ogni 1.x; i blocchi top-level
+  // sconosciuti (recording, analysis, futuri) restano nell'oggetto e
+  // vengono riserializzati intatti all'export (round-trip senza perdita).
   const version = (payload as { schemaVersion?: unknown }).schemaVersion
-  if (version !== ANNOTATION_SCHEMA_VERSION) {
-    throw new ImportSchemaError('schemaVersion mismatch', String(version))
+  if (typeof version !== 'string' || !/^1\./.test(version)) {
+    throw new ImportSchemaError('schemaVersion non supportata (attesa 1.x)', String(version))
   }
   if (!('audio' in payload) || !('annotations' in payload)) {
     throw new ImportSchemaError('missing required fields', JSON.stringify(Object.keys(payload)))
