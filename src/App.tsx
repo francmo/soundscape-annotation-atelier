@@ -7,6 +7,7 @@ import AudioWorkbench from './components/AudioWorkbench'
 import AnnotationPanel from './components/AnnotationPanel'
 import MetadataPanel from './components/MetadataPanel'
 import { ProjectProvider, useProject } from './hooks/useProject'
+import { APP_VERSION } from './version'
 
 function AppShell() {
   const { t, i18n } = useTranslation()
@@ -56,7 +57,7 @@ function AppShell() {
       </main>
       <footer className="border-t border-slate-800 py-4">
         <p className="text-center text-xs text-slate-600">
-          Soundscape Annotation Atelier · companion of soundscape-audio-analysis
+          Soundscape Annotation Atelier · Vers. {APP_VERSION} · companion of soundscape-audio-analysis
         </p>
       </footer>
     </div>

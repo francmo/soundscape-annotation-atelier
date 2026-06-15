@@ -5,6 +5,7 @@ import { useProject } from '../hooks/useProject'
 import { exportProjectJson } from '../lib/exporters'
 import { ImportSchemaError, parseProjectJson } from '../lib/importer'
 import ProjectsList from './ProjectsList'
+import { APP_VERSION } from '../version'
 
 export default function Header() {
   const { t, i18n } = useTranslation()
@@ -93,18 +94,26 @@ export default function Header() {
   return (
     <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
-        <button
-          onClick={resetProject}
-          className="flex items-center gap-2 mr-auto"
-          title={t('header.newProject')}
-        >
-          <span className="w-7 h-7 rounded-md bg-emerald-500/15 border border-emerald-500/30 grid place-items-center font-mono text-xs font-bold text-emerald-300">
-            SA
+        <div className="flex items-center gap-2 mr-auto">
+          <button
+            onClick={resetProject}
+            className="flex items-center gap-2"
+            title={t('header.newProject')}
+          >
+            <span className="w-7 h-7 rounded-md bg-emerald-500/15 border border-emerald-500/30 grid place-items-center font-mono text-xs font-bold text-emerald-300">
+              SA
+            </span>
+            <span className="font-semibold text-slate-100 hidden sm:inline">
+              {t('app.title')}
+            </span>
+          </button>
+          <span
+            className="px-2 py-0.5 rounded-md bg-indigo-500/15 border border-indigo-500/40 text-indigo-200 font-mono text-[11px] font-bold tracking-wide"
+            title={t('header.version', { version: APP_VERSION })}
+          >
+            Vers. {APP_VERSION}
           </span>
-          <span className="font-semibold text-slate-100 hidden sm:inline">
-            {t('app.title')}
-          </span>
-        </button>
+        </div>
 
         <input ref={fileInputRef} type="file" accept=".wav,.mp3,.flac,.ogg,.m4a,.aac,.aiff,.aif,audio/wav,audio/mpeg,audio/mp3,audio/flac,audio/ogg,audio/m4a,audio/x-m4a,audio/aac,audio/aiff" onChange={handleFileChange} className="hidden" />
         <input ref={jsonInputRef} type="file" accept="application/json,.json" onChange={handleImportJson} className="hidden" />
