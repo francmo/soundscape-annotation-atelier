@@ -52,8 +52,11 @@ export default function AudioWorkbench() {
         }),
       )
     }
+    // Selezione in verde smeraldo: contrasta con il blu delle sezioni di
+    // struttura e con i colori delle annotazioni, così durante il trascinamento
+    // resta sempre distinguibile.
     regions.enableDragSelection({
-      color: 'rgba(165, 180, 252, 0.2)',
+      color: 'rgba(16, 185, 129, 0.38)',
     })
 
     regions.on('region-created', (region) => {
@@ -136,7 +139,7 @@ export default function AudioWorkbench() {
         const r = regions.addRegion({
           start: sect.startSec,
           end: sect.endSec,
-          color: `${baseColor}1f`,
+          color: `${baseColor}40`,
           drag: true,
           resize: true,
           content: `[${sect.label}]`,
