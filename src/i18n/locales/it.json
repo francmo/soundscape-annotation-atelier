@@ -11,7 +11,8 @@
     "saveProject": "Salva",
     "exportJson": "Esporta JSON",
     "exportPdf": "Esporta PDF",
-    "importJson": "Importa JSON"
+    "importJson": "Importa JSON",
+    "version": "Versione {{version}}"
   },
   "projectsList": {
     "title": "Progetti salvati",
@@ -95,7 +96,10 @@
     "note": "Nota",
     "notePlaceholder": "Osservazione interpretativa, riferimento, contesto...",
     "add": "Aggiungi sezione",
-    "addHint": "Seleziona prima un range temporale sul waveform"
+    "addHint": "Trascina un range sul waveform oppure scrivi i tempi qui sopra.",
+    "start": "Inizio (mm:ss)",
+    "end": "Fine (mm:ss)",
+    "timeError": "Tempi non validi: la fine deve essere maggiore dell'inizio."
   },
   "annotation": {
     "term": "Termine",

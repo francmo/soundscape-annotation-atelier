@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AlertTriangle, Plus, Search, Trash2 } from 'lucide-react'
 import { isValidTermId, taxonomies } from '../data/taxonomies'
 import type { TaxonomyId } from '../types/annotation'
 import { useProject } from '../hooks/useProject'
-import { formatTime } from '../lib/format'
+import { formatTime, parseTime } from '../lib/format'
 
 type Tab = 'vocabulary' | 'annotations' | 'structure'
 
@@ -32,9 +32,15 @@ export default function AnnotationPanel() {
   const [editingNote, setEditingNote] = useState('')
   const [structLabel, setStructLabel] = useState('')
   const [structNote, setStructNote] = useState('')
+  const [structStart, setStructStart] = useState('')
+  const [structEnd, setStructEnd] = useState('')
+  const [structAddError, setStructAddError] = useState(false)
   const [editingStructId, setEditingStructId] = useState<string | null>(null)
   const [editingStructLabel, setEditingStructLabel] = useState('')
   const [editingStructNote, setEditingStructNote] = useState('')
+  const [editingStructStart, setEditingStructStart] = useState('')
+  const [editingStructEnd, setEditingStructEnd] = useState('')
+  const [structTimeError, setStructTimeError] = useState(false)
 
   const tax = useMemo(() => taxonomies.find((tx) => tx.id === activeTax) ?? taxonomies[0], [activeTax])
 
@@ -68,17 +74,34 @@ export default function AnnotationPanel() {
     setSelection(null)
   }
 
+  // La selezione sul waveform precompila i campi tempo, che restano editabili a mano.
+  useEffect(() => {
+    if (selection) {
+      setStructStart(formatTime(selection.startSec))
+      setStructEnd(formatTime(selection.endSec))
+    }
+  }, [selection])
+
   const submitStructure = () => {
-    if (!selection || !structLabel.trim()) return
+    if (!structLabel.trim()) return
+    const startSec = parseTime(structStart)
+    const endSec = parseTime(structEnd)
+    if (startSec === null || endSec === null || endSec <= startSec) {
+      setStructAddError(true)
+      return
+    }
     addStructure({
-      startSec: selection.startSec,
-      endSec: selection.endSec,
+      startSec,
+      endSec,
       label: structLabel.trim(),
       note: structNote.trim() || undefined,
       color: STRUCTURE_COLOR,
     })
     setStructLabel('')
     setStructNote('')
+    setStructStart('')
+    setStructEnd('')
+    setStructAddError(false)
     setSelection(null)
   }
 
@@ -94,21 +117,35 @@ export default function AnnotationPanel() {
     setEditingNote('')
   }
 
-  const startEditStruct = (id: string, label: string, note: string) => {
+  const startEditStruct = (id: string, label: string, note: string, startSec: number, endSec: number) => {
     setEditingStructId(id)
     setEditingStructLabel(label)
     setEditingStructNote(note)
+    setEditingStructStart(formatTime(startSec))
+    setEditingStructEnd(formatTime(endSec))
+    setStructTimeError(false)
   }
 
   const saveEditStruct = () => {
     if (!editingStructId) return
+    const startSec = parseTime(editingStructStart)
+    const endSec = parseTime(editingStructEnd)
+    if (startSec === null || endSec === null || endSec <= startSec) {
+      setStructTimeError(true)
+      return
+    }
     updateStructure(editingStructId, {
       label: editingStructLabel.trim() || '(senza etichetta)',
       note: editingStructNote.trim() || undefined,
+      startSec,
+      endSec,
     })
     setEditingStructId(null)
     setEditingStructLabel('')
     setEditingStructNote('')
+    setEditingStructStart('')
+    setEditingStructEnd('')
+    setStructTimeError(false)
   }
 
   const annotationsCount = project?.annotations.length ?? 0
@@ -308,26 +345,49 @@ export default function AnnotationPanel() {
               value={structLabel}
               onChange={(e) => setStructLabel(e.target.value)}
               placeholder={t('structure.labelPlaceholder')}
-              disabled={!selection}
-              className="w-full px-2.5 py-1.5 bg-slate-950/60 border border-slate-800 rounded-md text-sm focus:outline-none focus:border-sky-500 disabled:opacity-50"
+              className="w-full px-2.5 py-1.5 bg-slate-950/60 border border-slate-800 rounded-md text-sm focus:outline-none focus:border-sky-500"
             />
+            <div className="flex gap-2">
+              <label className="flex-1 text-[11px] text-slate-400">
+                {t('structure.start')}
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  value={structStart}
+                  onChange={(e) => setStructStart(e.target.value)}
+                  placeholder="mm:ss"
+                  className="mt-0.5 w-full px-2 py-1 bg-slate-950/60 border border-slate-800 rounded-md text-xs font-mono focus:outline-none focus:border-sky-500"
+                />
+              </label>
+              <label className="flex-1 text-[11px] text-slate-400">
+                {t('structure.end')}
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  value={structEnd}
+                  onChange={(e) => setStructEnd(e.target.value)}
+                  placeholder="mm:ss"
+                  className="mt-0.5 w-full px-2 py-1 bg-slate-950/60 border border-slate-800 rounded-md text-xs font-mono focus:outline-none focus:border-sky-500"
+                />
+              </label>
+            </div>
             <textarea
               value={structNote}
               onChange={(e) => setStructNote(e.target.value)}
               placeholder={t('structure.notePlaceholder')}
-              disabled={!selection}
               rows={2}
-              className="w-full px-2.5 py-1.5 bg-slate-950/60 border border-slate-800 rounded-md text-xs focus:outline-none focus:border-sky-500 disabled:opacity-50"
+              className="w-full px-2.5 py-1.5 bg-slate-950/60 border border-slate-800 rounded-md text-xs focus:outline-none focus:border-sky-500"
             />
+            {structAddError && <p className="text-xs text-rose-400">{t('structure.timeError')}</p>}
             <button
               onClick={submitStructure}
-              disabled={!selection || !structLabel.trim()}
+              disabled={!structLabel.trim()}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-md text-xs font-medium transition-colors"
             >
               <Plus className="w-3.5 h-3.5" />
               {t('structure.add')}
             </button>
-            {!selection && <p className="text-xs text-slate-500">{t('structure.addHint')}</p>}
+            <p className="text-xs text-slate-500">{t('structure.addHint')}</p>
           </div>
 
           {/* Lista */}
@@ -361,6 +421,33 @@ export default function AnnotationPanel() {
                             className="w-full px-2 py-1.5 bg-slate-950/50 border border-slate-800 rounded-md text-xs focus:outline-none focus:border-sky-500"
                           />
                           <div className="flex gap-2">
+                            <label className="flex-1 text-[11px] text-slate-400">
+                              {t('structure.start')}
+                              <input
+                                type="text"
+                                inputMode="decimal"
+                                value={editingStructStart}
+                                onChange={(e) => setEditingStructStart(e.target.value)}
+                                placeholder="mm:ss"
+                                className="mt-0.5 w-full px-2 py-1 bg-slate-950/50 border border-slate-800 rounded-md text-xs font-mono focus:outline-none focus:border-sky-500"
+                              />
+                            </label>
+                            <label className="flex-1 text-[11px] text-slate-400">
+                              {t('structure.end')}
+                              <input
+                                type="text"
+                                inputMode="decimal"
+                                value={editingStructEnd}
+                                onChange={(e) => setEditingStructEnd(e.target.value)}
+                                placeholder="mm:ss"
+                                className="mt-0.5 w-full px-2 py-1 bg-slate-950/50 border border-slate-800 rounded-md text-xs font-mono focus:outline-none focus:border-sky-500"
+                              />
+                            </label>
+                          </div>
+                          {structTimeError && (
+                            <p className="text-[11px] text-rose-400">{t('structure.timeError')}</p>
+                          )}
+                          <div className="flex gap-2">
                             <button onClick={saveEditStruct} className="px-2.5 py-1 bg-sky-600 hover:bg-sky-500 rounded-md text-xs font-medium">
                               {t('annotation.save')}
                             </button>
@@ -383,7 +470,7 @@ export default function AnnotationPanel() {
                             </div>
                             <div className="flex gap-2">
                               <button
-                                onClick={() => startEditStruct(sect.id, sect.label, sect.note ?? '')}
+                                onClick={() => startEditStruct(sect.id, sect.label, sect.note ?? '', sect.startSec, sect.endSec)}
                                 className="text-xs text-slate-500 hover:text-slate-200"
                               >
                                 {t('annotation.edit')}
