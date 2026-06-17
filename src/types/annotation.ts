@@ -34,6 +34,9 @@ export interface Annotation {
   createdAt: string
   /** Timestamp ISO 8601 di ultima modifica. */
   updatedAt: string
+  /** Strato di appartenenza (Fase 2 Layers). Opzionale: le annotazioni senza
+   * layerId restano nello strato implicito di default. */
+  layerId?: string
 }
 
 export interface StructuralSection {
@@ -43,6 +46,24 @@ export interface StructuralSection {
   label: string
   note?: string
   color?: string
+}
+
+/** Strato sincronico (Fase 2 Layers): stratificazione verticale del materiale.
+ * Un'annotazione vi appartiene tramite Annotation.layerId. Gli strati con
+ * source 'suggested' provengono dalla skill (sorgenti simultanee proposte);
+ * quelli 'user' sono curati dall'annotatore. */
+export interface Layer {
+  id: string
+  /** Nome dello strato (es. "primo piano", "sfondo", o una sorgente). */
+  name: string
+  /** Ordine verticale di impilamento (0 = in alto). */
+  order?: number
+  /** Colore esadecimale per visualizzazione. */
+  color?: string
+  /** Origine dello strato. */
+  source?: 'user' | 'suggested'
+  /** Famiglia Krause, quando nota (tipico degli strati suggeriti). */
+  krause?: string
 }
 
 export interface AudioMetadata {
@@ -75,6 +96,9 @@ export interface AnnotationProject {
   metadata: ProjectMetadata
   annotations: Annotation[]
   structure: StructuralSection[]
+  /** Strati (Fase 2 Layers): stratificazione sincronica. Additivo e opzionale;
+   * i progetti senza layers funzionano esattamente come prima. */
+  layers?: Layer[]
   /** Blocchi opzionali del contratto Soundscape Interchange v1.1: l'Atelier
    * non li produce ma DEVE preservarli nel round-trip import -> export. */
   recording?: Record<string, unknown>
