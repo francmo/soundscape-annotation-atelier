@@ -123,6 +123,22 @@
     "pdf": "PDF stampabile",
     "pdfDesc": "Versione tipografica con tabella delle annotazioni e timeline visuale."
   },
+  "layers": {
+    "title": "Strati (Layers)",
+    "subtitle": "Stratificazione sincronica: assegna le annotazioni a strati sovrapposti (primo piano, sfondo, sorgenti simultanee). Ispirato ad Aural Sonology.",
+    "empty": "Nessuno strato. Creane uno qui sotto, o promuovi uno strato suggerito dalla skill.",
+    "namePlaceholder": "Primo piano, Sfondo, Biofonia...",
+    "add": "Aggiungi",
+    "delete": "Elimina strato",
+    "color": "Colore strato",
+    "count": "{{count}} annotazione",
+    "count_plural": "{{count}} annotazioni",
+    "suggestedBadge": "suggerito",
+    "suggestedTitle": "Strati suggeriti dalla skill",
+    "addSuggested": "Aggiungi",
+    "assignTitle": "Assegna le annotazioni agli strati",
+    "unassigned": "Nessuno"
+  },
   "lang": {
     "it": "IT",
     "en": "EN"

@@ -123,6 +123,22 @@
     "pdf": "Printable PDF",
     "pdfDesc": "Typographic version with annotation table and visual timeline."
   },
+  "layers": {
+    "title": "Layers",
+    "subtitle": "Synchronic stratification: assign annotations to overlapping layers (foreground, background, simultaneous sources). Inspired by Aural Sonology.",
+    "empty": "No layers yet. Create one below, or promote a layer suggested by the skill.",
+    "namePlaceholder": "Foreground, Background, Biophony...",
+    "add": "Add",
+    "delete": "Delete layer",
+    "color": "Layer color",
+    "count": "{{count}} annotation",
+    "count_plural": "{{count}} annotations",
+    "suggestedBadge": "suggested",
+    "suggestedTitle": "Layers suggested by the skill",
+    "addSuggested": "Add",
+    "assignTitle": "Assign annotations to layers",
+    "unassigned": "None"
+  },
   "lang": {
     "it": "IT",
     "en": "EN"

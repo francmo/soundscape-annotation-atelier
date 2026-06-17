@@ -5,6 +5,7 @@ import type {
   Annotation,
   AnnotationProject,
   AudioMetadata,
+  Layer,
   ProjectMetadata,
   StructuralSection,
 } from '../types/annotation'
@@ -44,6 +45,9 @@ interface ProjectContextValue {
   addStructure: (input: Omit<StructuralSection, 'id'>) => StructuralSection
   updateStructure: (id: string, patch: Partial<StructuralSection>) => void
   deleteStructure: (id: string) => void
+  addLayer: (input: { name: string; color?: string; source?: 'user' | 'suggested'; krause?: string }) => Layer
+  updateLayer: (id: string, patch: Partial<Layer>) => void
+  deleteLayer: (id: string) => void
   saveProject: () => Promise<void>
   loadError: { filename: string } | null
   clearLoadError: () => void
@@ -239,6 +243,48 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
     setProject((prev) => (prev ? { ...prev, structure: prev.structure.filter((s) => s.id !== id) } : prev))
   }, [])
 
+  const addLayer = useCallback(
+    (input: { name: string; color?: string; source?: 'user' | 'suggested'; krause?: string }) => {
+      const created: Layer = {
+        id: uuid(),
+        name: input.name,
+        color: input.color,
+        source: input.source ?? 'user',
+        krause: input.krause,
+      }
+      setProject((prev) => {
+        if (!prev) return prev
+        const layers = prev.layers ?? []
+        return { ...prev, layers: [...layers, { ...created, order: layers.length }] }
+      })
+      return created
+    },
+    [],
+  )
+
+  const updateLayer = useCallback((id: string, patch: Partial<Layer>) => {
+    setProject((prev) =>
+      prev
+        ? { ...prev, layers: (prev.layers ?? []).map((l) => (l.id === id ? { ...l, ...patch } : l)) }
+        : prev,
+    )
+  }, [])
+
+  const deleteLayer = useCallback((id: string) => {
+    setProject((prev) =>
+      prev
+        ? {
+            ...prev,
+            layers: (prev.layers ?? []).filter((l) => l.id !== id),
+            // Le annotazioni assegnate restano, ma perdono il riferimento allo strato.
+            annotations: prev.annotations.map((a) =>
+              a.layerId === id ? { ...a, layerId: undefined, updatedAt: nowIso() } : a,
+            ),
+          }
+        : prev,
+    )
+  }, [])
+
   const saveProject = useCallback(async () => {
     if (!project) return
     await persistProject(project, audioBlob ?? undefined, project.audio.filename, audioBlob?.type ?? 'application/octet-stream')
@@ -263,6 +309,9 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       addStructure,
       updateStructure,
       deleteStructure,
+      addLayer,
+      updateLayer,
+      deleteLayer,
       saveProject,
       loadError,
       clearLoadError,
@@ -284,6 +333,9 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       addStructure,
       updateStructure,
       deleteStructure,
+      addLayer,
+      updateLayer,
+      deleteLayer,
       saveProject,
       loadError,
       clearLoadError,

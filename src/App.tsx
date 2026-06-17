@@ -6,6 +6,7 @@ import DropZone from './components/DropZone'
 import AudioWorkbench from './components/AudioWorkbench'
 import AnnotationPanel from './components/AnnotationPanel'
 import MetadataPanel from './components/MetadataPanel'
+import LayersPanel from './components/LayersPanel'
 import { ProjectProvider, useProject } from './hooks/useProject'
 import { APP_VERSION } from './version'
 
@@ -48,6 +49,7 @@ function AppShell() {
             <div className="space-y-6 min-w-0">
               <AudioWorkbench />
               <MetadataPanel />
+              <LayersPanel />
             </div>
             <div className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)]">
               <AnnotationPanel />
