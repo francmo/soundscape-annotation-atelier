@@ -74,8 +74,9 @@ async function readAudioMetadata(file: File): Promise<AudioMetadata> {
       durationSeconds: audio.duration,
       sampleRate: audio.sampleRate,
       channels: audio.numberOfChannels,
-      // Chiave di riconciliazione fra strumenti (INTEROP v1.1).
-      sha256: await sha256OfBlob(file),
+      // Chiave di riconciliazione fra strumenti (INTEROP v1.1). Opzionale:
+      // null in contesto non sicuro (http LAN), normalizzato a undefined.
+      sha256: (await sha256OfBlob(file)) ?? undefined,
     }
   } finally {
     void ctx.close()
@@ -106,12 +107,16 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       try {
         meta = await readAudioMetadata(file)
       } catch (err) {
+        // Qualsiasi errore in fase di lettura (decode fallito, oppure errore
+        // inatteso come crypto.subtle assente in http LAN) deve emergere nel
+        // banner, mai sparire silenziosamente.
         if (err instanceof AudioDecodeError) {
           console.warn('[useProject] decode failed:', file.name, err.cause)
-          setLoadError({ filename: file.name })
-          return
+        } else {
+          console.error('[useProject] load failed:', file.name, err)
         }
-        throw err
+        setLoadError({ filename: file.name })
+        return
       }
       setLoadError(null)
       const url = URL.createObjectURL(file)

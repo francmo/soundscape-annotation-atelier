@@ -36,11 +36,21 @@ export function formatDuration(seconds: number): string {
   return `${hours}h ${mins}'${String(sec).padStart(2, '0')}"`
 }
 
-/** Calcola SHA-256 di un Blob. */
-export async function sha256OfBlob(blob: Blob): Promise<string> {
-  const buffer = await blob.arrayBuffer()
-  const digest = await crypto.subtle.digest('SHA-256', buffer)
-  return Array.from(new Uint8Array(digest))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('')
+/** Calcola SHA-256 di un Blob. Ritorna null se non calcolabile.
+ *
+ * `crypto.subtle` esiste solo in secure context (HTTPS o localhost): su http in
+ * LAN (es. anteprima aperta da iPad via IP) e' assente. In quel caso degradiamo
+ * a null invece di lanciare, cosi' il caricamento audio non si rompe (lo sha256
+ * e' opzionale, serve solo a riconciliare l'annotazione con un audio). */
+export async function sha256OfBlob(blob: Blob): Promise<string | null> {
+  if (typeof crypto === 'undefined' || !crypto.subtle) return null
+  try {
+    const buffer = await blob.arrayBuffer()
+    const digest = await crypto.subtle.digest('SHA-256', buffer)
+    return Array.from(new Uint8Array(digest))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('')
+  } catch {
+    return null
+  }
 }
