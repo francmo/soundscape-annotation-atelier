@@ -6,6 +6,7 @@ import SpectrogramPlugin from 'wavesurfer.js/dist/plugins/spectrogram.js'
 import { Activity, Pause, Play, Square, ZoomIn, ZoomOut } from 'lucide-react'
 import { useProject } from '../hooks/useProject'
 import { formatTime } from '../lib/format'
+import NotationOverlay from './NotationOverlay'
 
 export default function AudioWorkbench() {
   const { t } = useTranslation()
@@ -19,6 +20,7 @@ export default function AudioWorkbench() {
   const [currentTime, setCurrentTime] = useState(0)
   const [zoomLevel, setZoomLevel] = useState(50)
   const [showSpectrogram, setShowSpectrogram] = useState(false)
+  const [wsInstance, setWsInstance] = useState<WaveSurfer | null>(null)
 
   useEffect(() => {
     if (!containerRef.current || !audioUrl) return
@@ -95,12 +97,14 @@ export default function AudioWorkbench() {
 
     wsRef.current = ws
     regionsRef.current = regions
+    setWsInstance(ws)
 
     return () => {
       ws.destroy()
       wsRef.current = null
       regionsRef.current = null
       selectionRegionRef.current = null
+      setWsInstance(null)
     }
   }, [audioUrl, setSelection, updateAnnotation, updateStructure])
 
@@ -190,6 +194,11 @@ export default function AudioWorkbench() {
         ref={spectrogramRef}
         className="rounded-lg overflow-hidden bg-slate-950/50 mt-2"
         style={{ display: showSpectrogram ? 'block' : 'none' }}
+      />
+      <NotationOverlay
+        ws={wsInstance}
+        marks={project?.notation ?? []}
+        durationSec={project?.audio.durationSeconds ?? 0}
       />
 
       <div className="flex flex-wrap items-center gap-3 mt-4 text-sm">
