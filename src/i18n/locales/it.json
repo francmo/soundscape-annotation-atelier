@@ -149,6 +149,30 @@
     "delete": "Elimina segno",
     "glossaryTitle": "Glossario dei segni"
   },
+  "relations": {
+    "title": "Relazioni (form-building)",
+    "subtitle": "Collega due elementi (annotazioni, sezioni, strati, segni) con un tipo di relazione formale. Vocabolario provvisorio, da validare col libro.",
+    "needEntities": "Servono almeno due elementi (annotazioni, sezioni, strati o segni) per creare una relazione.",
+    "from": "Da",
+    "to": "A",
+    "type": "Tipo",
+    "add": "Aggiungi relazione",
+    "listTitle": "Relazioni",
+    "empty": "Nessuna relazione.",
+    "delete": "Elimina relazione",
+    "selectEntity": "scegli un elemento",
+    "selectType": "scegli un tipo",
+    "types": {
+      "transformation": { "name": "Trasformazione", "desc": "un elemento muta gradualmente in un altro" },
+      "repetition": { "name": "Ripetizione", "desc": "ricorrenza identica di un elemento" },
+      "variation": { "name": "Variazione", "desc": "ripresa modificata di un elemento" },
+      "contrast": { "name": "Contrasto", "desc": "giustapposizione di elementi opposti" },
+      "development": { "name": "Sviluppo", "desc": "elaborazione e crescita di un materiale" },
+      "return": { "name": "Ritorno", "desc": "richiamo di un elemento precedente" },
+      "progression": { "name": "Progressione", "desc": "tensione orientata verso un climax" },
+      "dissolution": { "name": "Dissoluzione", "desc": "disgregazione o esaurimento di un elemento" }
+    }
+  },
   "lang": {
     "it": "IT",
     "en": "EN"

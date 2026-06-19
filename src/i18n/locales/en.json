@@ -149,6 +149,30 @@
     "delete": "Delete sign",
     "glossaryTitle": "Sign glossary"
   },
+  "relations": {
+    "title": "Relations (form-building)",
+    "subtitle": "Connect two elements (annotations, sections, layers, signs) with a formal relation type. Provisional vocabulary, pending the book.",
+    "needEntities": "You need at least two elements (annotations, sections, layers or signs) to create a relation.",
+    "from": "From",
+    "to": "To",
+    "type": "Type",
+    "add": "Add relation",
+    "listTitle": "Relations",
+    "empty": "No relations.",
+    "delete": "Delete relation",
+    "selectEntity": "choose an element",
+    "selectType": "choose a type",
+    "types": {
+      "transformation": { "name": "Transformation", "desc": "an element gradually morphs into another" },
+      "repetition": { "name": "Repetition", "desc": "identical recurrence of an element" },
+      "variation": { "name": "Variation", "desc": "modified restatement of an element" },
+      "contrast": { "name": "Contrast", "desc": "juxtaposition of opposite elements" },
+      "development": { "name": "Development", "desc": "elaboration and growth of a material" },
+      "return": { "name": "Return", "desc": "recall of an earlier element" },
+      "progression": { "name": "Progression", "desc": "tension directed toward a climax" },
+      "dissolution": { "name": "Dissolution", "desc": "disintegration or exhaustion of an element" }
+    }
+  },
   "lang": {
     "it": "IT",
     "en": "EN"
