@@ -139,6 +139,16 @@
     "assignTitle": "Assign annotations to layers",
     "unassigned": "None"
   },
+  "notation": {
+    "title": "Notation (Aural Sonology)",
+    "subtitle": "Spectromorphological signs on the time axis. Select a span on the waveform and pick a sign from the palette. Provisional repertoire, pending the final signs.",
+    "selectFirst": "First select a point or span on the waveform (drag to select), then pick a sign.",
+    "paletteTitle": "Sign palette",
+    "marksTitle": "Inserted signs",
+    "empty": "No signs inserted.",
+    "delete": "Delete sign",
+    "glossaryTitle": "Sign glossary"
+  },
   "lang": {
     "it": "IT",
     "en": "EN"

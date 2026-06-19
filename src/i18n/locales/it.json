@@ -139,6 +139,16 @@
     "assignTitle": "Assegna le annotazioni agli strati",
     "unassigned": "Nessuno"
   },
+  "notation": {
+    "title": "Notazione (Aural Sonology)",
+    "subtitle": "Segni spettromorfologici sull'asse tempo. Seleziona un tratto sul waveform e scegli un segno dalla palette. Repertorio provvisorio, in attesa dei segni definitivi.",
+    "selectFirst": "Seleziona prima un punto o un tratto sul waveform (trascina per selezionare), poi scegli un segno.",
+    "paletteTitle": "Palette dei segni",
+    "marksTitle": "Segni inseriti",
+    "empty": "Nessun segno inserito.",
+    "delete": "Elimina segno",
+    "glossaryTitle": "Glossario dei segni"
+  },
   "lang": {
     "it": "IT",
     "en": "EN"

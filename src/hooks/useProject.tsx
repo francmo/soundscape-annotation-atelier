@@ -6,6 +6,7 @@ import type {
   AnnotationProject,
   AudioMetadata,
   Layer,
+  NotationMark,
   ProjectMetadata,
   StructuralSection,
 } from '../types/annotation'
@@ -48,6 +49,9 @@ interface ProjectContextValue {
   addLayer: (input: { name: string; color?: string; source?: 'user' | 'suggested'; krause?: string }) => Layer
   updateLayer: (id: string, patch: Partial<Layer>) => void
   deleteLayer: (id: string) => void
+  addNotationMark: (input: { startSec: number; endSec?: number; signId: string; layerId?: string; anchor?: 'time' | 'spectro'; freqHz?: number; label?: string; note?: string; color?: string }) => NotationMark
+  updateNotationMark: (id: string, patch: Partial<NotationMark>) => void
+  deleteNotationMark: (id: string) => void
   saveProject: () => Promise<void>
   loadError: { filename: string } | null
   clearLoadError: () => void
@@ -290,6 +294,61 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
     )
   }, [])
 
+  const addNotationMark = useCallback(
+    (input: {
+      startSec: number
+      endSec?: number
+      signId: string
+      layerId?: string
+      anchor?: 'time' | 'spectro'
+      freqHz?: number
+      label?: string
+      note?: string
+      color?: string
+    }) => {
+      const created: NotationMark = {
+        id: uuid(),
+        startSec: input.startSec,
+        endSec: input.endSec,
+        signId: input.signId,
+        layerId: input.layerId,
+        anchor: input.anchor ?? 'time',
+        freqHz: input.freqHz,
+        label: input.label,
+        note: input.note,
+        color: input.color,
+        createdAt: nowIso(),
+        updatedAt: nowIso(),
+      }
+      setProject((prev) => {
+        if (!prev) return prev
+        const notation = prev.notation ?? []
+        return { ...prev, notation: [...notation, created] }
+      })
+      return created
+    },
+    [],
+  )
+
+  const updateNotationMark = useCallback((id: string, patch: Partial<NotationMark>) => {
+    setProject((prev) =>
+      prev
+        ? {
+            ...prev,
+            notation: (prev.notation ?? []).map((m) =>
+              m.id === id ? { ...m, ...patch, updatedAt: nowIso() } : m,
+            ),
+          }
+        : prev,
+    )
+  }, [])
+
+  const deleteNotationMark = useCallback((id: string) => {
+    setProject((prev) =>
+      prev ? { ...prev, notation: (prev.notation ?? []).filter((m) => m.id !== id) } : prev,
+    )
+  }, [])
+
   const saveProject = useCallback(async () => {
     if (!project) return
     await persistProject(project, audioBlob ?? undefined, project.audio.filename, audioBlob?.type ?? 'application/octet-stream')
@@ -317,6 +376,9 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       addLayer,
       updateLayer,
       deleteLayer,
+      addNotationMark,
+      updateNotationMark,
+      deleteNotationMark,
       saveProject,
       loadError,
       clearLoadError,
@@ -341,6 +403,9 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       addLayer,
       updateLayer,
       deleteLayer,
+      addNotationMark,
+      updateNotationMark,
+      deleteNotationMark,
       saveProject,
       loadError,
       clearLoadError,
