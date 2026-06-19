@@ -5,9 +5,11 @@ import type {
   Annotation,
   AnnotationProject,
   AudioMetadata,
+  EntityRef,
   Layer,
   NotationMark,
   ProjectMetadata,
+  Relation,
   StructuralSection,
 } from '../types/annotation'
 import { ANNOTATION_SCHEMA_VERSION } from '../types/annotation'
@@ -52,6 +54,9 @@ interface ProjectContextValue {
   addNotationMark: (input: { startSec: number; endSec?: number; signId: string; layerId?: string; anchor?: 'time' | 'spectro'; freqHz?: number; label?: string; note?: string; color?: string }) => NotationMark
   updateNotationMark: (id: string, patch: Partial<NotationMark>) => void
   deleteNotationMark: (id: string) => void
+  addRelation: (input: { from: EntityRef; to: EntityRef; typeId: string; note?: string; color?: string }) => Relation
+  updateRelation: (id: string, patch: Partial<Relation>) => void
+  deleteRelation: (id: string) => void
   saveProject: () => Promise<void>
   loadError: { filename: string } | null
   clearLoadError: () => void
@@ -61,6 +66,19 @@ const ProjectContext = createContext<ProjectContextValue | null>(null)
 
 function nowIso(): string {
   return new Date().toISOString()
+}
+
+/** Rimuove le relazioni che referenziano un'entità cancellata, per evitare
+ * riferimenti orfani (Fase 4). */
+function pruneRelations(
+  relations: Relation[] | undefined,
+  kind: EntityRef['kind'],
+  id: string,
+): Relation[] | undefined {
+  if (!relations) return relations
+  return relations.filter(
+    (r) => !((r.from.kind === kind && r.from.id === id) || (r.to.kind === kind && r.to.id === id)),
+  )
 }
 
 async function readAudioMetadata(file: File): Promise<AudioMetadata> {
@@ -232,7 +250,13 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
 
   const deleteAnnotation = useCallback((id: string) => {
     setProject((prev) =>
-      prev ? { ...prev, annotations: prev.annotations.filter((a) => a.id !== id) } : prev,
+      prev
+        ? {
+            ...prev,
+            annotations: prev.annotations.filter((a) => a.id !== id),
+            relations: pruneRelations(prev.relations, 'annotation', id),
+          }
+        : prev,
     )
   }, [])
 
@@ -249,7 +273,15 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const deleteStructure = useCallback((id: string) => {
-    setProject((prev) => (prev ? { ...prev, structure: prev.structure.filter((s) => s.id !== id) } : prev))
+    setProject((prev) =>
+      prev
+        ? {
+            ...prev,
+            structure: prev.structure.filter((s) => s.id !== id),
+            relations: pruneRelations(prev.relations, 'structure', id),
+          }
+        : prev,
+    )
   }, [])
 
   const addLayer = useCallback(
@@ -289,6 +321,7 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
             annotations: prev.annotations.map((a) =>
               a.layerId === id ? { ...a, layerId: undefined, updatedAt: nowIso() } : a,
             ),
+            relations: pruneRelations(prev.relations, 'layer', id),
           }
         : prev,
     )
@@ -345,7 +378,54 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
 
   const deleteNotationMark = useCallback((id: string) => {
     setProject((prev) =>
-      prev ? { ...prev, notation: (prev.notation ?? []).filter((m) => m.id !== id) } : prev,
+      prev
+        ? {
+            ...prev,
+            notation: (prev.notation ?? []).filter((m) => m.id !== id),
+            relations: pruneRelations(prev.relations, 'notation', id),
+          }
+        : prev,
+    )
+  }, [])
+
+  const addRelation = useCallback(
+    (input: { from: EntityRef; to: EntityRef; typeId: string; note?: string; color?: string }) => {
+      const created: Relation = {
+        id: uuid(),
+        from: input.from,
+        to: input.to,
+        typeId: input.typeId,
+        note: input.note,
+        color: input.color,
+        createdAt: nowIso(),
+        updatedAt: nowIso(),
+      }
+      setProject((prev) => {
+        if (!prev) return prev
+        const relations = prev.relations ?? []
+        return { ...prev, relations: [...relations, created] }
+      })
+      return created
+    },
+    [],
+  )
+
+  const updateRelation = useCallback((id: string, patch: Partial<Relation>) => {
+    setProject((prev) =>
+      prev
+        ? {
+            ...prev,
+            relations: (prev.relations ?? []).map((r) =>
+              r.id === id ? { ...r, ...patch, updatedAt: nowIso() } : r,
+            ),
+          }
+        : prev,
+    )
+  }, [])
+
+  const deleteRelation = useCallback((id: string) => {
+    setProject((prev) =>
+      prev ? { ...prev, relations: (prev.relations ?? []).filter((r) => r.id !== id) } : prev,
     )
   }, [])
 
@@ -379,6 +459,9 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       addNotationMark,
       updateNotationMark,
       deleteNotationMark,
+      addRelation,
+      updateRelation,
+      deleteRelation,
       saveProject,
       loadError,
       clearLoadError,
@@ -406,6 +489,9 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       addNotationMark,
       updateNotationMark,
       deleteNotationMark,
+      addRelation,
+      updateRelation,
+      deleteRelation,
       saveProject,
       loadError,
       clearLoadError,

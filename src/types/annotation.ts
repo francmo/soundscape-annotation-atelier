@@ -96,6 +96,27 @@ export interface NotationMark {
   updatedAt: string
 }
 
+/** Riferimento a un'entità del progetto, usato dalle relazioni (Fase 4). */
+export interface EntityRef {
+  kind: 'annotation' | 'structure' | 'layer' | 'notation'
+  id: string
+}
+
+/** Relazione form-building fra due entità (Fase 4, Aural Sonology). Additiva e
+ * opzionale: i progetti senza relations restano identici. */
+export interface Relation {
+  id: string
+  from: EntityRef
+  to: EntityRef
+  /** Tipo dal vocabolario (RelationType.id in src/data/relationTypes.ts). */
+  typeId: string
+  note?: string
+  /** Colore esadecimale di resa, override del default del tipo. */
+  color?: string
+  createdAt: string
+  updatedAt: string
+}
+
 export interface AudioMetadata {
   filename: string
   durationSeconds: number
@@ -132,6 +153,8 @@ export interface AnnotationProject {
   /** Segni di notazione spettromorfologica (Fase 3). Additivo e opzionale;
    * i progetti senza notation funzionano esattamente come prima. */
   notation?: NotationMark[]
+  /** Relazioni form-building fra entità (Fase 4). Additivo e opzionale. */
+  relations?: Relation[]
   /** Blocchi opzionali del contratto Soundscape Interchange v1.1: l'Atelier
    * non li produce ma DEVE preservarli nel round-trip import -> export. */
   recording?: Record<string, unknown>
