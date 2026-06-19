@@ -7,6 +7,7 @@ import { Activity, Pause, Play, Square, ZoomIn, ZoomOut } from 'lucide-react'
 import { useProject } from '../hooks/useProject'
 import { formatTime } from '../lib/format'
 import NotationOverlay from './NotationOverlay'
+import RelationOverlay from './RelationOverlay'
 
 export default function AudioWorkbench() {
   const { t } = useTranslation()
@@ -200,6 +201,7 @@ export default function AudioWorkbench() {
         marks={project?.notation ?? []}
         durationSec={project?.audio.durationSeconds ?? 0}
       />
+      <RelationOverlay ws={wsInstance} durationSec={project?.audio.durationSeconds ?? 0} />
 
       <div className="flex flex-wrap items-center gap-3 mt-4 text-sm">
         <button
