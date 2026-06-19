@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 import type WaveSurfer from 'wavesurfer.js'
 import type { NotationMark } from '../types/annotation'
 import { NOTATION_SIGN_BY_ID } from '../data/notationSigns'
+import { useProject } from '../hooks/useProject'
 
 interface NotationOverlayProps {
   ws: WaveSurfer | null
@@ -13,8 +14,8 @@ interface NotationOverlayProps {
 
 // Segni dimostrativi visibili SOLO in sviluppo (npm run dev) e solo quando non
 // esiste ancora alcun marker reale: servono a verificare il rendering e la
-// sincronizzazione dell'overlay finché la palette di piazzamento (Tappa 3) non
-// esiste. Grazie a import.meta.env.DEV non finiscono mai nel build di produzione.
+// sincronizzazione dell'overlay finché la palette di piazzamento non esiste.
+// Grazie a import.meta.env.DEV non finiscono mai nel build di produzione.
 const DEMO_MARKS: NotationMark[] = [
   { id: 'demo-1', startSec: 0.5, signId: 'placeholder.attack', anchor: 'time', createdAt: '', updatedAt: '' },
   { id: 'demo-2', startSec: 2, endSec: 4, signId: 'placeholder.gesture', anchor: 'time', createdAt: '', updatedAt: '' },
@@ -23,15 +24,27 @@ const DEMO_MARKS: NotationMark[] = [
 
 const GLYPH = 20
 
-/** Corsia di notazione (Fase 3, Tappa 2): disegna i segni ancorati all'asse
- * tempo sotto il waveform e li tiene sincronizzati con zoom e scroll di
- * WaveSurfer. La larghezza del contenuto e il pixel-per-secondo sono derivati
- * dalla larghezza reale renderizzata (wrapper.scrollWidth / durata), così
- * l'allineamento regge anche quando WaveSurfer stira la forma d'onda per
- * riempire il contenitore. Lo scroll è applicato via transform su un ref
- * (niente setState ad alta frequenza, come da regola PWA). */
+interface DragState {
+  id: string
+  pointerId: number
+  startClientX: number
+  origStartSec: number
+  origEndSec?: number
+  draftStart: number
+  g: SVGGElement
+}
+
+/** Corsia di notazione (Fase 3): disegna i segni ancorati all'asse tempo sotto
+ * il waveform, sincronizzati con zoom e scroll di WaveSurfer, e permette di
+ * trascinarli nel tempo (Tappa 3b). pxPerSec è derivato dalla larghezza reale
+ * renderizzata (wrapper.scrollWidth / durata), così l'allineamento regge anche
+ * quando WaveSurfer stira la forma d'onda. Lo scroll e il drag sono applicati
+ * via transform su ref (niente setState ad alta frequenza, come da regola PWA);
+ * lo stato è committato solo al rilascio del puntatore. */
 export default function NotationOverlay({ ws, marks, durationSec, height = 30 }: NotationOverlayProps) {
+  const { updateNotationMark } = useProject()
   const innerRef = useRef<HTMLDivElement>(null)
+  const dragRef = useRef<DragState | null>(null)
   const [contentWidth, setContentWidth] = useState(0)
   const [pxPerSec, setPxPerSec] = useState(0)
 
@@ -69,6 +82,53 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
 
   const showDemo = import.meta.env.DEV && marks.length === 0
   const allMarks = showDemo ? DEMO_MARKS : marks
+  const draggable = !showDemo
+
+  const onPointerDown = (e: ReactPointerEvent<SVGGElement>, m: NotationMark) => {
+    if (!draggable || pxPerSec <= 0) return
+    const g = e.currentTarget
+    g.setPointerCapture(e.pointerId)
+    dragRef.current = {
+      id: m.id,
+      pointerId: e.pointerId,
+      startClientX: e.clientX,
+      origStartSec: m.startSec,
+      origEndSec: m.endSec,
+      draftStart: m.startSec,
+      g,
+    }
+  }
+
+  const onPointerMove = (e: ReactPointerEvent<SVGGElement>) => {
+    const d = dragRef.current
+    if (!d || e.pointerId !== d.pointerId || pxPerSec <= 0) return
+    const deltaSec = (e.clientX - d.startClientX) / pxPerSec
+    let ns = Math.max(0, d.origStartSec + deltaSec)
+    if (d.origEndSec != null) {
+      const len = d.origEndSec - d.origStartSec
+      if (ns + len > durationSec) ns = Math.max(0, durationSec - len)
+    } else if (ns > durationSec) {
+      ns = durationSec
+    }
+    d.draftStart = ns
+    d.g.setAttribute('transform', `translate(${ns * pxPerSec}, 0)`)
+  }
+
+  const onPointerUp = (e: ReactPointerEvent<SVGGElement>) => {
+    const d = dragRef.current
+    if (!d || e.pointerId !== d.pointerId) return
+    try {
+      d.g.releasePointerCapture(e.pointerId)
+    } catch {
+      /* il puntatore può essere già rilasciato */
+    }
+    if (Math.abs(d.draftStart - d.origStartSec) > 1e-3) {
+      const patch: Partial<NotationMark> = { startSec: d.draftStart }
+      if (d.origEndSec != null) patch.endSec = d.draftStart + (d.origEndSec - d.origStartSec)
+      updateNotationMark(d.id, patch)
+    }
+    dragRef.current = null
+  }
 
   return (
     <div
@@ -89,7 +149,18 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
               const x = m.startSec * pxPerSec
               const spanW = m.endSec ? Math.max(0, (m.endSec - m.startSec) * pxPerSec) : 0
               return (
-                <g key={m.id} transform={`translate(${x}, 0)`} style={{ color: m.color ?? undefined }}>
+                <g
+                  key={m.id}
+                  transform={`translate(${x}, 0)`}
+                  style={{
+                    color: m.color ?? undefined,
+                    cursor: draggable ? 'grab' : 'default',
+                    touchAction: 'none',
+                  }}
+                  onPointerDown={draggable ? (e) => onPointerDown(e, m) : undefined}
+                  onPointerMove={draggable ? onPointerMove : undefined}
+                  onPointerUp={draggable ? onPointerUp : undefined}
+                >
                   {spanW > 0 && (
                     <line
                       x1={0}
@@ -101,6 +172,8 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
                       strokeOpacity={0.5}
                     />
                   )}
+                  {/* area di presa invisibile, allarga il bersaglio del drag anche su touch */}
+                  <rect x={-GLYPH / 2} y={0} width={Math.max(GLYPH, spanW)} height={height} fill="transparent" />
                   <svg
                     x={-GLYPH / 2}
                     y={(height - GLYPH) / 2}
