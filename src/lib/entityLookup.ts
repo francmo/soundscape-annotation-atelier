@@ -8,6 +8,26 @@ export interface EntityListing {
   startSec: number | null
 }
 
+interface TimeFieldLite {
+  id: string
+  startSec?: number
+  endSec?: number
+  label?: string
+}
+
+/** Legge analysis.timeFields dal blocco interchange (prodotto dalla skill,
+ * preservato nel round-trip; il blocco analysis non è tipizzato lato Atelier). */
+function readTimeFields(project: AnnotationProject): TimeFieldLite[] {
+  const a = project.analysis
+  if (!a || typeof a !== 'object') return []
+  const tf = (a as { timeFields?: unknown }).timeFields
+  if (!Array.isArray(tf)) return []
+  return tf.filter(
+    (f): f is TimeFieldLite =>
+      !!f && typeof f === 'object' && typeof (f as TimeFieldLite).id === 'string',
+  )
+}
+
 /** Timing di un'entità referenziata, o null se non ne ha (es. uno strato).
  * Centralizza il lookup per id, finora inline nei componenti. */
 export function getEntityTiming(
@@ -29,6 +49,11 @@ export function getEntityTiming(
     }
     case 'layer':
       return null
+    case 'timefield': {
+      const f = readTimeFields(project).find((x) => x.id === ref.id)
+      if (!f || typeof f.startSec !== 'number' || typeof f.endSec !== 'number') return null
+      return { startSec: f.startSec, endSec: f.endSec }
+    }
   }
 }
 
@@ -45,6 +70,10 @@ export function getEntityLabel(project: AnnotationProject, ref: EntityRef): stri
       const m = (project.notation ?? []).find((x) => x.id === ref.id)
       if (!m) return ref.id
       return NOTATION_SIGN_BY_ID[m.signId]?.name ?? m.signId
+    }
+    case 'timefield': {
+      const f = readTimeFields(project).find((x) => x.id === ref.id)
+      return f?.label || ref.id
     }
   }
 }
@@ -66,6 +95,13 @@ export function listEntities(project: AnnotationProject): EntityListing[] {
       ref: { kind: 'notation', id: m.id },
       label: NOTATION_SIGN_BY_ID[m.signId]?.name ?? m.signId,
       startSec: m.startSec,
+    })
+  }
+  for (const f of readTimeFields(project)) {
+    out.push({
+      ref: { kind: 'timefield', id: f.id },
+      label: f.label || f.id,
+      startSec: typeof f.startSec === 'number' ? f.startSec : null,
     })
   }
   return out

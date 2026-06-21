@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Trash2, ArrowRight } from 'lucide-react'
+import { Trash2, ArrowRight, Plus } from 'lucide-react'
 import { useProject } from '../hooks/useProject'
 import { listEntities, getEntityLabel } from '../lib/entityLookup'
 import { RELATION_TYPES, RELATION_TYPE_BY_ID } from '../data/relationTypes'
@@ -19,6 +19,22 @@ function refValue(ref: EntityRef): string {
   return `${ref.kind}:${ref.id}`
 }
 
+interface SuggestedRelation {
+  id?: string
+  type?: string
+  fromRef?: string
+  toRef?: string
+  rationale?: string
+}
+
+/** Legge analysis.suggestedRelations (proposte della skill, riferite a time-field). */
+function readSuggestedRelations(analysis: unknown): SuggestedRelation[] {
+  if (!analysis || typeof analysis !== 'object') return []
+  const sr = (analysis as { suggestedRelations?: unknown }).suggestedRelations
+  if (!Array.isArray(sr)) return []
+  return sr.filter((r): r is SuggestedRelation => !!r && typeof r === 'object')
+}
+
 /** Pannello relazioni (Fase 4, Tappa 4a): collega due entità con un tipo del
  * vocabolario, elenca le relazioni esistenti, permette di eliminarle. Il
  * disegno degli archi sulla timeline è la Tappa 4b. */
@@ -34,6 +50,27 @@ export default function RelationsPanel() {
   const relations = project.relations ?? []
   const enoughEntities = entities.length >= 2
   const canAdd = enoughEntities && !!fromVal && !!toVal && fromVal !== toVal && !!typeId
+
+  const suggested = readSuggestedRelations(project.analysis)
+  const existingKeys = new Set(
+    relations.map((r) => `${r.from.kind}:${r.from.id}|${r.to.kind}:${r.to.id}|${r.typeId}`),
+  )
+  const pendingSuggested = suggested.filter(
+    (s) =>
+      !!s.fromRef &&
+      !!s.toRef &&
+      !!s.type &&
+      !existingKeys.has(`timefield:${s.fromRef}|timefield:${s.toRef}|${s.type}`),
+  )
+
+  const promote = (s: SuggestedRelation) => {
+    if (!s.fromRef || !s.toRef || !s.type) return
+    addRelation({
+      from: { kind: 'timefield', id: s.fromRef },
+      to: { kind: 'timefield', id: s.toRef },
+      typeId: s.type,
+    })
+  }
 
   const handleAdd = () => {
     const from = parseRef(fromVal)
@@ -149,6 +186,37 @@ export default function RelationsPanel() {
           </ul>
         )}
       </div>
+
+      {pendingSuggested.length > 0 && (
+        <div className="pt-3 border-t border-slate-800 space-y-2">
+          <p className="text-[11px] uppercase tracking-wider text-slate-500 font-mono">
+            {t('relations.suggestedTitle')}
+          </p>
+          <ul className="space-y-1 max-h-64 overflow-y-auto pr-1">
+            {pendingSuggested.map((s, i) => (
+              <li key={s.id ?? i} className="flex items-center gap-2 text-sm">
+                <span className="flex-1 min-w-0 truncate text-slate-300" title={s.rationale}>
+                  {getEntityLabel(project, { kind: 'timefield', id: s.fromRef as string })}
+                  <ArrowRight className="inline w-3 h-3 mx-1 text-slate-500" />
+                  {getEntityLabel(project, { kind: 'timefield', id: s.toRef as string })}
+                  <span className="text-slate-500">
+                    {' · '}
+                    {RELATION_TYPE_BY_ID[s.type as string]
+                      ? t(`relations.types.${s.type}.name`)
+                      : s.type}
+                  </span>
+                </span>
+                <button
+                  onClick={() => promote(s)}
+                  className="flex items-center gap-1 px-2 py-1 rounded border border-slate-700 hover:border-indigo-500 text-xs text-slate-300 flex-shrink-0"
+                >
+                  <Plus className="w-3 h-3" /> {t('relations.promote')}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }

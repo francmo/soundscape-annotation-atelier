@@ -160,6 +160,8 @@
     "listTitle": "Relations",
     "empty": "No relations.",
     "delete": "Delete relation",
+    "suggestedTitle": "Relations suggested by the skill",
+    "promote": "Promote",
     "selectEntity": "choose an element",
     "selectType": "choose a type",
     "types": {

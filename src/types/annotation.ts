@@ -96,9 +96,11 @@ export interface NotationMark {
   updatedAt: string
 }
 
-/** Riferimento a un'entità del progetto, usato dalle relazioni (Fase 4). */
+/** Riferimento a un'entità del progetto, usato dalle relazioni (Fase 4).
+ * 'timefield' riferisce un campo temporale del blocco analysis.timeFields
+ * (prodotto dalla skill): è il bersaglio delle relazioni suggerite. */
 export interface EntityRef {
-  kind: 'annotation' | 'structure' | 'layer' | 'notation'
+  kind: 'annotation' | 'structure' | 'layer' | 'notation' | 'timefield'
   id: string
 }
 
