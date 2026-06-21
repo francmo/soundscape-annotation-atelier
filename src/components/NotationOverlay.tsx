@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type MouseEvent as ReactMouseEvent, type DragEvent as ReactDragEvent } from 'react'
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import type WaveSurfer from 'wavesurfer.js'
 import type { NotationMark } from '../types/annotation'
@@ -45,6 +45,7 @@ interface DragState {
 export default function NotationOverlay({ ws, marks, durationSec, height = 30 }: NotationOverlayProps) {
   const { t } = useTranslation()
   const { updateNotationMark, addNotationMark, activeSignId, selection } = useProject()
+  const containerRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
   const dragRef = useRef<DragState | null>(null)
   const [contentWidth, setContentWidth] = useState(0)
@@ -157,23 +158,33 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
     if (activeSignId) placeAt(e.clientX, activeSignId)
   }
 
-  const handleDrop = (e: ReactDragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    const id = e.dataTransfer.getData('text/plain')
-    if (id) placeAt(e.clientX, id)
-  }
+  // placeAt sempre fresco per il listener del drop, registrato una volta sola.
+  const placeAtRef = useRef(placeAt)
+  placeAtRef.current = placeAt
 
-  const handleDragOver = (e: ReactDragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-  }
+  // Drop dei segni trascinati dalla palette via pointer events (iOS-friendly):
+  // NotationPanel rileva il trascinamento con pointer capture e, al rilascio
+  // sopra questa corsia, dispatcha un CustomEvent 'notation:drop'; qui lo
+  // traduciamo in un piazzamento. Funziona anche su touch, dove l'HTML5
+  // drag-and-drop non parte.
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const onDrop = (ev: Event) => {
+      const ce = ev as CustomEvent<{ clientX: number; signId: string }>
+      if (ce.detail) placeAtRef.current(ce.detail.clientX, ce.detail.signId)
+    }
+    el.addEventListener('notation:drop', onDrop as EventListener)
+    return () => el.removeEventListener('notation:drop', onDrop as EventListener)
+  }, [])
 
   return (
     <div
+      ref={containerRef}
+      data-notation-lane
       className="relative mt-1 overflow-hidden rounded-lg bg-slate-200 border border-slate-400"
       style={{ height }}
       aria-label="Corsia di notazione"
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
     >
       <div
         ref={innerRef}
