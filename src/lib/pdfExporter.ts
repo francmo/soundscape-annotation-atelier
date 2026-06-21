@@ -1,6 +1,7 @@
 import { jsPDF } from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import type { AnnotationProject } from '../types/annotation'
+import { getEntityLabel } from './entityLookup'
 import { taxonomies } from '../data/taxonomies'
 import { formatDuration, formatTime } from './format'
 
@@ -42,6 +43,7 @@ interface ExportLabels {
   stats: { title: string; annotations: string; structure: string; taxonomies: string }
   annotations: { title: string; range: string; taxonomy: string; term: string; note: string; empty: string }
   structure: { title: string; range: string; label: string; note: string; empty: string }
+  relations: { title: string; from: string; to: string; type: string; empty: string; types: Record<string, string> }
   footer: string
 }
 
@@ -85,6 +87,18 @@ const labels: Record<'it' | 'en', ExportLabels> = {
       note: 'Nota',
       empty: 'Nessuna sezione strutturale.',
     },
+    relations: {
+      title: 'Relazioni (form-building)',
+      from: 'Da',
+      to: 'A',
+      type: 'Tipo',
+      empty: 'Nessuna relazione.',
+      types: {
+        transformation: 'Trasformazione', repetition: 'Ripetizione', variation: 'Variazione',
+        contrast: 'Contrasto', development: 'Sviluppo', return: 'Ritorno',
+        progression: 'Progressione', dissolution: 'Dissoluzione',
+      },
+    },
     footer: 'Soundscape Annotation Atelier - companion of soundscape-audio-analysis',
   },
   en: {
@@ -125,6 +139,18 @@ const labels: Record<'it' | 'en', ExportLabels> = {
       label: 'Label',
       note: 'Note',
       empty: 'No structural sections.',
+    },
+    relations: {
+      title: 'Relations (form-building)',
+      from: 'From',
+      to: 'To',
+      type: 'Type',
+      empty: 'No relations.',
+      types: {
+        transformation: 'Transformation', repetition: 'Repetition', variation: 'Variation',
+        contrast: 'Contrast', development: 'Development', return: 'Return',
+        progression: 'Progression', dissolution: 'Dissolution',
+      },
     },
     footer: 'Soundscape Annotation Atelier - companion of soundscape-audio-analysis',
   },
@@ -306,6 +332,38 @@ export async function exportProjectPdf(project: AnnotationProject): Promise<void
       headStyles: { font: FONT_NAME, fillColor: [240, 240, 240], textColor: [20, 20, 20], fontStyle: 'normal' },
       columnStyles: {
         0: { cellWidth: 90, font: FONT_NAME, textColor: [110, 110, 110] },
+        1: { cellWidth: 130 },
+        2: { cellWidth: 'auto' },
+      },
+      margin: { left: margin, right: margin },
+    })
+  }
+
+  // Relazioni (form-building)
+  const relations = project.relations ?? []
+  doc.addPage()
+  doc.setFont(FONT_NAME, 'normal')
+  doc.setTextColor(20, 20, 20)
+  doc.setFontSize(16)
+  doc.text(L.relations.title, margin, margin + 10)
+  if (relations.length === 0) {
+    doc.setFontSize(11)
+    doc.setTextColor(110, 110, 110)
+    doc.text(L.relations.empty, margin, margin + 40)
+  } else {
+    const relRows = relations.map((r) => [
+      getEntityLabel(project, r.from),
+      getEntityLabel(project, r.to),
+      L.relations.types[r.typeId] ?? r.typeId,
+    ])
+    autoTable(doc, {
+      startY: margin + 30,
+      head: [[L.relations.from, L.relations.to, L.relations.type]],
+      body: relRows,
+      styles: { font: FONT_NAME, fontSize: 9, textColor: [40, 40, 40], cellPadding: 4, overflow: 'linebreak' },
+      headStyles: { font: FONT_NAME, fillColor: [240, 240, 240], textColor: [20, 20, 20], fontStyle: 'normal' },
+      columnStyles: {
+        0: { cellWidth: 130 },
         1: { cellWidth: 130 },
         2: { cellWidth: 'auto' },
       },
