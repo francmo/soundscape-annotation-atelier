@@ -158,7 +158,8 @@
     "confirm": "Conferma",
     "ignore": "Ignora",
     "activeHint": "Segno attivo \"{{name}}\": clicca sulla corsia per piazzarlo.",
-    "paletteHintArm": "Scegli un segno, poi clicca sulla corsia per piazzarlo."
+    "paletteHintArm": "Scegli un segno, poi clicca sulla corsia per piazzarlo.",
+    "laneHint": "Trascina qui un segno, oppure clicca un segno e poi qui."
   },
   "relations": {
     "title": "Relazioni (form-building)",

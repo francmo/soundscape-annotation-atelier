@@ -114,6 +114,8 @@ export default function NotationPanel() {
           {NOTATION_SIGNS.map((s) => (
             <button
               key={s.id}
+              draggable
+              onDragStart={(e) => e.dataTransfer.setData('text/plain', s.id)}
               onClick={() => toggleActive(s.id)}
               title={s.description}
               className={`flex items-center gap-2 px-2 py-1.5 rounded border text-sm text-left ${
