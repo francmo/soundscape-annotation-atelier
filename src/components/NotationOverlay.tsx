@@ -17,9 +17,9 @@ interface NotationOverlayProps {
 // sincronizzazione dell'overlay finché la palette di piazzamento non esiste.
 // Grazie a import.meta.env.DEV non finiscono mai nel build di produzione.
 const DEMO_MARKS: NotationMark[] = [
-  { id: 'demo-1', startSec: 0.5, signId: 'placeholder.attack', anchor: 'time', createdAt: '', updatedAt: '' },
-  { id: 'demo-2', startSec: 2, endSec: 4, signId: 'placeholder.gesture', anchor: 'time', createdAt: '', updatedAt: '' },
-  { id: 'demo-3', startSec: 6, endSec: 9, signId: 'placeholder.texture', anchor: 'time', createdAt: '', updatedAt: '' },
+  { id: 'demo-1', startSec: 0.5, signId: 'tipologia.impulso', anchor: 'time', createdAt: '', updatedAt: '' },
+  { id: 'demo-2', startSec: 2, endSec: 4, signId: 'moto.gesto', anchor: 'time', createdAt: '', updatedAt: '' },
+  { id: 'demo-3', startSec: 6, endSec: 9, signId: 'moto.trama', anchor: 'time', createdAt: '', updatedAt: '' },
 ]
 
 const GLYPH = 20
