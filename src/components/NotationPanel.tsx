@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Trash2, Check, X, HelpCircle } from 'lucide-react'
 import { useProject } from '../hooks/useProject'
@@ -18,6 +18,9 @@ export default function NotationPanel() {
   const { t } = useTranslation()
   const { project, addNotationMark, deleteNotationMark, activeSignId, setActiveSignId } = useProject()
   const [ignored, setIgnored] = useState<Set<string>>(new Set())
+  const dragState = useRef<{ signId: string; startX: number; startY: number; pointerId: number; dragging: boolean } | null>(null)
+  const justDragged = useRef(false)
+  const [draggingId, setDraggingId] = useState<string | null>(null)
   if (!project) return null
 
   const marks = project.notation ?? []
@@ -31,6 +34,49 @@ export default function NotationPanel() {
   const confirmAll = () => pending.forEach(confirm)
   const ignore = (id: string) => setIgnored((prev) => new Set(prev).add(id))
   const toggleActive = (id: string) => setActiveSignId(activeSignId === id ? null : id)
+
+  // Drag dei segni dalla palette alla corsia via pointer events: funziona anche
+  // su iOS, dove l'HTML5 drag-and-drop da un <button> non si attiva. Un tap (o
+  // Invio da tastiera, via onClick) arma il segno; un trascinamento oltre la
+  // soglia, rilasciato sopra la corsia, dispatcha 'notation:drop' che l'overlay
+  // traduce in un piazzamento al punto di rilascio.
+  const onSignPointerDown = (e: ReactPointerEvent<HTMLButtonElement>, signId: string) => {
+    justDragged.current = false
+    dragState.current = { signId, startX: e.clientX, startY: e.clientY, pointerId: e.pointerId, dragging: false }
+    try { e.currentTarget.setPointerCapture(e.pointerId) } catch { /* noop */ }
+  }
+
+  const onSignPointerMove = (e: ReactPointerEvent<HTMLButtonElement>) => {
+    const d = dragState.current
+    if (!d || e.pointerId !== d.pointerId || d.dragging) return
+    if (Math.abs(e.clientX - d.startX) + Math.abs(e.clientY - d.startY) > 8) {
+      d.dragging = true
+      setDraggingId(d.signId)
+    }
+  }
+
+  const onSignPointerUp = (e: ReactPointerEvent<HTMLButtonElement>, signId: string) => {
+    const d = dragState.current
+    dragState.current = null
+    setDraggingId(null)
+    if (!d || e.pointerId !== d.pointerId) return
+    try { e.currentTarget.releasePointerCapture(e.pointerId) } catch { /* gia rilasciato */ }
+    if (!d.dragging) return
+    justDragged.current = true
+    const target = document.elementFromPoint(e.clientX, e.clientY)
+    const lane = target?.closest('[data-notation-lane]')
+    if (lane) {
+      lane.dispatchEvent(new CustomEvent('notation:drop', { detail: { clientX: e.clientX, signId }, bubbles: true }))
+    }
+  }
+
+  const onSignClick = (signId: string) => {
+    if (justDragged.current) {
+      justDragged.current = false
+      return
+    }
+    toggleActive(signId)
+  }
 
   const activeSign = activeSignId ? NOTATION_SIGN_BY_ID[activeSignId] : null
 
@@ -114,10 +160,12 @@ export default function NotationPanel() {
           {NOTATION_SIGNS.map((s) => (
             <button
               key={s.id}
-              draggable
-              onDragStart={(e) => e.dataTransfer.setData('text/plain', s.id)}
-              onClick={() => toggleActive(s.id)}
+              onPointerDown={(e) => onSignPointerDown(e, s.id)}
+              onPointerMove={onSignPointerMove}
+              onPointerUp={(e) => onSignPointerUp(e, s.id)}
+              onClick={() => onSignClick(s.id)}
               title={s.description}
+              style={{ touchAction: 'none', opacity: draggingId === s.id ? 0.5 : 1 }}
               className={`flex items-center gap-2 px-2 py-1.5 rounded border text-sm text-left ${
                 activeSignId === s.id
                   ? 'border-indigo-400 bg-indigo-500/15 text-indigo-200'
