@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type MouseEvent as ReactMouseEvent } from 'react'
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type MouseEvent as ReactMouseEvent, type DragEvent as ReactDragEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import type WaveSurfer from 'wavesurfer.js'
 import type { NotationMark } from '../types/annotation'
 import { NOTATION_SIGN_BY_ID } from '../data/notationSigns'
@@ -42,6 +43,7 @@ interface DragState {
  * via transform su ref (niente setState ad alta frequenza, come da regola PWA);
  * lo stato è committato solo al rilascio del puntatore. */
 export default function NotationOverlay({ ws, marks, durationSec, height = 30 }: NotationOverlayProps) {
+  const { t } = useTranslation()
   const { updateNotationMark, addNotationMark, activeSignId, selection } = useProject()
   const innerRef = useRef<HTMLDivElement>(null)
   const dragRef = useRef<DragState | null>(null)
@@ -130,17 +132,17 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
     dragRef.current = null
   }
 
-  // Piazzamento diretto (UX B): con un segno attivo, un click sulla corsia crea
-  // il segno al punto cliccato; i segni estesi usano la selezione se presente,
-  // altrimenti una durata di default.
-  const handlePlaceClick = (e: ReactMouseEvent<SVGRectElement>) => {
-    if (!activeSignId || pxPerSec <= 0 || !innerRef.current) return
+  // Piazzamento (UX B): con un segno attivo un click sulla corsia, oppure il drop
+  // di un segno trascinato dalla palette, crea il segno al punto indicato; i segni
+  // estesi usano la selezione se presente, altrimenti una durata di default.
+  const placeAt = (clientX: number, signId: string) => {
+    const sign = NOTATION_SIGN_BY_ID[signId]
+    if (!sign || pxPerSec <= 0 || !innerRef.current) return
     const rect = innerRef.current.getBoundingClientRect()
-    const tSec = Math.max(0, Math.min((e.clientX - rect.left) / pxPerSec, durationSec))
-    const sign = NOTATION_SIGN_BY_ID[activeSignId]
+    const tSec = Math.max(0, Math.min((clientX - rect.left) / pxPerSec, durationSec))
     let startSec = tSec
     let endSec: number | undefined
-    if (sign?.extended) {
+    if (sign.extended) {
       if (selection) {
         startSec = selection.startSec
         endSec = selection.endSec
@@ -148,21 +150,37 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
         endSec = Math.min(tSec + 2, durationSec)
       }
     }
-    addNotationMark({ signId: activeSignId, startSec, endSec, anchor: 'time' })
+    addNotationMark({ signId, startSec, endSec, anchor: 'time' })
+  }
+
+  const handlePlaceClick = (e: ReactMouseEvent<SVGRectElement>) => {
+    if (activeSignId) placeAt(e.clientX, activeSignId)
+  }
+
+  const handleDrop = (e: ReactDragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    const id = e.dataTransfer.getData('text/plain')
+    if (id) placeAt(e.clientX, id)
+  }
+
+  const handleDragOver = (e: ReactDragEvent<HTMLDivElement>) => {
+    e.preventDefault()
   }
 
   return (
     <div
-      className="relative mt-1 overflow-hidden rounded-lg bg-slate-950/40 border border-slate-800/60"
+      className="relative mt-1 overflow-hidden rounded-lg bg-slate-200 border border-slate-400"
       style={{ height }}
       aria-label="Corsia di notazione"
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
       <div
         ref={innerRef}
         className="absolute top-0 left-0 h-full"
         style={{ width: contentWidth || '100%' }}
       >
-        <svg width={contentWidth} height={height} className="block text-indigo-300">
+        <svg width={contentWidth} height={height} className="block text-slate-800">
           {activeSignId && pxPerSec > 0 && (
             <rect
               x={0}
@@ -219,6 +237,11 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
             })}
         </svg>
       </div>
+      {allMarks.length === 0 && (
+        <div className="absolute inset-0 flex items-center justify-center px-2 text-center text-xs text-slate-500 pointer-events-none">
+          {t('notation.laneHint')}
+        </div>
+      )}
       {showDemo && (
         <span className="absolute right-2 top-1 text-[10px] text-slate-500 pointer-events-none">
           segni demo (solo sviluppo)

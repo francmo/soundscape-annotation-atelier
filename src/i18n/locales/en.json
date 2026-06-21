@@ -158,7 +158,8 @@
     "confirm": "Confirm",
     "ignore": "Ignore",
     "activeHint": "Active sign \"{{name}}\": click on the lane to place it.",
-    "paletteHintArm": "Pick a sign, then click on the lane to place it."
+    "paletteHintArm": "Pick a sign, then click on the lane to place it.",
+    "laneHint": "Drag a sign here, or click a sign and then here."
   },
   "relations": {
     "title": "Relations (form-building)",
