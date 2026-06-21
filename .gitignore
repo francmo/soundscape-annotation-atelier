@@ -25,3 +25,4 @@ dist-ssr
 
 # Claude Code local settings e session handoff
 .claude/
+.vercel
