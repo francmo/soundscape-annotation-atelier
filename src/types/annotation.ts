@@ -66,6 +66,59 @@ export interface Layer {
   krause?: string
 }
 
+/** Segno di notazione spettromorfologica (Fase 3). Riferisce un segno del
+ * repertorio (signId) a una posizione sull'asse tempo. Additivo e opzionale:
+ * i progetti senza notation restano identici. */
+export interface NotationMark {
+  id: string
+  /** Inizio in secondi sull'asse tempo. */
+  startSec: number
+  /** Fine in secondi per i segni estesi (gesti, processi). Assente per i puntuali. */
+  endSec?: number
+  /** Identificatore del segno nel repertorio (NotationSign.id). */
+  signId: string
+  /** Strato di appartenenza (Fase 2 Layers). Opzionale. */
+  layerId?: string
+  /** Ancoraggio: 'time' nella Fase 3a; 'spectro' (tempo per frequenza sullo
+   * spettrogramma) è riservato alla Fase 3b. */
+  anchor: 'time' | 'spectro'
+  /** Frequenza in Hz, solo per anchor 'spectro' (Fase 3b). Riservato. */
+  freqHz?: number
+  /** Etichetta libera del segno. */
+  label?: string
+  /** Nota dell'annotatore. */
+  note?: string
+  /** Colore esadecimale di resa, override del default del segno. */
+  color?: string
+  /** Timestamp ISO 8601 di creazione. */
+  createdAt: string
+  /** Timestamp ISO 8601 di ultima modifica. */
+  updatedAt: string
+}
+
+/** Riferimento a un'entità del progetto, usato dalle relazioni (Fase 4).
+ * 'timefield' riferisce un campo temporale del blocco analysis.timeFields
+ * (prodotto dalla skill): è il bersaglio delle relazioni suggerite. */
+export interface EntityRef {
+  kind: 'annotation' | 'structure' | 'layer' | 'notation' | 'timefield'
+  id: string
+}
+
+/** Relazione form-building fra due entità (Fase 4, Aural Sonology). Additiva e
+ * opzionale: i progetti senza relations restano identici. */
+export interface Relation {
+  id: string
+  from: EntityRef
+  to: EntityRef
+  /** Tipo dal vocabolario (RelationType.id in src/data/relationTypes.ts). */
+  typeId: string
+  note?: string
+  /** Colore esadecimale di resa, override del default del tipo. */
+  color?: string
+  createdAt: string
+  updatedAt: string
+}
+
 export interface AudioMetadata {
   filename: string
   durationSeconds: number
@@ -99,6 +152,11 @@ export interface AnnotationProject {
   /** Strati (Fase 2 Layers): stratificazione sincronica. Additivo e opzionale;
    * i progetti senza layers funzionano esattamente come prima. */
   layers?: Layer[]
+  /** Segni di notazione spettromorfologica (Fase 3). Additivo e opzionale;
+   * i progetti senza notation funzionano esattamente come prima. */
+  notation?: NotationMark[]
+  /** Relazioni form-building fra entità (Fase 4). Additivo e opzionale. */
+  relations?: Relation[]
   /** Blocchi opzionali del contratto Soundscape Interchange v1.1: l'Atelier
    * non li produce ma DEVE preservarli nel round-trip import -> export. */
   recording?: Record<string, unknown>

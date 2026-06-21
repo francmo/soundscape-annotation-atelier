@@ -7,6 +7,8 @@ import AudioWorkbench from './components/AudioWorkbench'
 import AnnotationPanel from './components/AnnotationPanel'
 import MetadataPanel from './components/MetadataPanel'
 import LayersPanel from './components/LayersPanel'
+import NotationPanel from './components/NotationPanel'
+import RelationsPanel from './components/RelationsPanel'
 import { ProjectProvider, useProject } from './hooks/useProject'
 import { APP_VERSION } from './version'
 
@@ -50,6 +52,8 @@ function AppShell() {
               <AudioWorkbench />
               <MetadataPanel />
               <LayersPanel />
+              <NotationPanel />
+              <RelationsPanel />
             </div>
             <div className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)]">
               <AnnotationPanel />
