@@ -54,6 +54,9 @@ interface ProjectContextValue {
   addNotationMark: (input: { startSec: number; endSec?: number; signId: string; layerId?: string; anchor?: 'time' | 'spectro'; freqHz?: number; label?: string; note?: string; color?: string }) => NotationMark
   updateNotationMark: (id: string, patch: Partial<NotationMark>) => void
   deleteNotationMark: (id: string) => void
+  /** Segno di notazione attivo per il piazzamento diretto sulla corsia (UX A+B). */
+  activeSignId: string | null
+  setActiveSignId: (id: string | null) => void
   addRelation: (input: { from: EntityRef; to: EntityRef; typeId: string; note?: string; color?: string }) => Relation
   updateRelation: (id: string, patch: Partial<Relation>) => void
   deleteRelation: (id: string) => void
@@ -112,6 +115,7 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const [selection, setSelection] = useState<{ startSec: number; endSec: number } | null>(null)
   const [loadError, setLoadError] = useState<{ filename: string } | null>(null)
+  const [activeSignId, setActiveSignId] = useState<string | null>(null)
 
   const clearLoadError = useCallback(() => setLoadError(null), [])
 
@@ -459,6 +463,8 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       addNotationMark,
       updateNotationMark,
       deleteNotationMark,
+      activeSignId,
+      setActiveSignId,
       addRelation,
       updateRelation,
       deleteRelation,
@@ -489,6 +495,8 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       addNotationMark,
       updateNotationMark,
       deleteNotationMark,
+      activeSignId,
+      setActiveSignId,
       addRelation,
       updateRelation,
       deleteRelation,

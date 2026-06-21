@@ -141,13 +141,24 @@
   },
   "notation": {
     "title": "Notazione (Aural Sonology)",
-    "subtitle": "Segni spettromorfologici sull'asse tempo. Seleziona un tratto sul waveform e scegli un segno dalla palette. Repertorio provvisorio, in attesa dei segni definitivi.",
+    "subtitle": "Segni spettromorfologici sull'asse tempo. L'analisi propone una bozza di partitura: tu confermi, correggi o aggiungi i tuoi segni.",
     "selectFirst": "Seleziona prima un punto o un tratto sul waveform (trascina per selezionare), poi scegli un segno.",
     "paletteTitle": "Palette dei segni",
     "marksTitle": "Segni inseriti",
     "empty": "Nessun segno inserito.",
     "delete": "Elimina segno",
-    "glossaryTitle": "Glossario dei segni"
+    "glossaryTitle": "Glossario dei segni",
+    "guideTitle": "Come funziona",
+    "guide1": "Carica l'audio: l'app propone una prima partitura di segni sulla forma del brano.",
+    "guide2": "Rivedi i suggeriti: conferma quelli giusti, ignora gli altri.",
+    "guide3": "Aggiungi i tuoi: scegli un segno e clicca sulla corsia dove vuoi.",
+    "guide4": "Collega gli elementi con una relazione per mostrare ripetizioni, contrasti, sviluppi.",
+    "suggestedTitle": "Proposti dall'analisi",
+    "confirmAll": "Conferma tutti",
+    "confirm": "Conferma",
+    "ignore": "Ignora",
+    "activeHint": "Segno attivo \"{{name}}\": clicca sulla corsia per piazzarlo.",
+    "paletteHintArm": "Scegli un segno, poi clicca sulla corsia per piazzarlo."
   },
   "relations": {
     "title": "Relazioni (form-building)",

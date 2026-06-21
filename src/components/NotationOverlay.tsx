@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import type WaveSurfer from 'wavesurfer.js'
 import type { NotationMark } from '../types/annotation'
 import { NOTATION_SIGN_BY_ID } from '../data/notationSigns'
@@ -42,7 +42,7 @@ interface DragState {
  * via transform su ref (niente setState ad alta frequenza, come da regola PWA);
  * lo stato è committato solo al rilascio del puntatore. */
 export default function NotationOverlay({ ws, marks, durationSec, height = 30 }: NotationOverlayProps) {
-  const { updateNotationMark } = useProject()
+  const { updateNotationMark, addNotationMark, activeSignId, selection } = useProject()
   const innerRef = useRef<HTMLDivElement>(null)
   const dragRef = useRef<DragState | null>(null)
   const [contentWidth, setContentWidth] = useState(0)
@@ -130,6 +130,27 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
     dragRef.current = null
   }
 
+  // Piazzamento diretto (UX B): con un segno attivo, un click sulla corsia crea
+  // il segno al punto cliccato; i segni estesi usano la selezione se presente,
+  // altrimenti una durata di default.
+  const handlePlaceClick = (e: ReactMouseEvent<SVGRectElement>) => {
+    if (!activeSignId || pxPerSec <= 0 || !innerRef.current) return
+    const rect = innerRef.current.getBoundingClientRect()
+    const tSec = Math.max(0, Math.min((e.clientX - rect.left) / pxPerSec, durationSec))
+    const sign = NOTATION_SIGN_BY_ID[activeSignId]
+    let startSec = tSec
+    let endSec: number | undefined
+    if (sign?.extended) {
+      if (selection) {
+        startSec = selection.startSec
+        endSec = selection.endSec
+      } else {
+        endSec = Math.min(tSec + 2, durationSec)
+      }
+    }
+    addNotationMark({ signId: activeSignId, startSec, endSec, anchor: 'time' })
+  }
+
   return (
     <div
       className="relative mt-1 overflow-hidden rounded-lg bg-slate-950/40 border border-slate-800/60"
@@ -142,6 +163,17 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
         style={{ width: contentWidth || '100%' }}
       >
         <svg width={contentWidth} height={height} className="block text-indigo-300">
+          {activeSignId && pxPerSec > 0 && (
+            <rect
+              x={0}
+              y={0}
+              width={contentWidth}
+              height={height}
+              fill="transparent"
+              style={{ cursor: 'crosshair' }}
+              onClick={handlePlaceClick}
+            />
+          )}
           {pxPerSec > 0 &&
             allMarks.map((m) => {
               const sign = NOTATION_SIGN_BY_ID[m.signId]

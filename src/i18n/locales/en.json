@@ -141,13 +141,24 @@
   },
   "notation": {
     "title": "Notation (Aural Sonology)",
-    "subtitle": "Spectromorphological signs on the time axis. Select a span on the waveform and pick a sign from the palette. Provisional repertoire, pending the final signs.",
+    "subtitle": "Spectromorphological signs on the time axis. The analysis proposes a draft score: you confirm, correct, or add your own signs.",
     "selectFirst": "First select a point or span on the waveform (drag to select), then pick a sign.",
     "paletteTitle": "Sign palette",
     "marksTitle": "Inserted signs",
     "empty": "No signs inserted.",
     "delete": "Delete sign",
-    "glossaryTitle": "Sign glossary"
+    "glossaryTitle": "Sign glossary",
+    "guideTitle": "How it works",
+    "guide1": "Load the audio: the app proposes a first score of signs over the shape of the piece.",
+    "guide2": "Review the suggestions: confirm the right ones, ignore the rest.",
+    "guide3": "Add your own: pick a sign and click on the lane where you want it.",
+    "guide4": "Connect elements with a relation to show repetitions, contrasts, developments.",
+    "suggestedTitle": "Suggested by the analysis",
+    "confirmAll": "Confirm all",
+    "confirm": "Confirm",
+    "ignore": "Ignore",
+    "activeHint": "Active sign \"{{name}}\": click on the lane to place it.",
+    "paletteHintArm": "Pick a sign, then click on the lane to place it."
   },
   "relations": {
     "title": "Relations (form-building)",
