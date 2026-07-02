@@ -209,7 +209,6 @@ export async function exportProjectPdf(project: AnnotationProject): Promise<void
   }
   if (project.metadata.annotator) {
     doc.text(`${L.cover.annotator}: ${project.metadata.annotator}`, margin, coverY)
-    coverY += 22
   }
 
   doc.setFontSize(10)
@@ -241,7 +240,7 @@ export async function exportProjectPdf(project: AnnotationProject): Promise<void
     margin: { left: margin, right: margin },
   })
 
-  let afterMeta = (doc as unknown as { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? margin + 30
+  const afterMeta = (doc as unknown as { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? margin + 30
 
   doc.setFontSize(16)
   doc.setTextColor(20, 20, 20)
@@ -263,7 +262,6 @@ export async function exportProjectPdf(project: AnnotationProject): Promise<void
     columnStyles: { 0: { textColor: [110, 110, 110], cellWidth: 280 } },
     margin: { left: margin, right: margin },
   })
-  afterMeta = (doc as unknown as { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? afterMeta + 50
 
   // Annotazioni controllate
   doc.addPage()
