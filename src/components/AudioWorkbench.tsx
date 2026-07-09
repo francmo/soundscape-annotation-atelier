@@ -191,7 +191,7 @@ export default function AudioWorkbench() {
 
   return (
     <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-4">
-      <div ref={containerRef} className="rounded-lg overflow-hidden bg-slate-950/50" />
+      <div ref={containerRef} className="rounded-lg overflow-hidden bg-slate-950/50 touch-none select-none" />
       <div
         ref={spectrogramRef}
         className="rounded-lg overflow-hidden bg-slate-950/50 mt-2"

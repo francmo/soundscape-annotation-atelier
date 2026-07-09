@@ -7,6 +7,13 @@
   color-scheme: dark;
 }
 
+html,
+body {
+  /* Evita il pull-to-refresh di Chrome Android quando si trascina sul waveform
+     (il gesto verso il basso ricaricava la pagina durante la selezione). */
+  overscroll-behavior: none;
+}
+
 body {
   margin: 0;
   background: #0f0d2e;
