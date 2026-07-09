@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { v4 as uuid } from 'uuid'
 import type {
@@ -13,7 +13,25 @@ import type {
   StructuralSection,
 } from '../types/annotation'
 import { ANNOTATION_SCHEMA_VERSION } from '../types/annotation'
-import { saveProject as persistProject, loadAudioBlob } from './useProjectStorage'
+import {
+  saveProject as persistProject,
+  saveProjectRecord,
+  loadProject,
+  loadAudioBlob,
+} from './useProjectStorage'
+
+// Ultimo progetto attivo, per il ripristino automatico dopo un reload
+// (es. tab scartato dalla memoria quando lo smartphone va in background).
+const LAST_PROJECT_KEY = 'sa-atelier:lastProjectId'
+
+function rememberLastProject(id: string | null): void {
+  try {
+    if (id) localStorage.setItem(LAST_PROJECT_KEY, id)
+    else localStorage.removeItem(LAST_PROJECT_KEY)
+  } catch {
+    /* localStorage non disponibile (private mode, restrizioni): si ignora */
+  }
+}
 import { isValidTermId } from '../data/taxonomies'
 import { AudioDecodeError } from '../lib/audioErrors'
 import { sha256OfBlob } from '../lib/format'
@@ -119,6 +137,47 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
 
   const clearLoadError = useCallback(() => setLoadError(null), [])
 
+  // Progetti il cui audio e' gia' su IndexedDB (l'audio si scrive una volta sola,
+  // pesa; le modifiche successive salvano solo il record del progetto).
+  const audioPersistedRef = useRef<Set<string>>(new Set())
+  // Se l'utente ha gia' caricato/aperto qualcosa, il ripristino non deve sovrascrivere.
+  const userActedRef = useRef(false)
+  // Il ripristino automatico gira una volta sola, al montaggio.
+  const restoredRef = useRef(false)
+
+  // Autosalvataggio. A ogni modifica del progetto lo persiste in IndexedDB, cosi'
+  // un reload in background (tab scartato dalla memoria) non perde nulla. La prima
+  // scrittura include l'audio ed e' immediata; le successive salvano solo il record
+  // (con debounce) per non riscrivere il blob audio a ogni marker.
+  useEffect(() => {
+    if (!project) return
+    const id = project.id
+    const snapshot = project
+    const needAudio = !audioPersistedRef.current.has(id) && !!audioBlob
+    const delay = needAudio ? 0 : 1000
+    const timer = setTimeout(() => {
+      void (async () => {
+        try {
+          if (needAudio && audioBlob) {
+            await persistProject(
+              snapshot,
+              audioBlob,
+              snapshot.audio.filename,
+              audioBlob.type || 'application/octet-stream',
+            )
+            audioPersistedRef.current.add(id)
+          } else {
+            await saveProjectRecord(snapshot)
+          }
+          rememberLastProject(id)
+        } catch (err) {
+          console.warn('[useProject] autosalvataggio fallito', err)
+        }
+      })()
+    }, delay)
+    return () => clearTimeout(timer)
+  }, [project, audioBlob])
+
   // Revoke ObjectURL su unmount o cambio audio
   useEffect(() => {
     if (!audioUrl) return
@@ -129,6 +188,7 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
 
   const loadAudio = useCallback(
     async (file: File) => {
+      userActedRef.current = true
       let meta: AudioMetadata
       try {
         meta = await readAudioMetadata(file)
@@ -172,15 +232,47 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
       console.warn('No audio blob for project', existing.id)
       return
     }
+    // L'audio di questo progetto e' gia' su disco: l'autosalvataggio non deve riscriverlo.
+    audioPersistedRef.current.add(existing.id)
     const url = URL.createObjectURL(audio.blob)
     setAudioBlob(audio.blob)
     setAudioUrl(url)
     setProject(existing)
     setSelection(null)
+    rememberLastProject(existing.id)
     warnOrphanTermIds(existing)
   }, [])
 
+  // Ripristino automatico dell'ultimo progetto attivo dopo un reload, con il suo
+  // audio, cosi' si riprende esattamente da dove si era, senza tornare al caricamento.
+  // Gira una volta sola al montaggio; non sovrascrive se l'utente ha gia' agito.
+  useEffect(() => {
+    if (restoredRef.current) return
+    restoredRef.current = true
+    let lastId: string | null = null
+    try {
+      lastId = localStorage.getItem(LAST_PROJECT_KEY)
+    } catch {
+      lastId = null
+    }
+    if (!lastId) return
+    let cancelled = false
+    void (async () => {
+      try {
+        const existing = await loadProject(lastId)
+        if (cancelled || !existing || userActedRef.current) return
+        await loadExistingProject(existing)
+      } catch (err) {
+        console.warn('[useProject] ripristino automatico fallito', err)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [loadExistingProject])
+
   const loadProjectFromJson = useCallback((imported: AnnotationProject) => {
+    userActedRef.current = true
     setProject(imported)
     setAudioBlob(null)
     setAudioUrl(null)
@@ -189,6 +281,7 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const setProjectAudio = useCallback(async (file: File) => {
+    userActedRef.current = true
     let meta: AudioMetadata
     try {
       meta = await readAudioMetadata(file)
@@ -208,6 +301,8 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const resetProject = useCallback(() => {
+    userActedRef.current = true
+    rememberLastProject(null)
     setProject(null)
     setAudioBlob(null)
     setAudioUrl(null)
@@ -436,6 +531,8 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   const saveProject = useCallback(async () => {
     if (!project) return
     await persistProject(project, audioBlob ?? undefined, project.audio.filename, audioBlob?.type ?? 'application/octet-stream')
+    if (audioBlob) audioPersistedRef.current.add(project.id)
+    rememberLastProject(project.id)
   }, [project, audioBlob])
 
   const value = useMemo<ProjectContextValue>(

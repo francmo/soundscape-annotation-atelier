@@ -42,6 +42,13 @@ export async function saveProject(project: AnnotationProject, audioBlob?: Blob, 
   await tx.done
 }
 
+/** Salva solo il record del progetto (senza toccare l'audio, che pesa e viene
+ * scritto una volta sola). Usato dall'autosalvataggio a ogni modifica. */
+export async function saveProjectRecord(project: AnnotationProject): Promise<void> {
+  const db = await getDB()
+  await db.put(PROJECT_STORE, project)
+}
+
 export async function loadProject(id: string): Promise<AnnotationProject | undefined> {
   const db = await getDB()
   return db.get(PROJECT_STORE, id) as Promise<AnnotationProject | undefined>
