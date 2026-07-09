@@ -108,10 +108,10 @@ export default function Header() {
             </span>
           </button>
           <span
-            className="px-2 py-0.5 rounded-md bg-indigo-500/15 border border-indigo-500/40 text-indigo-200 font-mono text-[11px] font-bold tracking-wide"
+            className="px-2.5 py-1 rounded-md bg-amber-400 text-slate-950 font-mono text-sm sm:text-base font-bold tracking-wide shadow-sm"
             title={t('header.version', { version: APP_VERSION })}
           >
-            Vers. {APP_VERSION}
+            v{APP_VERSION}
           </span>
         </div>
 
