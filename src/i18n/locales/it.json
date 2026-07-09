@@ -9,6 +9,8 @@
     "newProject": "Nuovo progetto",
     "openProject": "Apri progetto",
     "saveProject": "Salva",
+    "saving": "Salvataggio...",
+    "saved": "Salvato",
     "exportJson": "Esporta JSON",
     "exportPdf": "Esporta PDF",
     "importJson": "Importa JSON",

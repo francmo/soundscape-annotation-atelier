@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Download, FilePlus2, FileText, FolderOpen, Save, Upload } from 'lucide-react'
+import { Check, Download, FilePlus2, FileText, FolderOpen, Save, Upload } from 'lucide-react'
 import { useProject } from '../hooks/useProject'
 import { exportProjectJson } from '../lib/exporters'
 import { ImportSchemaError, parseProjectJson } from '../lib/importer'
@@ -16,6 +16,7 @@ export default function Header() {
   const [exportingPdf, setExportingPdf] = useState(false)
   const [showProjectsList, setShowProjectsList] = useState(false)
   const [pendingAudio, setPendingAudio] = useState(false)
+  const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved'>('idle')
 
   const handlePickFile = () => fileInputRef.current?.click()
 
@@ -47,7 +48,15 @@ export default function Header() {
 
   const handleSave = async () => {
     if (!project) return
-    await saveProject()
+    setSaveState('saving')
+    try {
+      await saveProject()
+      setSaveState('saved')
+      window.setTimeout(() => setSaveState('idle'), 1800)
+    } catch (err) {
+      console.error('save failed', err)
+      setSaveState('idle')
+    }
   }
 
   const handleImportJson = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -160,11 +169,26 @@ export default function Header() {
           <>
             <button
               onClick={handleSave}
-              className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-md text-sm font-medium transition-colors"
+              disabled={saveState === 'saving'}
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                saveState === 'saved'
+                  ? 'bg-emerald-600 text-white'
+                  : 'bg-slate-800 hover:bg-slate-700'
+              }`}
               title={t('header.saveProject')}
             >
-              <Save className="w-4 h-4" />
-              <span className="hidden sm:inline">{t('header.saveProject')}</span>
+              {saveState === 'saved' ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <Save className={`w-4 h-4 ${saveState === 'saving' ? 'animate-pulse' : ''}`} />
+              )}
+              <span className="hidden sm:inline">
+                {saveState === 'saved'
+                  ? t('header.saved')
+                  : saveState === 'saving'
+                    ? t('header.saving')
+                    : t('header.saveProject')}
+              </span>
             </button>
             <button
               onClick={handleExportJson}
