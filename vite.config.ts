@@ -46,6 +46,9 @@ export default defineConfig({
         clientsClaim: true,
         cleanupOutdatedCaches: true,
         globPatterns: ['**/*.{js,css,html,svg,png,ttf,json,woff2}'],
+        // Vocabolario SKOS e manifest IIIF demo restano fuori dalla precache: sono
+        // risorse pubblicate per altri client (viewer, validatori), non l'app.
+        globIgnores: ['vocab/**', 'iiif/**'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         runtimeCaching: [
           {
