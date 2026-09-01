@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import type { AnnotationProject } from '../types/annotation'
-import { DEFAULT_IIIF_BASE, DEFAULT_VOCAB_BASE, exportProjectIiif } from '../lib/iiifExporter'
+import { DEFAULT_VOCAB_BASE, IiifExportError, defaultBaseUri, exportProjectIiif, isAbsoluteHttpUri } from '../lib/iiifExporter'
 
 interface Props {
   open: boolean
@@ -20,18 +20,31 @@ export default function IiifExportDialog({ open, project, onClose }: Props) {
 
 function IiifExportForm({ project, onClose }: { project: AnnotationProject; onClose: () => void }) {
   const { t } = useTranslation()
-  const [baseUri, setBaseUri] = useState(() => `${DEFAULT_IIIF_BASE}${encodeURIComponent(project.id)}`)
+  const [baseUri, setBaseUri] = useState(() => defaultBaseUri(project))
   const [audioUrl, setAudioUrl] = useState(
-    () => `${DEFAULT_IIIF_BASE}${encodeURIComponent(project.id)}/${encodeURIComponent(project.audio.filename || 'audio')}`,
+    () => `${defaultBaseUri(project)}/${encodeURIComponent(project.audio.filename || 'audio')}`,
   )
   const [vocabBase, setVocabBase] = useState(DEFAULT_VOCAB_BASE)
+  const [error, setError] = useState<string | null>(null)
 
   const handleExport = () => {
-    exportProjectIiif(project, {
-      baseUri: baseUri.trim() || undefined,
-      audioUrl: audioUrl.trim() || undefined,
-      vocabBase: vocabBase.trim() || undefined,
-    })
+    const base = baseUri.trim()
+    const vocab = vocabBase.trim()
+    const audio = audioUrl.trim()
+    if ((base && !isAbsoluteHttpUri(base)) || (vocab && !isAbsoluteHttpUri(vocab)) || (audio && !isAbsoluteHttpUri(audio))) {
+      setError(t('iiif.errorUri'))
+      return
+    }
+    try {
+      exportProjectIiif(project, {
+        baseUri: base || undefined,
+        audioUrl: audio || undefined,
+        vocabBase: vocab || undefined,
+      })
+    } catch (err) {
+      setError(err instanceof IiifExportError ? t('iiif.errorDuration') : String(err))
+      return
+    }
     onClose()
   }
 
@@ -59,21 +72,27 @@ function IiifExportForm({ project, onClose }: { project: AnnotationProject; onCl
 
           <label className="block space-y-1">
             <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">{t('iiif.baseUri')}</span>
-            <input className={field} value={baseUri} onChange={(e) => setBaseUri(e.target.value)} spellCheck={false} />
+            <input className={field} value={baseUri} onChange={(e) => { setBaseUri(e.target.value); setError(null) }} spellCheck={false} />
           </label>
 
           <label className="block space-y-1">
             <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">{t('iiif.audioUrl')}</span>
-            <input className={field} value={audioUrl} onChange={(e) => setAudioUrl(e.target.value)} spellCheck={false} />
+            <input className={field} value={audioUrl} onChange={(e) => { setAudioUrl(e.target.value); setError(null) }} spellCheck={false} />
             <span className="block text-xs text-slate-500">{t('iiif.audioHint')}</span>
           </label>
 
           <label className="block space-y-1">
             <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">{t('iiif.vocabBase')}</span>
-            <input className={field} value={vocabBase} onChange={(e) => setVocabBase(e.target.value)} spellCheck={false} />
+            <input className={field} value={vocabBase} onChange={(e) => { setVocabBase(e.target.value); setError(null) }} spellCheck={false} />
           </label>
 
           <p className="text-xs text-slate-500 leading-relaxed">{t('iiif.hint')}</p>
+
+          {error && (
+            <p role="alert" className="text-sm text-amber-300 bg-amber-950/40 border border-amber-800 rounded-md px-3 py-2">
+              {error}
+            </p>
+          )}
         </div>
 
         <footer className="flex items-center justify-end gap-2 px-5 py-4 border-t border-slate-800">

@@ -203,6 +203,8 @@
     "vocabBase": "Base degli URI del vocabolario",
     "hint": "Il file si valida con il validatore IIIF Presentation (versione 3.0) e si apre nei viewer che supportano i canvas audio. Le relazioni non vengono esportate.",
     "export": "Esporta manifest",
-    "cancel": "Annulla"
+    "cancel": "Annulla",
+    "errorUri": "Gli URI del manifest e del vocabolario devono essere assoluti (http:// o https://) e senza frammento #.",
+    "errorDuration": "Il progetto non ha una durata audio valida: ricarica il file audio e riprova."
   }
 }
