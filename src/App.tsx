@@ -9,7 +9,8 @@ import MetadataPanel from './components/MetadataPanel'
 import LayersPanel from './components/LayersPanel'
 import NotationPanel from './components/NotationPanel'
 import RelationsPanel from './components/RelationsPanel'
-import { ProjectProvider, useProject } from './hooks/useProject'
+import { ProjectProvider } from './hooks/ProjectProvider'
+import { useProject } from './hooks/useProject'
 import { APP_VERSION } from './version'
 
 function AppShell() {
