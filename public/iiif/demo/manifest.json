@@ -1,0 +1,380 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://atelier.francescomariano.art/iiif/demo/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "Demo, Atelier IIIF export"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": [
+          "Source"
+        ]
+      },
+      "value": {
+        "en": [
+          "Soundscape Annotation Atelier, annotation schema 1.0"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Controlled vocabulary"
+        ]
+      },
+      "value": {
+        "en": [
+          "128 terms in 8 taxonomies (Schaeffer, Smalley, Schafer, Krause, Chion, Truax, Westerkamp, Wishart)"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Annotation language"
+        ]
+      },
+      "value": {
+        "en": [
+          "en"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Annotation started"
+        ]
+      },
+      "value": {
+        "en": [
+          "2026-09-01T15:00:00Z"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": [
+          "Genre"
+        ]
+      },
+      "value": {
+        "en": [
+          "Poetry reading (IIIF fixture audio)"
+        ]
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1",
+      "type": "Canvas",
+      "label": {
+        "en": [
+          "Performing-the-Archive-Leaf-leafs-by-Daphne-Marlatt.mp3"
+        ]
+      },
+      "duration": 707.81,
+      "items": [
+        {
+          "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/page/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/page/1/annotation/1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://fixtures.iiif.io/audio/ubc/Performing-the-Archive-Leaf-leafs-by-Daphne-Marlatt.mp3",
+                "type": "Sound",
+                "format": "audio/mpeg",
+                "duration": 707.81
+              },
+              "target": "https://atelier.francescomariano.art/iiif/demo/canvas/1"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/annotations/page/1",
+          "type": "AnnotationPage",
+          "label": {
+            "en": [
+              "Voice"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/annotations/45f24ff3-d321-4893-bf73-84f741a64707",
+              "type": "Annotation",
+              "motivation": [
+                "tagging",
+                "commenting"
+              ],
+              "created": "2026-09-01T15:00:00Z",
+              "modified": "2026-09-01T15:00:00Z",
+              "body": [
+                {
+                  "type": "TextualBody",
+                  "purpose": "tagging",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Signal (Schafer, soundscape, Typology)"
+                },
+                {
+                  "type": "SpecificResource",
+                  "purpose": "classifying",
+                  "source": "https://atelier.francescomariano.art/vocab/schafer.type.signal"
+                },
+                {
+                  "type": "TextualBody",
+                  "purpose": "commenting",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Introductory voice, foreground"
+                }
+              ],
+              "target": "https://atelier.francescomariano.art/iiif/demo/canvas/1#t=0,12"
+            },
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/annotations/904d690f-4ffc-4ca0-bc3b-f033dceac5c9",
+              "type": "Annotation",
+              "motivation": [
+                "tagging",
+                "commenting"
+              ],
+              "created": "2026-09-01T15:00:00Z",
+              "modified": "2026-09-01T15:00:00Z",
+              "body": [
+                {
+                  "type": "TextualBody",
+                  "purpose": "tagging",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Semantic (Chion, listening modes, Listening modes)"
+                },
+                {
+                  "type": "SpecificResource",
+                  "purpose": "classifying",
+                  "source": "https://atelier.francescomariano.art/vocab/chion.semantic"
+                },
+                {
+                  "type": "TextualBody",
+                  "purpose": "commenting",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Spoken text as meaning"
+                }
+              ],
+              "target": "https://atelier.francescomariano.art/iiif/demo/canvas/1#t=12,60"
+            },
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/annotations/389c1135-696a-4aa0-8e52-a0a53fbac4d6",
+              "type": "Annotation",
+              "motivation": "tagging",
+              "created": "2026-09-01T15:00:00Z",
+              "modified": "2026-09-01T15:00:00Z",
+              "body": [
+                {
+                  "type": "TextualBody",
+                  "purpose": "tagging",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Background listening (Truax, acoustic communication, Listening modes)"
+                },
+                {
+                  "type": "SpecificResource",
+                  "purpose": "classifying",
+                  "source": "https://atelier.francescomariano.art/vocab/truax.listening.background"
+                }
+              ],
+              "target": "https://atelier.francescomariano.art/iiif/demo/canvas/1#t=60,120"
+            },
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/annotations/d23392d0-73b3-4469-a245-1f590cafee99",
+              "type": "Annotation",
+              "motivation": [
+                "tagging",
+                "commenting"
+              ],
+              "created": "2026-09-01T15:00:00Z",
+              "modified": "2026-09-01T15:00:00Z",
+              "body": [
+                {
+                  "type": "TextualBody",
+                  "purpose": "tagging",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Flow (Smalley, spectromorphology, Motion)"
+                },
+                {
+                  "type": "SpecificResource",
+                  "purpose": "classifying",
+                  "source": "https://atelier.francescomariano.art/vocab/smalley.motion.flow"
+                },
+                {
+                  "type": "TextualBody",
+                  "purpose": "commenting",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Continuous delivery of the reading"
+                }
+              ],
+              "target": "https://atelier.francescomariano.art/iiif/demo/canvas/1#t=120,180"
+            }
+          ]
+        },
+        {
+          "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/annotations/page/2",
+          "type": "AnnotationPage",
+          "label": {
+            "en": [
+              "Room and audience"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/annotations/983efb68-f0ed-45ae-a268-686c41f9f8cd",
+              "type": "Annotation",
+              "motivation": [
+                "tagging",
+                "commenting"
+              ],
+              "created": "2026-09-01T15:00:00Z",
+              "modified": "2026-09-01T15:00:00Z",
+              "body": [
+                {
+                  "type": "TextualBody",
+                  "purpose": "tagging",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Anthrophony (Krause, acoustic niche hypothesis, Sound sources)"
+                },
+                {
+                  "type": "SpecificResource",
+                  "purpose": "classifying",
+                  "source": "https://atelier.francescomariano.art/vocab/krause.anthrophony"
+                },
+                {
+                  "type": "TextualBody",
+                  "purpose": "commenting",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Audience sounds"
+                }
+              ],
+              "target": "https://atelier.francescomariano.art/iiif/demo/canvas/1#t=300,330"
+            },
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1/annotations/f7622a4d-1d16-46e6-a3f2-f18f37c0fc3b",
+              "type": "Annotation",
+              "motivation": [
+                "tagging",
+                "commenting"
+              ],
+              "created": "2026-09-01T15:00:00Z",
+              "modified": "2026-09-01T15:00:00Z",
+              "body": [
+                {
+                  "type": "TextualBody",
+                  "purpose": "tagging",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Keynote (Schafer, soundscape, Typology)"
+                },
+                {
+                  "type": "SpecificResource",
+                  "purpose": "classifying",
+                  "source": "https://atelier.francescomariano.art/vocab/schafer.type.keynote"
+                },
+                {
+                  "type": "TextualBody",
+                  "purpose": "commenting",
+                  "format": "text/plain",
+                  "language": "en",
+                  "value": "Soft laughter, rustling (as in Cookbook recipe 0103)"
+                }
+              ],
+              "target": "https://atelier.francescomariano.art/iiif/demo/canvas/1#t=702,705"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "seeAlso": [
+    {
+      "id": "https://atelier.francescomariano.art/iiif/demo/project.annotation.json",
+      "type": "Dataset",
+      "format": "application/json",
+      "label": {
+        "en": [
+          "Atelier annotation JSON (schema 1.x)"
+        ]
+      }
+    }
+  ],
+  "structures": [
+    {
+      "id": "https://atelier.francescomariano.art/iiif/demo/range/structure",
+      "type": "Range",
+      "label": {
+        "en": [
+          "Structure"
+        ]
+      },
+      "items": [
+        {
+          "id": "https://atelier.francescomariano.art/iiif/demo/range/b10432b7-7b53-4806-a5aa-7016a83971d5",
+          "type": "Range",
+          "label": {
+            "en": [
+              "Opening"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1#t=0,60",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://atelier.francescomariano.art/iiif/demo/range/7e60f723-bdb7-4b93-9979-569b12bb034e",
+          "type": "Range",
+          "label": {
+            "en": [
+              "Reading"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1#t=60,600",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://atelier.francescomariano.art/iiif/demo/range/b03c01cb-df1a-424f-97b1-b6d65c7cf697",
+          "type": "Range",
+          "label": {
+            "en": [
+              "Closing"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1#t=600,707.81",
+              "type": "Canvas"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

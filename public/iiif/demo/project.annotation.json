@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "1.0",
+  "id": "demo",
+  "audio": {
+    "filename": "Performing-the-Archive-Leaf-leafs-by-Daphne-Marlatt.mp3",
+    "durationSeconds": 707.81,
+    "sampleRate": 44100,
+    "channels": 2
+  },
+  "metadata": {
+    "title": "Demo, Atelier IIIF export",
+    "language": "en",
+    "startedAt": "2026-09-01T15:00:00Z",
+    "genre": "Poetry reading (IIIF fixture audio)"
+  },
+  "annotations": [
+    {
+      "id": "45f24ff3-d321-4893-bf73-84f741a64707",
+      "startSec": 0,
+      "endSec": 12,
+      "taxonomy": "schafer",
+      "termId": "schafer.type.signal",
+      "termLabel": "Signal",
+      "note": "Introductory voice, foreground",
+      "color": "#38bdf8",
+      "createdAt": "2026-09-01T15:00:00Z",
+      "updatedAt": "2026-09-01T15:00:00Z",
+      "layerId": "L1"
+    },
+    {
+      "id": "904d690f-4ffc-4ca0-bc3b-f033dceac5c9",
+      "startSec": 12,
+      "endSec": 60,
+      "taxonomy": "chion",
+      "termId": "chion.semantic",
+      "termLabel": "Semantic listening",
+      "note": "Spoken text as meaning",
+      "color": "#38bdf8",
+      "createdAt": "2026-09-01T15:00:00Z",
+      "updatedAt": "2026-09-01T15:00:00Z",
+      "layerId": "L1"
+    },
+    {
+      "id": "389c1135-696a-4aa0-8e52-a0a53fbac4d6",
+      "startSec": 60,
+      "endSec": 120,
+      "taxonomy": "truax",
+      "termId": "truax.listening.background",
+      "termLabel": "Background listening",
+      "note": "",
+      "color": "#38bdf8",
+      "createdAt": "2026-09-01T15:00:00Z",
+      "updatedAt": "2026-09-01T15:00:00Z",
+      "layerId": "L1"
+    },
+    {
+      "id": "d23392d0-73b3-4469-a245-1f590cafee99",
+      "startSec": 120,
+      "endSec": 180,
+      "taxonomy": "smalley",
+      "termId": "smalley.motion.flow",
+      "termLabel": "Flow",
+      "note": "Continuous delivery of the reading",
+      "color": "#38bdf8",
+      "createdAt": "2026-09-01T15:00:00Z",
+      "updatedAt": "2026-09-01T15:00:00Z",
+      "layerId": "L1"
+    },
+    {
+      "id": "983efb68-f0ed-45ae-a268-686c41f9f8cd",
+      "startSec": 300,
+      "endSec": 330,
+      "taxonomy": "krause",
+      "termId": "krause.anthrophony",
+      "termLabel": "Anthrophony",
+      "note": "Audience sounds",
+      "color": "#38bdf8",
+      "createdAt": "2026-09-01T15:00:00Z",
+      "updatedAt": "2026-09-01T15:00:00Z",
+      "layerId": "L2"
+    },
+    {
+      "id": "f7622a4d-1d16-46e6-a3f2-f18f37c0fc3b",
+      "startSec": 702,
+      "endSec": 705,
+      "taxonomy": "schafer",
+      "termId": "schafer.type.keynote",
+      "termLabel": "Keynote",
+      "note": "Soft laughter, rustling (as in Cookbook recipe 0103)",
+      "color": "#38bdf8",
+      "createdAt": "2026-09-01T15:00:00Z",
+      "updatedAt": "2026-09-01T15:00:00Z",
+      "layerId": "L2"
+    }
+  ],
+  "structure": [
+    {
+      "id": "b10432b7-7b53-4806-a5aa-7016a83971d5",
+      "startSec": 0,
+      "endSec": 60,
+      "label": "Opening"
+    },
+    {
+      "id": "7e60f723-bdb7-4b93-9979-569b12bb034e",
+      "startSec": 60,
+      "endSec": 600,
+      "label": "Reading"
+    },
+    {
+      "id": "b03c01cb-df1a-424f-97b1-b6d65c7cf697",
+      "startSec": 600,
+      "endSec": 707.81,
+      "label": "Closing"
+    }
+  ],
+  "layers": [
+    {
+      "id": "L1",
+      "name": "Voice",
+      "order": 0
+    },
+    {
+      "id": "L2",
+      "name": "Room and audience",
+      "order": 1
+    }
+  ]
+}
