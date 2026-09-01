@@ -1,0 +1,56 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation",
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    }
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/notation.dinamica.decrescendo",
+  "@type": "skos:Concept",
+  "notation": "notation.dinamica.decrescendo",
+  "prefLabel": {
+    "it": "Decrescendo",
+    "en": "Decrescendo"
+  },
+  "definition": {
+    "it": "Energia calante nel tempo.",
+    "en": "Energy falling over time."
+  },
+  "broader": "https://atelier.francescomariano.art/vocab/notation.dinamica",
+  "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+}

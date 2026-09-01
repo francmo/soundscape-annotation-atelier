@@ -34,11 +34,16 @@
       "@type": "@id"
     },
     "source": "dct:source",
-    "bibliographicCitation": "dct:bibliographicCitation"
+    "bibliographicCitation": "dct:bibliographicCitation",
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    }
   },
   "@id": "https://atelier.francescomariano.art/vocab/",
   "schemaVersion": "1.0",
-  "generatedFrom": "src/data/taxonomies.json 2026-05-05",
+  "generatedFrom": "src/data/taxonomies.json 2026-05-05, src/data/notationSigns.json",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
   "schemes": [
     {
       "@id": "https://atelier.francescomariano.art/vocab/schaeffer",
@@ -102,6 +107,14 @@
       "prefLabel": {
         "it": "Wishart, sonic art",
         "en": "Wishart, sonic art"
+      }
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation",
+      "notation": "notation",
+      "prefLabel": {
+        "it": "Notazione spettromorfologica",
+        "en": "Spectromorphological notation"
       }
     }
   ],
@@ -1385,6 +1398,156 @@
       },
       "broader": "https://atelier.francescomariano.art/vocab/wishart.aggregati",
       "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.tipologia.impulso",
+      "notation": "notation.tipologia.impulso",
+      "prefLabel": {
+        "it": "Impulso",
+        "en": "Impulse"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.tipologia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.tipologia.tenuto",
+      "notation": "notation.tipologia.tenuto",
+      "prefLabel": {
+        "it": "Tenuto",
+        "en": "Sustained"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.tipologia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.tipologia.iterato",
+      "notation": "notation.tipologia.iterato",
+      "prefLabel": {
+        "it": "Iterato",
+        "en": "Iterated"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.tipologia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.massa.tonica",
+      "notation": "notation.massa.tonica",
+      "prefLabel": {
+        "it": "Massa tonica",
+        "en": "Tonic mass"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.massa.complessa",
+      "notation": "notation.massa.complessa",
+      "prefLabel": {
+        "it": "Massa complessa",
+        "en": "Complex mass"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.massa.rumore",
+      "notation": "notation.massa.rumore",
+      "prefLabel": {
+        "it": "Rumore",
+        "en": "Noise"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.dinamica.crescendo",
+      "notation": "notation.dinamica.crescendo",
+      "prefLabel": {
+        "it": "Crescendo",
+        "en": "Crescendo"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.dinamica",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.dinamica.decrescendo",
+      "notation": "notation.dinamica.decrescendo",
+      "prefLabel": {
+        "it": "Decrescendo",
+        "en": "Decrescendo"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.dinamica",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.dinamica.arco",
+      "notation": "notation.dinamica.arco",
+      "prefLabel": {
+        "it": "Attacco-risonanza",
+        "en": "Attack-resonance"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.dinamica",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.profilo.ascendente",
+      "notation": "notation.profilo.ascendente",
+      "prefLabel": {
+        "it": "Profilo ascendente",
+        "en": "Ascending profile"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.profilo",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.profilo.discendente",
+      "notation": "notation.profilo.discendente",
+      "prefLabel": {
+        "it": "Profilo discendente",
+        "en": "Descending profile"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.profilo",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.fattura.grana",
+      "notation": "notation.fattura.grana",
+      "prefLabel": {
+        "it": "Grana",
+        "en": "Grain"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.fattura",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.fattura.allure",
+      "notation": "notation.fattura.allure",
+      "prefLabel": {
+        "it": "Allure",
+        "en": "Allure"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.fattura",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.moto.gesto",
+      "notation": "notation.moto.gesto",
+      "prefLabel": {
+        "it": "Gesto",
+        "en": "Gesture"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.moto",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/notation.moto.trama",
+      "notation": "notation.moto.trama",
+      "prefLabel": {
+        "it": "Trama",
+        "en": "Texture"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/notation.moto",
+      "inScheme": "https://atelier.francescomariano.art/vocab/notation"
     }
   ]
 }

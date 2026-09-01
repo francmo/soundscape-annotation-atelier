@@ -34,7 +34,11 @@
       "@type": "@id"
     },
     "source": "dct:source",
-    "bibliographicCitation": "dct:bibliographicCitation"
+    "bibliographicCitation": "dct:bibliographicCitation",
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    }
   },
   "@id": "https://atelier.francescomariano.art/vocab/chion",
   "@type": "skos:ConceptScheme",
@@ -45,6 +49,7 @@
   },
   "source": "Michel Chion",
   "bibliographicCitation": "Chion, M. (1994). Audio-Vision. Columbia University Press.",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
   "hasTopConcept": [
     "https://atelier.francescomariano.art/vocab/chion.modi"
   ]

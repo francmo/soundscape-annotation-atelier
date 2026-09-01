@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation",
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    }
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/notation",
+  "@type": "skos:ConceptScheme",
+  "notation": "notation",
+  "prefLabel": {
+    "it": "Notazione spettromorfologica",
+    "en": "Spectromorphological notation"
+  },
+  "source": "Soundscape Annotation Atelier, repertorio originale di notazione spettromorfologica (Fase 3)",
+  "bibliographicCitation": "Thoresen, L., Hedman, A. (2007). Spectromorphological analysis of sound objects. Organised Sound, 12(2), 129-141; Schaeffer, P. (1966). Traité des objets musicaux.",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "hasTopConcept": [
+    "https://atelier.francescomariano.art/vocab/notation.tipologia",
+    "https://atelier.francescomariano.art/vocab/notation.massa",
+    "https://atelier.francescomariano.art/vocab/notation.dinamica",
+    "https://atelier.francescomariano.art/vocab/notation.profilo",
+    "https://atelier.francescomariano.art/vocab/notation.fattura",
+    "https://atelier.francescomariano.art/vocab/notation.moto"
+  ]
+}

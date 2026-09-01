@@ -34,7 +34,11 @@
       "@type": "@id"
     },
     "source": "dct:source",
-    "bibliographicCitation": "dct:bibliographicCitation"
+    "bibliographicCitation": "dct:bibliographicCitation",
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    }
   },
   "@id": "https://atelier.francescomariano.art/vocab/wishart",
   "@type": "skos:ConceptScheme",
@@ -45,6 +49,7 @@
   },
   "source": "Trevor Wishart",
   "bibliographicCitation": "Wishart, T. (1985/1996). On Sonic Art. Routledge. Wishart, T. (1994). Audible Design.",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
   "hasTopConcept": [
     "https://atelier.francescomariano.art/vocab/wishart.topologie",
     "https://atelier.francescomariano.art/vocab/wishart.continuita",

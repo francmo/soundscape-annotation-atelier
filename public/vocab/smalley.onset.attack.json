@@ -34,7 +34,11 @@
       "@type": "@id"
     },
     "source": "dct:source",
-    "bibliographicCitation": "dct:bibliographicCitation"
+    "bibliographicCitation": "dct:bibliographicCitation",
+    "license": {
+      "@id": "dct:license",
+      "@type": "@id"
+    }
   },
   "@id": "https://atelier.francescomariano.art/vocab/smalley.onset.attack",
   "@type": "skos:Concept",
