@@ -34,6 +34,12 @@ npm run build    # tsc -b + vite build (gate prima di ogni push)
   accept espliciti sugli input file.
 - Il vocabolario canonico vive nella skill (`references/taxonomies.json`);
   sincronizzazione con `scripts/sync_taxonomies.py` (default skill -> PWA).
+- Export IIIF (`src/lib/iiifExporter.ts`, funzione pura + test). Il vocabolario
+  SKOS in `public/vocab/` e il manifest demo in `public/iiif/demo/` sono generati
+  (`npm run vocab`, `npm run demo:iiif`), non si modificano a mano; dopo un sync
+  delle tassonomie rigenerare il vocabolario. Entrambe le cartelle sono fuori dalla
+  precache del service worker (`globIgnores` in `vite.config.ts`) e servite con
+  CORS da `vercel.json`.
 - Italiano corretto con accenti veri, niente em dash, anche in stringhe,
   commenti e documentazione.
 

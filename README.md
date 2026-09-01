@@ -24,6 +24,19 @@ URL deploy: https://soundscape-annotation-atelier.vercel.app/
 - Esportazione JSON v1.0 deterministica, re-importabile.
 - Bilingue IT/EN.
 - Bridge Python `scripts/sync_taxonomies.py` per sincronizzare il vocabolario fra PWA e skill `soundscape-audio-analysis`.
+- Esportazione IIIF Presentation API 3.0 (dalla v2.1.0), vedi sotto.
+
+## Export IIIF (Presentation API 3.0)
+
+Dalla v2.1.0 un progetto si esporta anche come Manifest IIIF Presentation 3 (bottone `Esporta IIIF`, funzione pura `buildIiifManifest` in `src/lib/iiifExporter.ts`). Mappatura:
+
+- la registrazione diventa un `Canvas` con la sola `duration`, dipinto da una risorsa `Sound` all'URL pubblico indicato nella finestra di export (l'Atelier non carica audio, l'hosting resta a chi pubblica);
+- ogni annotazione controllata diventa una Web Annotation con motivazione `tagging` (più `commenting` se c'è la nota), un `TextualBody` con termine e tassonomia, una `SpecificResource` con `purpose: classifying` verso l'URI del termine nel vocabolario, e target sul canvas con frammento temporale `#t=inizio,fine`;
+- gli strati diventano `AnnotationPage` distinte, le sezioni di struttura diventano `Range` in `structures`, i segni di notazione diventano annotazioni `describing`; le relazioni non vengono esportate.
+
+Il vocabolario controllato è pubblicato come SKOS in JSON-LD sotto `https://atelier.francescomariano.art/vocab/` (un file per termine, gruppo e tassonomia, più `index.json`), generato da `npm run vocab` (`scripts/build_vocab.py`) a partire da `src/data/taxonomies.json`.
+
+Una demo pubblicata sta in `public/iiif/demo/` (progetto sintetico sull'audio pubblico dei fixture IIIF, manifest generato dall'exporter e verificato dal test golden `src/lib/iiifExporter.demo.test.ts`; `npm run demo:iiif` lo rigenera). Il manifest passa il validatore IIIF Presentation 3.0 e si apre nei viewer che supportano i canvas audio, ad esempio https://theseusviewer.org/?iiif-content=https://atelier.francescomariano.art/iiif/demo/manifest.json
 
 ## Stack
 
