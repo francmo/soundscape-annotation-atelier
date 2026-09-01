@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "Se usi l'Atelier in un lavoro di ricerca o didattico, cita il software e il working paper qui sotto."
+type: software
+title: "Soundscape Annotation Atelier"
+abstract: "Progressive Web App per l'annotazione first-hand di soundscape, field recording e composizione elettroacustica con vocabolario controllato (128 termini in otto tassonomie), notazione spettromorfologica originale, export JSON interoperabile con la skill soundscape-audio-analysis ed export IIIF Presentation API 3.0 con vocabolario SKOS."
+authors:
+  - family-names: Mariano
+    given-names: Francesco
+    orcid: "https://orcid.org/0009-0003-4718-3633"
+version: 2.1.1
+date-released: 2026-09-02
+license: Apache-2.0
+url: "https://atelier.francescomariano.art/"
+repository-code: "https://github.com/francmo/soundscape-annotation-atelier"
+keywords:
+  - soundscape
+  - field recording
+  - electroacoustic music
+  - annotation
+  - controlled vocabulary
+  - IIIF
+  - SKOS
+  - Aural Sonology
+references:
+  - type: report
+    title: "Soundscape Annotation: workflow iterativo, stratificazione interpretativa e calibrazione di una skill di analisi audio in didattica AFAM"
+    authors:
+      - family-names: Mariano
+        given-names: Francesco
+    year: 2026
+    institution:
+      name: "Accademia di Belle Arti di Macerata"
+    notes: "Working Paper v1.0"
+    doi: 10.5281/zenodo.20282496
