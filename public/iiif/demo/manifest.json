@@ -10,11 +10,17 @@
   "metadata": [
     {
       "label": {
+        "it": [
+          "Fonte"
+        ],
         "en": [
           "Source"
         ]
       },
       "value": {
+        "it": [
+          "Soundscape Annotation Atelier, schema di annotazione 1.0"
+        ],
         "en": [
           "Soundscape Annotation Atelier, annotation schema 1.0"
         ]
@@ -22,42 +28,57 @@
     },
     {
       "label": {
+        "it": [
+          "Vocabolario controllato"
+        ],
         "en": [
           "Controlled vocabulary"
         ]
       },
       "value": {
+        "it": [
+          "128 termini in 8 tassonomie (Schaeffer, tipo-morfologia, Smalley, spettromorfologia, Schafer, paesaggio sonoro, Krause, ipotesi della nicchia acustica, Chion, modi di ascolto, Truax, comunicazione acustica, Westerkamp, soundwalking, Wishart, sonic art)"
+        ],
         "en": [
-          "128 terms in 8 taxonomies (Schaeffer, Smalley, Schafer, Krause, Chion, Truax, Westerkamp, Wishart)"
+          "128 terms in 8 taxonomies (Schaeffer, typo-morphology, Smalley, spectromorphology, Schafer, soundscape, Krause, acoustic niche hypothesis, Chion, listening modes, Truax, acoustic communication, Westerkamp, soundwalking, Wishart, sonic art)"
         ]
       }
     },
     {
       "label": {
+        "it": [
+          "Lingua di annotazione"
+        ],
         "en": [
           "Annotation language"
         ]
       },
       "value": {
-        "en": [
+        "none": [
           "en"
         ]
       }
     },
     {
       "label": {
+        "it": [
+          "Inizio annotazione"
+        ],
         "en": [
           "Annotation started"
         ]
       },
       "value": {
-        "en": [
+        "none": [
           "2026-09-01T15:00:00Z"
         ]
       }
     },
     {
       "label": {
+        "it": [
+          "Genere"
+        ],
         "en": [
           "Genre"
         ]
@@ -69,12 +90,40 @@
       }
     }
   ],
+  "seeAlso": [
+    {
+      "id": "https://atelier.francescomariano.art/vocab/index.json",
+      "type": "Dataset",
+      "format": "application/ld+json",
+      "label": {
+        "it": [
+          "Vocabolario controllato (SKOS, JSON-LD)"
+        ],
+        "en": [
+          "Controlled vocabulary (SKOS, JSON-LD)"
+        ]
+      }
+    },
+    {
+      "id": "https://atelier.francescomariano.art/iiif/demo/project.annotation.json",
+      "type": "Dataset",
+      "format": "application/json",
+      "label": {
+        "it": [
+          "JSON di annotazione dell'Atelier (schema 1.x)"
+        ],
+        "en": [
+          "Atelier annotation JSON (schema 1.x)"
+        ]
+      }
+    }
+  ],
   "items": [
     {
       "id": "https://atelier.francescomariano.art/iiif/demo/canvas/1",
       "type": "Canvas",
       "label": {
-        "en": [
+        "none": [
           "Performing-the-Archive-Leaf-leafs-by-Daphne-Marlatt.mp3"
         ]
       },
@@ -307,23 +356,14 @@
       ]
     }
   ],
-  "seeAlso": [
-    {
-      "id": "https://atelier.francescomariano.art/iiif/demo/project.annotation.json",
-      "type": "Dataset",
-      "format": "application/json",
-      "label": {
-        "en": [
-          "Atelier annotation JSON (schema 1.x)"
-        ]
-      }
-    }
-  ],
   "structures": [
     {
       "id": "https://atelier.francescomariano.art/iiif/demo/range/structure",
       "type": "Range",
       "label": {
+        "it": [
+          "Struttura"
+        ],
         "en": [
           "Structure"
         ]
