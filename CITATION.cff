@@ -8,7 +8,7 @@ authors:
     given-names: Francesco
     orcid: "https://orcid.org/0009-0003-4718-3633"
 version: 2.1.1
-date-released: 2026-09-02
+date-released: 2026-09-01
 license: Apache-2.0
 url: "https://atelier.francescomariano.art/"
 repository-code: "https://github.com/francmo/soundscape-annotation-atelier"
