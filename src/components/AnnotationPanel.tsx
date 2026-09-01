@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AlertTriangle, Plus, Search, Trash2 } from 'lucide-react'
 import { isValidTermId, taxonomies } from '../data/taxonomies'
@@ -74,13 +74,19 @@ export default function AnnotationPanel() {
     setSelection(null)
   }
 
-  // La selezione sul waveform precompila i campi tempo, che restano editabili a mano.
-  useEffect(() => {
+  // La selezione sul waveform precompila i campi tempo, che restano editabili a
+  // mano. Stato derivato da una prop del contesto: si aggiorna durante il render
+  // confrontando la selezione con quella del render precedente (pattern React
+  // "storing information from previous renders"), senza effetto e senza il
+  // render a cascata che l'effetto produceva.
+  const [prevSelection, setPrevSelection] = useState(selection)
+  if (selection !== prevSelection) {
+    setPrevSelection(selection)
     if (selection) {
       setStructStart(formatTime(selection.startSec))
       setStructEnd(formatTime(selection.endSec))
     }
-  }, [selection])
+  }
 
   const submitStructure = () => {
     if (!structLabel.trim()) return
