@@ -11,23 +11,36 @@ interface Props {
   onClose: () => void
 }
 
+/** Modal dei progetti salvati. La lista interna si monta a ogni apertura, così
+ * lo stato di caricamento parte pulito dall'inizializzatore e l'effetto si limita
+ * a leggere IndexedDB (setState solo nel callback asincrono, mai nel corpo). */
 export default function ProjectsList({ open, onClose }: Props) {
+  if (!open) return null
+  return <ProjectsListDialog onClose={onClose} />
+}
+
+const byMostRecent = (a: AnnotationProject, b: AnnotationProject) => (b.metadata.startedAt > a.metadata.startedAt ? 1 : -1)
+
+function ProjectsListDialog({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation()
   const { loadExistingProject } = useProject()
-  const [projects, setProjects] = useState<AnnotationProject[]>([])
-  const [loading, setLoading] = useState(false)
+  // null finché la lettura da IndexedDB non è conclusa.
+  const [projects, setProjects] = useState<AnnotationProject[] | null>(null)
 
   useEffect(() => {
-    if (!open) return
-    setLoading(true)
+    let cancelled = false
     listProjects()
       .then((list) => {
-        setProjects(list.sort((a, b) => (b.metadata.startedAt > a.metadata.startedAt ? 1 : -1)))
+        if (!cancelled) setProjects([...list].sort(byMostRecent))
       })
-      .finally(() => setLoading(false))
-  }, [open])
-
-  if (!open) return null
+      .catch((err: unknown) => {
+        console.warn('[soundscape-annotation-atelier] listProjects failed', err)
+        if (!cancelled) setProjects([])
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const handleOpen = async (p: AnnotationProject) => {
     await loadExistingProject(p)
@@ -37,7 +50,7 @@ export default function ProjectsList({ open, onClose }: Props) {
   const handleDelete = async (p: AnnotationProject) => {
     if (!window.confirm(t('projectsList.deleteConfirm'))) return
     await deleteProject(p.id)
-    setProjects((prev) => prev.filter((x) => x.id !== p.id))
+    setProjects((prev) => (prev ? prev.filter((x) => x.id !== p.id) : prev))
   }
 
   return (
@@ -57,7 +70,7 @@ export default function ProjectsList({ open, onClose }: Props) {
         </header>
 
         <div className="flex-1 min-h-0 overflow-y-auto px-5 py-4">
-          {loading ? (
+          {projects === null ? (
             <p className="text-sm text-slate-500">…</p>
           ) : projects.length === 0 ? (
             <p className="text-sm text-slate-500 leading-relaxed">{t('projectsList.empty')}</p>
