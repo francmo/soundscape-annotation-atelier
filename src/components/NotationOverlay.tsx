@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type MouseEvent as ReactMouseEvent } from 'react'
+import { useEffect, useEffectEvent, useRef, useState, type PointerEvent as ReactPointerEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import type WaveSurfer from 'wavesurfer.js'
 import type { NotationMark } from '../types/annotation'
@@ -158,9 +158,10 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
     if (activeSignId) placeAt(e.clientX, activeSignId)
   }
 
-  // placeAt sempre fresco per il listener del drop, registrato una volta sola.
-  const placeAtRef = useRef(placeAt)
-  placeAtRef.current = placeAt
+  // placeAt sempre fresco per il listener del drop, registrato una volta sola:
+  // useEffectEvent (React 19.2) legge props e stato del render corrente senza
+  // risottoscrivere l'evento e senza scrivere un ref durante il render.
+  const onDropPlace = useEffectEvent((clientX: number, signId: string) => placeAt(clientX, signId))
 
   // Drop dei segni trascinati dalla palette via pointer events (iOS-friendly):
   // NotationPanel rileva il trascinamento con pointer capture e, al rilascio
@@ -172,7 +173,7 @@ export default function NotationOverlay({ ws, marks, durationSec, height = 30 }:
     if (!el) return
     const onDrop = (ev: Event) => {
       const ce = ev as CustomEvent<{ clientX: number; signId: string }>
-      if (ce.detail) placeAtRef.current(ce.detail.clientX, ce.detail.signId)
+      if (ce.detail) onDropPlace(ce.detail.clientX, ce.detail.signId)
     }
     el.addEventListener('notation:drop', onDrop as EventListener)
     return () => el.removeEventListener('notation:drop', onDrop as EventListener)
