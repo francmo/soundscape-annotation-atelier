@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/schafer.band.mid",
+  "@type": "skos:Concept",
+  "notation": "schafer.band.mid",
+  "prefLabel": {
+    "it": "Mid (500-2000 Hz)",
+    "en": "Mid (500-2000 Hz)"
+  },
+  "definition": {
+    "it": "Presenza, chiarezza, fascia della parola.",
+    "en": "Presence, clarity, speech band."
+  },
+  "broader": "https://atelier.francescomariano.art/vocab/schafer.bande",
+  "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+}

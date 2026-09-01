@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/krause.geophony",
+  "@type": "skos:Concept",
+  "notation": "krause.geophony",
+  "prefLabel": {
+    "it": "Geofonia",
+    "en": "Geophony"
+  },
+  "definition": {
+    "it": "Suoni naturali non biologici (vento, acqua, terremoti, fuoco).",
+    "en": "Non-biological natural sounds (wind, water, earthquakes, fire)."
+  },
+  "broader": "https://atelier.francescomariano.art/vocab/krause.fonti",
+  "inScheme": "https://atelier.francescomariano.art/vocab/krause"
+}

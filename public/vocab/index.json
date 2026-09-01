@@ -1,0 +1,1390 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/",
+  "schemaVersion": "1.0",
+  "generatedFrom": "src/data/taxonomies.json 2026-05-05",
+  "schemes": [
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer",
+      "notation": "schaeffer",
+      "prefLabel": {
+        "it": "Schaeffer, tipo-morfologia",
+        "en": "Schaeffer, typo-morphology"
+      }
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley",
+      "notation": "smalley",
+      "prefLabel": {
+        "it": "Smalley, spettromorfologia",
+        "en": "Smalley, spectromorphology"
+      }
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer",
+      "notation": "schafer",
+      "prefLabel": {
+        "it": "Schafer, paesaggio sonoro",
+        "en": "Schafer, soundscape"
+      }
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/krause",
+      "notation": "krause",
+      "prefLabel": {
+        "it": "Krause, ipotesi della nicchia acustica",
+        "en": "Krause, acoustic niche hypothesis"
+      }
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/chion",
+      "notation": "chion",
+      "prefLabel": {
+        "it": "Chion, modi di ascolto",
+        "en": "Chion, listening modes"
+      }
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/truax",
+      "notation": "truax",
+      "prefLabel": {
+        "it": "Truax, comunicazione acustica",
+        "en": "Truax, acoustic communication"
+      }
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/westerkamp",
+      "notation": "westerkamp",
+      "prefLabel": {
+        "it": "Westerkamp, soundwalking",
+        "en": "Westerkamp, soundwalking"
+      }
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart",
+      "notation": "wishart",
+      "prefLabel": {
+        "it": "Wishart, sonic art",
+        "en": "Wishart, sonic art"
+      }
+    }
+  ],
+  "concepts": [
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.tonica",
+      "notation": "schaeffer.massa.tonica",
+      "prefLabel": {
+        "it": "Tonica",
+        "en": "Tonic"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.complessa",
+      "notation": "schaeffer.massa.complessa",
+      "prefLabel": {
+        "it": "Complessa",
+        "en": "Complex"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.nodo",
+      "notation": "schaeffer.massa.nodo",
+      "prefLabel": {
+        "it": "Nodo",
+        "en": "Node"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.rumore-intonato",
+      "notation": "schaeffer.massa.rumore-intonato",
+      "prefLabel": {
+        "it": "Rumore intonato",
+        "en": "Pitched noise"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.rumore-bianco",
+      "notation": "schaeffer.massa.rumore-bianco",
+      "prefLabel": {
+        "it": "Rumore bianco",
+        "en": "White noise"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.rumore-rosa",
+      "notation": "schaeffer.massa.rumore-rosa",
+      "prefLabel": {
+        "it": "Rumore rosa",
+        "en": "Pink noise"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.rumore-colorato",
+      "notation": "schaeffer.massa.rumore-colorato",
+      "prefLabel": {
+        "it": "Rumore colorato",
+        "en": "Coloured noise"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.impulsiva",
+      "notation": "schaeffer.massa.impulsiva",
+      "prefLabel": {
+        "it": "Impulsiva",
+        "en": "Impulsive"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.tenuta",
+      "notation": "schaeffer.massa.tenuta",
+      "prefLabel": {
+        "it": "Tenuta",
+        "en": "Sustained"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.iterativa",
+      "notation": "schaeffer.massa.iterativa",
+      "prefLabel": {
+        "it": "Iterativa",
+        "en": "Iterative"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.variabile",
+      "notation": "schaeffer.massa.variabile",
+      "prefLabel": {
+        "it": "Variabile",
+        "en": "Variable"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa.cannelée",
+      "notation": "schaeffer.massa.cannelée",
+      "prefLabel": {
+        "it": "Cannellata",
+        "en": "Channelled"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.grain.liscio",
+      "notation": "schaeffer.grain.liscio",
+      "prefLabel": {
+        "it": "Liscio",
+        "en": "Smooth"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.grain",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.grain.fine",
+      "notation": "schaeffer.grain.fine",
+      "prefLabel": {
+        "it": "Fine",
+        "en": "Fine"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.grain",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.grain.grosso",
+      "notation": "schaeffer.grain.grosso",
+      "prefLabel": {
+        "it": "Grosso",
+        "en": "Coarse"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.grain",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.grain.rugoso",
+      "notation": "schaeffer.grain.rugoso",
+      "prefLabel": {
+        "it": "Rugoso",
+        "en": "Rough"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.grain",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.grain.scintillante",
+      "notation": "schaeffer.grain.scintillante",
+      "prefLabel": {
+        "it": "Scintillante",
+        "en": "Sparkling"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.grain",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.allure.ferma",
+      "notation": "schaeffer.allure.ferma",
+      "prefLabel": {
+        "it": "Ferma",
+        "en": "Steady"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.allure",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.allure.ondulante",
+      "notation": "schaeffer.allure.ondulante",
+      "prefLabel": {
+        "it": "Ondulante",
+        "en": "Undulating"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.allure",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.allure.ciclica",
+      "notation": "schaeffer.allure.ciclica",
+      "prefLabel": {
+        "it": "Ciclica",
+        "en": "Cyclic"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.allure",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.allure.disordinata",
+      "notation": "schaeffer.allure.disordinata",
+      "prefLabel": {
+        "it": "Disordinata",
+        "en": "Disordered"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.allure",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.allure.oscillante",
+      "notation": "schaeffer.allure.oscillante",
+      "prefLabel": {
+        "it": "Oscillante",
+        "en": "Oscillating"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.allure",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.mantenimento.impulsivo",
+      "notation": "schaeffer.mantenimento.impulsivo",
+      "prefLabel": {
+        "it": "Impulsivo",
+        "en": "Impulsive"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.mantenimento",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.mantenimento.tenuto",
+      "notation": "schaeffer.mantenimento.tenuto",
+      "prefLabel": {
+        "it": "Tenuto",
+        "en": "Sustained"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.mantenimento",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.mantenimento.iterativo",
+      "notation": "schaeffer.mantenimento.iterativo",
+      "prefLabel": {
+        "it": "Iterativo",
+        "en": "Iterative"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.mantenimento",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.calibre.grande",
+      "notation": "schaeffer.calibre.grande",
+      "prefLabel": {
+        "it": "Grande calibro",
+        "en": "Large calibre"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.calibre",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.calibre.medio",
+      "notation": "schaeffer.calibre.medio",
+      "prefLabel": {
+        "it": "Medio calibro",
+        "en": "Medium calibre"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.calibre",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.calibre.piccolo",
+      "notation": "schaeffer.calibre.piccolo",
+      "prefLabel": {
+        "it": "Piccolo calibro",
+        "en": "Small calibre"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.calibre",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.calibre.acuto",
+      "notation": "schaeffer.calibre.acuto",
+      "prefLabel": {
+        "it": "Acuto",
+        "en": "Acute"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.calibre",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.calibre.grave",
+      "notation": "schaeffer.calibre.grave",
+      "prefLabel": {
+        "it": "Grave",
+        "en": "Grave"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.calibre",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.profilo.continuo",
+      "notation": "schaeffer.profilo.continuo",
+      "prefLabel": {
+        "it": "Continuo",
+        "en": "Continuous"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.profilo",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.profilo.discontinuo",
+      "notation": "schaeffer.profilo.discontinuo",
+      "prefLabel": {
+        "it": "Discontinuo",
+        "en": "Discontinuous"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.profilo",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.profilo.abrupto",
+      "notation": "schaeffer.profilo.abrupto",
+      "prefLabel": {
+        "it": "Abrupto",
+        "en": "Abrupt"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.profilo",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schaeffer.profilo.smorzato",
+      "notation": "schaeffer.profilo.smorzato",
+      "prefLabel": {
+        "it": "Smorzato",
+        "en": "Damped"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schaeffer.profilo",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.spectral.note",
+      "notation": "smalley.spectral.note",
+      "prefLabel": {
+        "it": "Note",
+        "en": "Note"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-typology",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.spectral.node",
+      "notation": "smalley.spectral.node",
+      "prefLabel": {
+        "it": "Node",
+        "en": "Node"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-typology",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.spectral.noise",
+      "notation": "smalley.spectral.noise",
+      "prefLabel": {
+        "it": "Noise",
+        "en": "Noise"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-typology",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.space.empty",
+      "notation": "smalley.space.empty",
+      "prefLabel": {
+        "it": "Empty",
+        "en": "Empty"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-space",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.space.filled",
+      "notation": "smalley.space.filled",
+      "prefLabel": {
+        "it": "Filled",
+        "en": "Filled"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-space",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.space.dense",
+      "notation": "smalley.space.dense",
+      "prefLabel": {
+        "it": "Dense",
+        "en": "Dense"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-space",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.space.sparse",
+      "notation": "smalley.space.sparse",
+      "prefLabel": {
+        "it": "Sparse",
+        "en": "Sparse"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-space",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.space.plenum",
+      "notation": "smalley.space.plenum",
+      "prefLabel": {
+        "it": "Plenum",
+        "en": "Plenum"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-space",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.space.condensed",
+      "notation": "smalley.space.condensed",
+      "prefLabel": {
+        "it": "Condensed",
+        "en": "Condensed"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-space",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.space.packed",
+      "notation": "smalley.space.packed",
+      "prefLabel": {
+        "it": "Packed",
+        "en": "Packed"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-space",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.occ.composite",
+      "notation": "smalley.occ.composite",
+      "prefLabel": {
+        "it": "Composite",
+        "en": "Composite"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-occupancy",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.occ.nondelegated",
+      "notation": "smalley.occ.nondelegated",
+      "prefLabel": {
+        "it": "Non-delegated",
+        "en": "Non-delegated"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-occupancy",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.occ.delegated",
+      "notation": "smalley.occ.delegated",
+      "prefLabel": {
+        "it": "Delegated",
+        "en": "Delegated"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.spectral-occupancy",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.flow",
+      "notation": "smalley.motion.flow",
+      "prefLabel": {
+        "it": "Flow",
+        "en": "Flow"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.oscillation",
+      "notation": "smalley.motion.oscillation",
+      "prefLabel": {
+        "it": "Oscillation",
+        "en": "Oscillation"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.rotation",
+      "notation": "smalley.motion.rotation",
+      "prefLabel": {
+        "it": "Rotation",
+        "en": "Rotation"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.push",
+      "notation": "smalley.motion.push",
+      "prefLabel": {
+        "it": "Push",
+        "en": "Push"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.drag",
+      "notation": "smalley.motion.drag",
+      "prefLabel": {
+        "it": "Drag",
+        "en": "Drag"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.ascent",
+      "notation": "smalley.motion.ascent",
+      "prefLabel": {
+        "it": "Ascent",
+        "en": "Ascent"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.descent",
+      "notation": "smalley.motion.descent",
+      "prefLabel": {
+        "it": "Descent",
+        "en": "Descent"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.plane",
+      "notation": "smalley.motion.plane",
+      "prefLabel": {
+        "it": "Plane",
+        "en": "Plane"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.linear",
+      "notation": "smalley.motion.linear",
+      "prefLabel": {
+        "it": "Linear",
+        "en": "Linear"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.multidirectional",
+      "notation": "smalley.motion.multidirectional",
+      "prefLabel": {
+        "it": "Multidirectional",
+        "en": "Multidirectional"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.reciprocal",
+      "notation": "smalley.motion.reciprocal",
+      "prefLabel": {
+        "it": "Reciprocal",
+        "en": "Reciprocal"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.motion.arc",
+      "notation": "smalley.motion.arc",
+      "prefLabel": {
+        "it": "Arc",
+        "en": "Arc"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.motion",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.growth.dilation",
+      "notation": "smalley.growth.dilation",
+      "prefLabel": {
+        "it": "Dilation",
+        "en": "Dilation"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.growth",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.growth.endogeny",
+      "notation": "smalley.growth.endogeny",
+      "prefLabel": {
+        "it": "Endogeny",
+        "en": "Endogeny"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.growth",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.growth.multiplication",
+      "notation": "smalley.growth.multiplication",
+      "prefLabel": {
+        "it": "Multiplication",
+        "en": "Multiplication"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.growth",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.growth.exogeny",
+      "notation": "smalley.growth.exogeny",
+      "prefLabel": {
+        "it": "Exogeny",
+        "en": "Exogeny"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.growth",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.behaviour.passive",
+      "notation": "smalley.behaviour.passive",
+      "prefLabel": {
+        "it": "Passive",
+        "en": "Passive"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.behaviour",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.behaviour.reactive",
+      "notation": "smalley.behaviour.reactive",
+      "prefLabel": {
+        "it": "Reactive",
+        "en": "Reactive"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.behaviour",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.behaviour.active",
+      "notation": "smalley.behaviour.active",
+      "prefLabel": {
+        "it": "Active",
+        "en": "Active"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.behaviour",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.behaviour.neutral",
+      "notation": "smalley.behaviour.neutral",
+      "prefLabel": {
+        "it": "Neutral",
+        "en": "Neutral"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.behaviour",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.onset.attack",
+      "notation": "smalley.onset.attack",
+      "prefLabel": {
+        "it": "Attack",
+        "en": "Attack"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.onset",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.onset.attack-decay",
+      "notation": "smalley.onset.attack-decay",
+      "prefLabel": {
+        "it": "Attack-decay",
+        "en": "Attack-decay"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.onset",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.onset.graduated",
+      "notation": "smalley.onset.graduated",
+      "prefLabel": {
+        "it": "Graduated",
+        "en": "Graduated"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.onset",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.onset.emerging",
+      "notation": "smalley.onset.emerging",
+      "prefLabel": {
+        "it": "Emerging",
+        "en": "Emerging"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.onset",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.cont.maintained",
+      "notation": "smalley.cont.maintained",
+      "prefLabel": {
+        "it": "Maintained",
+        "en": "Maintained"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.continuant",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.cont.iterative",
+      "notation": "smalley.cont.iterative",
+      "prefLabel": {
+        "it": "Iterative",
+        "en": "Iterative"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.continuant",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.cont.oscillating",
+      "notation": "smalley.cont.oscillating",
+      "prefLabel": {
+        "it": "Oscillating",
+        "en": "Oscillating"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.continuant",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.term.closed",
+      "notation": "smalley.term.closed",
+      "prefLabel": {
+        "it": "Closed",
+        "en": "Closed"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.termination",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.term.open",
+      "notation": "smalley.term.open",
+      "prefLabel": {
+        "it": "Open",
+        "en": "Open"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.termination",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.term.abrupt",
+      "notation": "smalley.term.abrupt",
+      "prefLabel": {
+        "it": "Abrupt",
+        "en": "Abrupt"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.termination",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.term.dissipating",
+      "notation": "smalley.term.dissipating",
+      "prefLabel": {
+        "it": "Dissipating",
+        "en": "Dissipating"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.termination",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.surr.first",
+      "notation": "smalley.surr.first",
+      "prefLabel": {
+        "it": "First-order",
+        "en": "First-order surrogacy"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.surrogacy",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.surr.second",
+      "notation": "smalley.surr.second",
+      "prefLabel": {
+        "it": "Second-order",
+        "en": "Second-order surrogacy"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.surrogacy",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.surr.third",
+      "notation": "smalley.surr.third",
+      "prefLabel": {
+        "it": "Third-order",
+        "en": "Third-order surrogacy"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.surrogacy",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.surr.remote",
+      "notation": "smalley.surr.remote",
+      "prefLabel": {
+        "it": "Remote",
+        "en": "Remote surrogacy"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.surrogacy",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.gt.gesture-launching",
+      "notation": "smalley.gt.gesture-launching",
+      "prefLabel": {
+        "it": "Launching gesture",
+        "en": "Launching gesture"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.gesture-texture",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.gt.texture-bound",
+      "notation": "smalley.gt.texture-bound",
+      "prefLabel": {
+        "it": "Bound texture",
+        "en": "Bound texture"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.gesture-texture",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/smalley.gt.texture-free",
+      "notation": "smalley.gt.texture-free",
+      "prefLabel": {
+        "it": "Free texture",
+        "en": "Free texture"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/smalley.gesture-texture",
+      "inScheme": "https://atelier.francescomariano.art/vocab/smalley"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.type.keynote",
+      "notation": "schafer.type.keynote",
+      "prefLabel": {
+        "it": "Keynote",
+        "en": "Keynote"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.tipologia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.type.signal",
+      "notation": "schafer.type.signal",
+      "prefLabel": {
+        "it": "Signal",
+        "en": "Signal"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.tipologia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.type.soundmark",
+      "notation": "schafer.type.soundmark",
+      "prefLabel": {
+        "it": "Soundmark",
+        "en": "Soundmark"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.tipologia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.type.archetypal",
+      "notation": "schafer.type.archetypal",
+      "prefLabel": {
+        "it": "Archetypal",
+        "en": "Archetypal"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.tipologia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.quality.hi-fi",
+      "notation": "schafer.quality.hi-fi",
+      "prefLabel": {
+        "it": "Hi-Fi",
+        "en": "Hi-Fi"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.qualita",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.quality.lo-fi",
+      "notation": "schafer.quality.lo-fi",
+      "prefLabel": {
+        "it": "Lo-Fi",
+        "en": "Lo-Fi"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.qualita",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.band.sub-bass",
+      "notation": "schafer.band.sub-bass",
+      "prefLabel": {
+        "it": "Sub-bass (20-60 Hz)",
+        "en": "Sub-bass (20-60 Hz)"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.bande",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.band.bass",
+      "notation": "schafer.band.bass",
+      "prefLabel": {
+        "it": "Bass (60-250 Hz)",
+        "en": "Bass (60-250 Hz)"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.bande",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.band.low-mid",
+      "notation": "schafer.band.low-mid",
+      "prefLabel": {
+        "it": "Low-mid (250-500 Hz)",
+        "en": "Low-mid (250-500 Hz)"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.bande",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.band.mid",
+      "notation": "schafer.band.mid",
+      "prefLabel": {
+        "it": "Mid (500-2000 Hz)",
+        "en": "Mid (500-2000 Hz)"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.bande",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.band.high-mid",
+      "notation": "schafer.band.high-mid",
+      "prefLabel": {
+        "it": "High-mid (2000-4000 Hz)",
+        "en": "High-mid (2000-4000 Hz)"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.bande",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.band.presence",
+      "notation": "schafer.band.presence",
+      "prefLabel": {
+        "it": "Presence (4000-6000 Hz)",
+        "en": "Presence (4000-6000 Hz)"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.bande",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/schafer.band.brilliance",
+      "notation": "schafer.band.brilliance",
+      "prefLabel": {
+        "it": "Brilliance (6000-20000 Hz)",
+        "en": "Brilliance (6000-20000 Hz)"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/schafer.bande",
+      "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/krause.biophony",
+      "notation": "krause.biophony",
+      "prefLabel": {
+        "it": "Biofonia",
+        "en": "Biophony"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/krause.fonti",
+      "inScheme": "https://atelier.francescomariano.art/vocab/krause"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/krause.anthrophony",
+      "notation": "krause.anthrophony",
+      "prefLabel": {
+        "it": "Antropofonia",
+        "en": "Anthrophony"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/krause.fonti",
+      "inScheme": "https://atelier.francescomariano.art/vocab/krause"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/krause.geophony",
+      "notation": "krause.geophony",
+      "prefLabel": {
+        "it": "Geofonia",
+        "en": "Geophony"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/krause.fonti",
+      "inScheme": "https://atelier.francescomariano.art/vocab/krause"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/krause.niche.spectral",
+      "notation": "krause.niche.spectral",
+      "prefLabel": {
+        "it": "Nicchia spettrale",
+        "en": "Spectral niche"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/krause.nicchia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/krause"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/krause.niche.temporal",
+      "notation": "krause.niche.temporal",
+      "prefLabel": {
+        "it": "Nicchia temporale",
+        "en": "Temporal niche"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/krause.nicchia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/krause"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/krause.niche.frequency-partitioning",
+      "notation": "krause.niche.frequency-partitioning",
+      "prefLabel": {
+        "it": "Frequency partitioning",
+        "en": "Frequency partitioning"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/krause.nicchia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/krause"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/krause.niche.competition",
+      "notation": "krause.niche.competition",
+      "prefLabel": {
+        "it": "Competizione acustica",
+        "en": "Acoustic competition"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/krause.nicchia",
+      "inScheme": "https://atelier.francescomariano.art/vocab/krause"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/chion.causal",
+      "notation": "chion.causal",
+      "prefLabel": {
+        "it": "Causale",
+        "en": "Causal"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/chion.modi",
+      "inScheme": "https://atelier.francescomariano.art/vocab/chion"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/chion.semantic",
+      "notation": "chion.semantic",
+      "prefLabel": {
+        "it": "Semantico",
+        "en": "Semantic"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/chion.modi",
+      "inScheme": "https://atelier.francescomariano.art/vocab/chion"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/chion.reduced",
+      "notation": "chion.reduced",
+      "prefLabel": {
+        "it": "Ridotto",
+        "en": "Reduced"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/chion.modi",
+      "inScheme": "https://atelier.francescomariano.art/vocab/chion"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/truax.listening.search",
+      "notation": "truax.listening.search",
+      "prefLabel": {
+        "it": "Listening-in-search",
+        "en": "Listening-in-search"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/truax.modi-ascolto",
+      "inScheme": "https://atelier.francescomariano.art/vocab/truax"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/truax.listening.readiness",
+      "notation": "truax.listening.readiness",
+      "prefLabel": {
+        "it": "Listening-in-readiness",
+        "en": "Listening-in-readiness"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/truax.modi-ascolto",
+      "inScheme": "https://atelier.francescomariano.art/vocab/truax"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/truax.listening.background",
+      "notation": "truax.listening.background",
+      "prefLabel": {
+        "it": "Background listening",
+        "en": "Background listening"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/truax.modi-ascolto",
+      "inScheme": "https://atelier.francescomariano.art/vocab/truax"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/truax.comm.definitional",
+      "notation": "truax.comm.definitional",
+      "prefLabel": {
+        "it": "Definitional",
+        "en": "Definitional"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/truax.comunicazione",
+      "inScheme": "https://atelier.francescomariano.art/vocab/truax"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/truax.comm.structural",
+      "notation": "truax.comm.structural",
+      "prefLabel": {
+        "it": "Structural",
+        "en": "Structural"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/truax.comunicazione",
+      "inScheme": "https://atelier.francescomariano.art/vocab/truax"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/truax.comm.contextual",
+      "notation": "truax.comm.contextual",
+      "prefLabel": {
+        "it": "Contextual",
+        "en": "Contextual"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/truax.comunicazione",
+      "inScheme": "https://atelier.francescomariano.art/vocab/truax"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/westerkamp.soundwalk",
+      "notation": "westerkamp.soundwalk",
+      "prefLabel": {
+        "it": "Soundwalk",
+        "en": "Soundwalk"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/westerkamp.pratiche",
+      "inScheme": "https://atelier.francescomariano.art/vocab/westerkamp"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/westerkamp.indexical",
+      "notation": "westerkamp.indexical",
+      "prefLabel": {
+        "it": "Ascolto indessicale",
+        "en": "Indexical listening"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/westerkamp.pratiche",
+      "inScheme": "https://atelier.francescomariano.art/vocab/westerkamp"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/westerkamp.inductive",
+      "notation": "westerkamp.inductive",
+      "prefLabel": {
+        "it": "Ascolto induttivo",
+        "en": "Inductive listening"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/westerkamp.pratiche",
+      "inScheme": "https://atelier.francescomariano.art/vocab/westerkamp"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/westerkamp.composition",
+      "notation": "westerkamp.composition",
+      "prefLabel": {
+        "it": "Soundscape composition",
+        "en": "Soundscape composition"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/westerkamp.pratiche",
+      "inScheme": "https://atelier.francescomariano.art/vocab/westerkamp"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.topo.extension",
+      "notation": "wishart.topo.extension",
+      "prefLabel": {
+        "it": "Extension",
+        "en": "Extension"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.topologie",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.topo.contraction",
+      "notation": "wishart.topo.contraction",
+      "prefLabel": {
+        "it": "Contraction",
+        "en": "Contraction"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.topologie",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.topo.dilation",
+      "notation": "wishart.topo.dilation",
+      "prefLabel": {
+        "it": "Dilation",
+        "en": "Dilation"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.topologie",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.cont.continuant",
+      "notation": "wishart.cont.continuant",
+      "prefLabel": {
+        "it": "Continuant",
+        "en": "Continuant"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.continuita",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.cont.discontinuant",
+      "notation": "wishart.cont.discontinuant",
+      "prefLabel": {
+        "it": "Discontinuant",
+        "en": "Discontinuant"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.continuita",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.cont.oscillant",
+      "notation": "wishart.cont.oscillant",
+      "prefLabel": {
+        "it": "Oscillant",
+        "en": "Oscillant"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.continuita",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.agg.stream",
+      "notation": "wishart.agg.stream",
+      "prefLabel": {
+        "it": "Stream",
+        "en": "Stream"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.aggregati",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.agg.cluster",
+      "notation": "wishart.agg.cluster",
+      "prefLabel": {
+        "it": "Cluster",
+        "en": "Cluster"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.aggregati",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.agg.grain",
+      "notation": "wishart.agg.grain",
+      "prefLabel": {
+        "it": "Grain",
+        "en": "Grain"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.aggregati",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    },
+    {
+      "@id": "https://atelier.francescomariano.art/vocab/wishart.agg.lattice",
+      "notation": "wishart.agg.lattice",
+      "prefLabel": {
+        "it": "Lattice",
+        "en": "Lattice"
+      },
+      "broader": "https://atelier.francescomariano.art/vocab/wishart.aggregati",
+      "inScheme": "https://atelier.francescomariano.art/vocab/wishart"
+    }
+  ]
+}

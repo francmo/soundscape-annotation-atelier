@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/westerkamp.indexical",
+  "@type": "skos:Concept",
+  "notation": "westerkamp.indexical",
+  "prefLabel": {
+    "it": "Ascolto indessicale",
+    "en": "Indexical listening"
+  },
+  "definition": {
+    "it": "Ascolto del suono come indice della propria collocazione.",
+    "en": "Listening to sound as index of one's own location."
+  },
+  "broader": "https://atelier.francescomariano.art/vocab/westerkamp.pratiche",
+  "inScheme": "https://atelier.francescomariano.art/vocab/westerkamp"
+}

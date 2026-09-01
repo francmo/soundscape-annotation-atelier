@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/smalley.motion",
+  "@type": "skos:Concept",
+  "notation": "smalley.motion",
+  "prefLabel": {
+    "it": "Movimento",
+    "en": "Motion"
+  },
+  "inScheme": "https://atelier.francescomariano.art/vocab/smalley",
+  "topConceptOf": "https://atelier.francescomariano.art/vocab/smalley",
+  "narrower": [
+    "https://atelier.francescomariano.art/vocab/smalley.motion.flow",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.oscillation",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.rotation",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.push",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.drag",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.ascent",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.descent",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.plane",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.linear",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.multidirectional",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.reciprocal",
+    "https://atelier.francescomariano.art/vocab/smalley.motion.arc"
+  ]
+}

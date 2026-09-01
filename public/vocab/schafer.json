@@ -1,0 +1,53 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/schafer",
+  "@type": "skos:ConceptScheme",
+  "notation": "schafer",
+  "prefLabel": {
+    "it": "Schafer, paesaggio sonoro",
+    "en": "Schafer, soundscape"
+  },
+  "source": "R. Murray Schafer",
+  "bibliographicCitation": "Schafer, R. M. (1977). The Tuning of the World. Knopf.",
+  "hasTopConcept": [
+    "https://atelier.francescomariano.art/vocab/schafer.tipologia",
+    "https://atelier.francescomariano.art/vocab/schafer.qualita",
+    "https://atelier.francescomariano.art/vocab/schafer.bande"
+  ]
+}

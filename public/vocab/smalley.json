@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/smalley",
+  "@type": "skos:ConceptScheme",
+  "notation": "smalley",
+  "prefLabel": {
+    "it": "Smalley, spettromorfologia",
+    "en": "Smalley, spectromorphology"
+  },
+  "source": "Denis Smalley",
+  "bibliographicCitation": "Smalley, D. (1997). Spectromorphology: explaining sound-shapes. Organised Sound, 2(2), 107-126.",
+  "hasTopConcept": [
+    "https://atelier.francescomariano.art/vocab/smalley.spectral-typology",
+    "https://atelier.francescomariano.art/vocab/smalley.spectral-space",
+    "https://atelier.francescomariano.art/vocab/smalley.spectral-occupancy",
+    "https://atelier.francescomariano.art/vocab/smalley.motion",
+    "https://atelier.francescomariano.art/vocab/smalley.growth",
+    "https://atelier.francescomariano.art/vocab/smalley.behaviour",
+    "https://atelier.francescomariano.art/vocab/smalley.onset",
+    "https://atelier.francescomariano.art/vocab/smalley.continuant",
+    "https://atelier.francescomariano.art/vocab/smalley.termination",
+    "https://atelier.francescomariano.art/vocab/smalley.surrogacy",
+    "https://atelier.francescomariano.art/vocab/smalley.gesture-texture"
+  ]
+}

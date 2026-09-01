@@ -1,0 +1,56 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/schaeffer",
+  "@type": "skos:ConceptScheme",
+  "notation": "schaeffer",
+  "prefLabel": {
+    "it": "Schaeffer, tipo-morfologia",
+    "en": "Schaeffer, typo-morphology"
+  },
+  "source": "Pierre Schaeffer",
+  "bibliographicCitation": "Schaeffer, P. (1966). Traité des objets musicaux. Seuil.",
+  "hasTopConcept": [
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+    "https://atelier.francescomariano.art/vocab/schaeffer.grain",
+    "https://atelier.francescomariano.art/vocab/schaeffer.allure",
+    "https://atelier.francescomariano.art/vocab/schaeffer.mantenimento",
+    "https://atelier.francescomariano.art/vocab/schaeffer.calibre",
+    "https://atelier.francescomariano.art/vocab/schaeffer.profilo"
+  ]
+}

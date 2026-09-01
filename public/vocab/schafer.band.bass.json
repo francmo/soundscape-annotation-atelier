@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/schafer.band.bass",
+  "@type": "skos:Concept",
+  "notation": "schafer.band.bass",
+  "prefLabel": {
+    "it": "Bass (60-250 Hz)",
+    "en": "Bass (60-250 Hz)"
+  },
+  "definition": {
+    "it": "Corpo, calore, fondamentali di voci maschili e motori.",
+    "en": "Body, warmth, fundamentals of male voices and engines."
+  },
+  "broader": "https://atelier.francescomariano.art/vocab/schafer.bande",
+  "inScheme": "https://atelier.francescomariano.art/vocab/schafer"
+}

@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/truax",
+  "@type": "skos:ConceptScheme",
+  "notation": "truax",
+  "prefLabel": {
+    "it": "Truax, comunicazione acustica",
+    "en": "Truax, acoustic communication"
+  },
+  "source": "Barry Truax",
+  "bibliographicCitation": "Truax, B. (1984/2001). Acoustic Communication. Ablex.",
+  "hasTopConcept": [
+    "https://atelier.francescomariano.art/vocab/truax.modi-ascolto",
+    "https://atelier.francescomariano.art/vocab/truax.comunicazione"
+  ]
+}

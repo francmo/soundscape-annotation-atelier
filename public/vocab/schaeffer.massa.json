@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "prefLabel": {
+      "@id": "skos:prefLabel",
+      "@container": "@language"
+    },
+    "definition": {
+      "@id": "skos:definition",
+      "@container": "@language"
+    },
+    "notation": "skos:notation",
+    "inScheme": {
+      "@id": "skos:inScheme",
+      "@type": "@id"
+    },
+    "broader": {
+      "@id": "skos:broader",
+      "@type": "@id"
+    },
+    "narrower": {
+      "@id": "skos:narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasTopConcept": {
+      "@id": "skos:hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "topConceptOf": {
+      "@id": "skos:topConceptOf",
+      "@type": "@id"
+    },
+    "source": "dct:source",
+    "bibliographicCitation": "dct:bibliographicCitation"
+  },
+  "@id": "https://atelier.francescomariano.art/vocab/schaeffer.massa",
+  "@type": "skos:Concept",
+  "notation": "schaeffer.massa",
+  "prefLabel": {
+    "it": "Massa",
+    "en": "Mass"
+  },
+  "inScheme": "https://atelier.francescomariano.art/vocab/schaeffer",
+  "topConceptOf": "https://atelier.francescomariano.art/vocab/schaeffer",
+  "narrower": [
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.tonica",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.complessa",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.nodo",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.rumore-intonato",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.rumore-bianco",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.rumore-rosa",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.rumore-colorato",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.impulsiva",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.tenuta",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.iterativa",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.variabile",
+    "https://atelier.francescomariano.art/vocab/schaeffer.massa.cannelée"
+  ]
+}
