@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Check, Download, FilePlus2, FileText, FolderOpen, Save, Upload } from 'lucide-react'
+import { Check, Download, FilePlus2, FileText, FolderOpen, Globe, Save, Upload } from 'lucide-react'
 import { useProject } from '../hooks/useProject'
 import { exportProjectJson } from '../lib/exporters'
 import { ImportSchemaError, parseProjectJson } from '../lib/importer'
 import ProjectsList from './ProjectsList'
+import IiifExportDialog from './IiifExportDialog'
 import { APP_VERSION } from '../version'
 
 export default function Header() {
@@ -15,6 +16,7 @@ export default function Header() {
   const audioForImportRef = useRef<HTMLInputElement>(null)
   const [exportingPdf, setExportingPdf] = useState(false)
   const [showProjectsList, setShowProjectsList] = useState(false)
+  const [showIiifExport, setShowIiifExport] = useState(false)
   const [pendingAudio, setPendingAudio] = useState(false)
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved'>('idle')
 
@@ -208,6 +210,14 @@ export default function Header() {
               </span>
             </button>
             <button
+              onClick={() => setShowIiifExport(true)}
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-md text-sm font-medium transition-colors"
+              title={t('header.exportIiif')}
+            >
+              <Globe className="w-4 h-4" />
+              <span className="hidden sm:inline">{t('header.exportIiif')}</span>
+            </button>
+            <button
               onClick={resetProject}
               className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-md text-sm font-medium transition-colors"
               title={t('header.newProject')}
@@ -242,6 +252,7 @@ export default function Header() {
         </div>
       </div>
       <ProjectsList open={showProjectsList} onClose={() => setShowProjectsList(false)} />
+      <IiifExportDialog open={showIiifExport} project={project} onClose={() => setShowIiifExport(false)} />
     </header>
   )
 }

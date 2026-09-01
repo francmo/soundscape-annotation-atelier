@@ -14,7 +14,8 @@
     "exportJson": "Export JSON",
     "exportPdf": "Export PDF",
     "importJson": "Import JSON",
-    "version": "Version {{version}}"
+    "version": "Version {{version}}",
+    "exportIiif": "Export IIIF"
   },
   "projectsList": {
     "title": "Saved projects",
@@ -192,5 +193,16 @@
   "lang": {
     "it": "IT",
     "en": "EN"
+  },
+  "iiif": {
+    "title": "Export IIIF manifest",
+    "intro": "The project becomes a IIIF Presentation 3 Manifest with an audio canvas, the annotations as Web Annotations anchored to temporal segments (#t=start,end), the layers as annotation pages and the sections as Ranges. The Atelier does not upload audio, tell it where the file will be published.",
+    "baseUri": "Manifest base URI",
+    "audioUrl": "Public audio URL",
+    "audioHint": "The manifest points to this URL as its Sound resource. To open it in a viewer, manifest and audio must be published over HTTPS with CORS headers.",
+    "vocabBase": "Vocabulary URI base",
+    "hint": "The file validates with the IIIF Presentation validator (version 3.0) and opens in viewers that support audio canvases. Relations are not exported.",
+    "export": "Export manifest",
+    "cancel": "Cancel"
   }
 }
