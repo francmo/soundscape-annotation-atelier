@@ -109,8 +109,6 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   const audioPersistedRef = useRef<Set<string>>(new Set())
   // Se l'utente ha gia' caricato/aperto qualcosa, il ripristino non deve sovrascrivere.
   const userActedRef = useRef(false)
-  // Il ripristino automatico gira una volta sola, al montaggio.
-  const restoredRef = useRef(false)
 
   // Autosalvataggio. A ogni modifica del progetto lo persiste in IndexedDB, cosi'
   // un reload in background (tab scartato dalla memoria) non perde nulla. La prima
@@ -211,11 +209,12 @@ export function ProjectProvider({ children }: { children: ReactNode }) {
   }, [])
 
   // Ripristino automatico dell'ultimo progetto attivo dopo un reload, con il suo
-  // audio, cosi' si riprende esattamente da dove si era, senza tornare al caricamento.
-  // Gira una volta sola al montaggio; non sovrascrive se l'utente ha gia' agito.
+  // audio, così si riprende esattamente da dove si era, senza tornare al caricamento.
+  // Non sovrascrive se l'utente ha già agito. Nessuna guardia con ref: sotto
+  // StrictMode (solo sviluppo) l'effetto gira due volte e la prima corsa viene
+  // annullata dal cleanup, mentre una guardia "una volta sola" la lasciava a metà
+  // e in sviluppo il ripristino non avveniva mai.
   useEffect(() => {
-    if (restoredRef.current) return
-    restoredRef.current = true
     let lastId: string | null = null
     try {
       lastId = localStorage.getItem(LAST_PROJECT_KEY)
